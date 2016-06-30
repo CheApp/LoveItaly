@@ -1,0 +1,22 @@
+
+          {{#each Prodotti}}
+          <div data-id="{{ id_prodotto }}" class="prodotto">
+
+            <div class="thumbnail_prodotto">
+              <img src="{{ img }}"/>
+            </div>
+            <div class="right_prodotto">
+              <div class="header_info_prodotto">
+                <span class="titolo">{{ nome_prodotto }}</span><br/>
+                <span class="azienda">{{ nome_azienda }}</span><br/>
+              </div>
+              <div class="info_prodotto">
+                <span class="descrizione">{{ shortD }}</span>
+              </div>
+              <div class="prezzo">€ {{ prezzo }}</div>
+            </div>
+
+          </div>  
+          {{/each}}
+
+

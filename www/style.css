@@ -1,0 +1,991 @@
+@font-face {
+    font-family: 'ARIALRB';
+    src: url('fonts/ARLRDBD_0.TTF'); 
+}
+
+body {
+  font-family: "ARIALRB";
+}
+
+.wrapper {
+    margin-top: 44px;
+}
+
+.logo{
+	width: 150px;
+	margin: 0 auto;
+    display: flex;
+}
+.headbar{
+	background-color: #157e3f;
+	border-color: #157e3f;
+}
+.box {
+    z-index: 2;
+    position:fixed;
+    width:100%;
+    background-color: #157e3f;
+}
+.head {
+    background-color:#157e3f;
+    padding: 2px;
+    font-weight: bold;
+}
+.box .contenuto {
+    display: none;
+    padding : 5px;
+    height: 45px;
+    margin-top:35px;
+}
+.menubox {
+    z-index:2;
+    position:fixed;
+    width:100%;
+    background-color: #157e3f;
+}
+.menubox .menucontenuto {
+
+    display: none;
+    padding : 5px;
+    margin-top:35px;
+}
+.table-view{
+	background-color: #157e3f;
+    margin-bottom:-4.48px;
+    border-bottom: 0;
+}
+.menuscroll{
+  height: 280px;
+}
+.text{
+    color:#fff;
+}
+ 
+
+/****** HOME E INFO PRODOTTO **********/
+
+ .content {
+        background-color: #eee !important;
+        }
+    .hometitle{
+        margin-left: 5px;
+        font-size: 18px;
+        margin-bottom: 10px;
+        margin-top:18px;
+        color:#157e3f;
+        
+    }
+    .swiper-container {
+        width: 100%;
+        height: 40%;
+        min-height: 175px;    
+    }
+    .slideshow {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;   
+    }
+
+    .slide{
+        width:100%;
+        height:100%;
+        min-height: 175px;
+        max-width: 500px;
+    }
+    .productwrap{
+        height: 85%;
+    }
+    .product{
+        margin-bottom: 5px;
+        margin-left: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.3);
+        border-radius: 5px;
+        min-height: 220px;
+        max-width: 200px;
+        min-width: 130px;
+    }
+    .productitle{
+        color:#777777;
+        font-weight: bold;
+    }
+    .aziendahome{
+        font-size: 12px;
+    }
+    .pricep{
+        margin-top: -8px;
+    }
+    .pricehome{
+        color:#000000;
+        font-weight: bold;
+    }
+    .carousel-container {
+        width: 100%;
+        min-width: 400px;
+        height: 40%;
+        margin: 20px auto;
+    }
+    .carousel{
+        border-radius:5px 5px 0 0;
+        width:100%;
+        height:118px;
+    }
+
+    .splash {
+    margin: 0 auto;
+    margin-top: 50%;
+    display:flex;
+    width: 60%;
+}
+    .disabled {
+        display : none;
+        visibility: hidden;
+        position:absolute!important;
+    }
+
+.titleprodotto {
+  margin: 16px 0px 8px 7px;
+  font-size: 22px;
+  font-weight: bold;
+  color: green;
+  text-align: left; 
+}
+
+#prezzo {
+  width: 100%;
+  text-align: right;
+  color: green;
+  font-size: 24px;
+  margin-left: -10px;
+  margin-top: 12px;
+}
+
+.dettagli {
+  font-size: 16px;
+  margin-left: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  
+}
+
+
+.heart {
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    background-image:url(  '../img/web_heart_animation.png');
+    background-position: left;
+    background-repeat:no-repeat;
+    background-size:2900%;
+    position: fixed; z-index: 100; right: 0; bottom: 0; margin-bottom: 35px; margin-right: -10px;
+}
+
+.heart:visited {
+    background-position:right;
+}
+
+.animating {
+    animation: heart-burst .8s steps(28) 1;
+}
+
+@keyframes heart-burst {
+    from {background-position:left;}
+    to { background-position:right;}
+}
+            
+.brevedes {
+    margin: 0px 6px; font-size: 18px;
+}
+
+#descrizione {
+    margin: 0px 6px; font-size: 16px; display: none;
+    position: absolute;
+    margin-bottom: 45px;
+}
+
+#descrizione p + p {
+    color: #000;
+}
+
+.ref_azienda {
+    margin-left: 6px; 
+    margin-bottom: 0px;
+    text-decoration: underline; 
+    color: green; 
+    padding: 2px 0px 0px 0px;
+    font-size: 13px;
+}
+
+#quantità {
+  position: relative;
+  float: left;
+  z-index: 10;
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-image: url("../img/freccetta.png"), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-position: 95% center;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #666;
+  font-size: inherit;
+  margin-left: 6px;
+  margin-top: 5px;
+  overflow: hidden;
+  padding: 4px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 70px;
+}
+
+#tipo {
+  position: relative;
+  float: left;
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-image: url("../img/freccetta.png"), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-position: 95% center;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #000;
+  font-size: 14;
+  margin-left: 10px;
+  margin-top: 5px;
+  overflow: hidden;
+  padding: 4px 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 130px;
+}
+
+
+infoprodotto a {
+  color: white;
+  text-decoration: none;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+infoprodtto select {
+  margin-bottom: 0px;
+}
+
+@-webkit-keyframes leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes leave_copertura {
+  0% {opacity: 0.3;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes stay_copertura {
+  0% {opacity: 0;}
+  100% {opacity: 0.3;}
+}
+
+
+@keyframes leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes leave_copertura {
+  0% {opacity: 0.3;}
+  100% {opacity: 0;}
+}
+
+@keyframes stay_copertura {
+  0% {opacity: 0;}
+  100% {opacity: 0.3;}
+}
+
+
+
+#carrello {
+  position: absolute;
+  background: #eaeaea;
+  color: #333;
+  width: 100%;
+  height: 100%;
+}
+
+#copertura_carrello {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.3;
+  display: none;
+  position: absolute;
+  z-index: 150;
+}
+
+.quantita .num_prodotti {
+  position: relative;
+  float: left;
+  color: #000;
+  font-family: ARIALRB;
+  text-align: center;
+  background: #d2d2d2;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  padding-top: 3px;
+}
+
+#lista_quantita {
+  height: 30%;
+  position: absolute;
+  text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: none;
+  background: #ccc;
+  border-radius: 10px;
+    box-shadow: 10px 10px 5px #333;
+    z-index: 151;
+}
+
+#lista_item {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  border-radius: 10px;
+}
+
+#lista_quantita .item_q {
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background: #dadada;
+  opacity: 0.4;
+  display: inline-block;
+  border-bottom: 1px solid #333;
+  font-size: 15px;
+  font-family: ARIALRB;
+  border-radius: 10px;
+}
+
+#lista_quantita .item_q:hover {
+  opacity: 1;
+  border-left: 3px solid #157e3f;
+}
+
+#copertura_carrello {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.3;
+  display: none;
+}
+
+.acquistabtn{
+  border:0;
+  background-color: inherit;
+}
+
+.acquistabtn button{
+  border-radius:0px;
+  background-color: #157e3f;
+  height: 55px;
+}
+
+
+
+/****** LISTA PRODOTTI **********/
+
+@font-face {
+  font-family: ARIALRB;
+  src: url('../fonts/ARLRDBD_0.TTF');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+#content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #eaeaea;
+  position: absolute;
+  width: 100%;
+  top: 2em;
+}
+
+#lista_prodotti {
+  padding-top: 20%;
+  display: inline-block;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; 
+}
+
+.prodotto {
+  width: 100%;
+  height: 8em;
+  display: inline-block;
+  margin-bottom: 15px;
+  margin-left: -3px;
+  border-bottom: 1px solid #ddd;
+}
+
+.thumbnail_prodotto {
+  width: 50%;
+  height: 90%;
+  float: left;
+  padding-bottom: 3px;
+}
+
+.thumbnail_prodotto img {
+  width: 100%;
+  height: 100%;
+  padding-left: 15px;
+}
+
+.right_prodotto {
+  float: left;
+  padding-left: 10px;
+  width: 50%;
+}
+
+.right_prodotto .header_info_prodotto {
+  line-height: 1em;
+  margin-bottom: 3px;
+}
+
+.right_prodotto .header_info_prodotto .titolo {
+  color: #157e3f;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: ARIALRB;
+  display: inline-block;
+  height: auto;
+  max-height: 2.4em;
+  overflow: hidden;
+}
+
+.right_prodotto .header_info_prodotto .azienda {
+  color: #767676;
+  width: 100%;
+  font-size: 10px;
+  font-family: ARIALRB;
+  display: inline-block;
+  padding-bottom: 2px;
+  padding-top: 3px;
+  line-height: 1em;
+  overflow: hidden;
+}
+
+.right_prodotto .info_prodotto {
+  display: inline-block;
+  width: 100%;
+  height: 2.2em;
+  line-height: 1em;
+  float: left;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.right_prodotto .info_prodotto .descrizione {
+  color: #333;
+  font-size: 10px;
+  font-weight: italic;
+  display: inline-block;
+}
+
+.right_prodotto .prezzo {
+  float: right;
+  text-align: center;
+  margin-right: 7px;
+  font-size: 17px;
+  color: #767676;
+  font-weight: bold;
+  background-color: #ddd;
+  width: 95%;
+  margin-bottom: 10px;
+}
+
+
+
+/******** INFO AZIENZA ********/
+
+#map {
+    position: fixed;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    height: 20px;
+    width: 40px;
+    display: none;
+    z-index: 10;
+    -webkit-transition: width 0.3s, height 0.5s;
+    -moz-transition: width 0.3s, height 0.5s;
+    transition: width 0.3s, height 0.5s;
+}
+
+#map.map-zoom {
+    width: 100%;
+    height: 100%;
+}
+
+.leaflet-container {
+    background: #000;
+}
+
+.leaflet-left {
+    right: 0;
+    left: 1;
+}
+
+.leaflet-control {
+    position: absolute;
+    right: 0;
+}
+
+.leaflet-left .leaflet-control {
+    margin-right: 15px;
+}
+
+.leaflet-top .leaflet-control {
+    margin-top: 90px;
+}
+
+.contenuto_azienda {
+    background-color: #eee;
+    overflow: hidden;
+    height: 100%;
+}
+
+.segmented-control {
+    position: fixed;
+    display: table;
+    table-layout: fixed;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid #147C3D;
+    border-radius: 0px 0px 0px 0px;
+    top: 0;
+    width: 100%;
+    height: 0px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: 15px;
+    z-index: 100;
+    transition: all 0.4s ease-out;  
+}
+
+.segmented-control .control-item {
+    border-left: 1px solid #147C3D;
+    color: #fff;
+    padding-top: 7px;
+    padding-bottom: 5px;
+}
+
+.segmented-control .control-item.active {
+    background-color: #147C3D;
+}
+
+/*#c_item1 {
+    width: 6.2%;
+}
+
+#c_item2 {
+    width: 7%;
+}
+
+#c_item3 {
+    width: 8%;
+}*/
+
+.control-content {
+  display: none;
+ }
+  
+.control-content.active {
+  display: block;
+  opacity: 0;
+  transition: opacity .6s;
+}
+
+.control-content.opaco{
+  display: block;
+  opacity: 1;
+}
+
+.card {
+    margin: 0px;
+    overflow-y: scroll;
+    background-color: transparent;
+    border: 0px solid #ddd;
+    border-radius: 0px;
+    position: absolute;
+    top: 0;
+    padding: 78px 0px 0px 0px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#item1mobile {
+    overflow-x: auto;
+}
+
+#item3mobile {
+    position: absolute; 
+    top: 0;
+    padding: 80px 0px 0px 0px;
+}
+
+.descr {
+    margin: 8px 6px 6px 6px;
+}
+
+
+
+
+/************ CARRELLO ************/
+
+@font-face {
+  font-family: ARIALRB;
+  src: url('../fonts/ARLRDBD_0.TTF');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@-webkit-keyframes car_up {
+  0% {bottom: -40em;}
+  100% {bottom: 0em;}
+}
+
+@-webkit-keyframes car_up_checkout {
+  0% {bottom: -2em;}
+  100% {bottom: 3em;}
+}
+
+@-webkit-keyframes car_down {
+  0% {bottom: 0em;}
+  100% {bottom: -40em;}
+}
+
+@-webkit-keyframes car_down_checkout {
+  0% {bottom: 3em;}
+  100% {bottom: -2em;}
+}
+
+@-webkit-keyframes car_leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes car_stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes car_leave_copertura {
+  0% {opacity: 0.3;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes car_stay_copertura {
+  0% {opacity: 0;}
+  100% {opacity: 0.3;}
+}
+
+@-webkit-keyframes car_elimina_prodotto {
+  0% {margin-left: 0;}
+  100% {margin-left: 100%;}
+}
+
+@keyframes car_up {
+  0% {bottom: -40em;}
+  100% {bottom: 0em;}
+}
+
+@keyframes car_up_checkout {
+  0% {bottom: -2em;}
+  100% {bottom: 3em;}
+}
+
+@keyframes car_down {
+  0% {bottom: 0em;}
+  100% {bottom: -40em;}
+}
+
+@keyframes car_down_checkout {
+  0% {bottom: 3em;}
+  100% {bottom: -2em;}
+}
+
+@keyframes car_leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes car_stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes car_leave_copertura {
+  0% {opacity: 0.3;}
+  100% {opacity: 0;}
+}
+
+@keyframes car_stay_copertura {
+  0% {opacity: 0;}
+  100% {opacity: 0.3;}
+}
+
+@keyframes car_elimina_prodotto {
+  0% {margin-left: 0;}
+  100% {margin-left: 100%;}
+}
+
+
+#carrello {
+  position: absolute;
+    background: #eaeaea;
+    color: #333;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.car_chiusura {
+  height: 20px;
+  float:right;  
+  margin-bottom: 10px;
+}
+
+#car_lista_prodotti {
+  margin-top: 8%;
+  position: absolute;
+  display: inline-block;
+  height: 80%;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  visibility: hidden;
+}
+
+.car_prodotto {
+  width: 100%;
+  height: 7.0em;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-left: -3px;
+  border-bottom: 1px solid #ddd;
+}
+
+.car_thumbnail_prodotto {
+  width: 40%;
+  height: 80%;
+  float: left;
+  padding-bottom: 3px;
+}
+
+.car_thumbnail_prodotto img {
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+}
+
+
+.car_thumbnail_prodotto .car_prezzo {
+  position: absolute;
+  width: 20%;
+  height: 25px;
+  float: left;
+  margin-left: 13px;
+  margin-top: -20px;
+  padding-top: 3px;
+  font-weight: bold;
+  border-radius: 15px;
+  color: #fff;
+  background: #5cb85c;
+}
+
+.car_right_prodotto {
+  float: left;
+  width: 60%;
+}
+
+.car_right_prodotto .car_info_prodotto {
+  display: inline-block;
+  width: 100%;
+  height: 3.2em;
+  line-height: 0.9em;
+  float: left;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+.car_info_prodotto .car_titolo {
+  color: #157e3f;
+  width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+  font-family: ARIALRB;
+  display: inline-block;
+  margin-bottom: 3px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+  padding-top: 2px;
+}
+
+.car_info_prodotto .car_descrizione {
+  color: #333;
+  font-size: 10px;
+  font-weight: italic;
+  display: inline-block;
+}
+
+.car_quantita {
+  display: inline-block;
+  width: 100%;
+  height: 0.5em;
+  margin-top: 10px;
+}
+
+.car_quantita .car_gestione {
+  width: 50%;
+  float: left;
+  margin-right: 5%;
+  margin-left: 7%;
+}
+
+.car_quantita .car_elimina {
+  float: left;
+  width: 30%;
+}
+
+.car_quantita .btn {
+  background: transparent;
+  height: 25px; 
+  padding: 0px 0px 0px; 
+  font-family: ARIALRB;
+  width: 90%;
+}
+
+.car_quantita .btn-negative {
+  background: #d9534f;
+  width: 100%;
+  opacity: 0.6;
+}
+
+.car_quantita .btn-negative:hover {
+  opacity: 1;
+  color: #efefef;
+}
+
+.car_gestione .car_num_prodotti {
+  color: #000;
+  font-family: ARIALRB;
+  text-align: center;
+  background: #d2d2d2;
+  width: 80%;
+  height: 25px;
+  border-radius: 5px;
+  padding-top: 2px;
+}
+
+#car_lista_quantita {
+  height: 30%;
+  position: absolute;
+  text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: none;
+  background: #ccc;
+  border-radius: 10px;
+    box-shadow: 10px 10px 5px #333;
+    z-index: 25;
+}
+
+#car_lista_item {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  border-radius: 10px;
+}
+
+#car_lista_quantita .item_q {
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background: #dadada;
+  opacity: 0.4;
+  display: inline-block;
+  border-bottom: 1px solid #333;
+  font-size: 15px;
+  font-family: ARIALRB;
+  border-radius: 10px;
+}
+
+#car_lista_quantita .item_q:hover {
+  opacity: 1;
+  border-left: 3px solid #157e3f;
+}
+
+#car_copertura_carrello {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.3;
+  display: none;
+  z-index: 50;
+}
+
+#car_checkout {
+  position: fixed;
+  width: 100%;
+  height: 3.4em;
+  bottom: 3em;
+  background: #5cb85c;
+  visibility: hidden;
+}
+
+#badge_carrello {
+  font-size: 12px;
+  position: absolute;
+  background: #d9534f;
+  padding:2px 5px 2px 5px;
+  margin-left: -5px;
+  border-radius: 6px;
+}
