@@ -97,6 +97,8 @@ define(function(require) {
                 
         $(".heart").click(function() {
 
+            event.stopPropagation();
+
             var array_wish = ListaDesideri.models;
         
             var c;
