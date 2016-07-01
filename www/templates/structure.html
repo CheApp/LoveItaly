@@ -1,0 +1,142 @@
+<header id="headbar" class="disabled">
+<div class="bar bar-nav headbar">
+      <a id="menubutton" class="icon icon-bars pull-left text"></a>
+      <a id="backbutton" class="icon icon-left-nav pull-left text disabled"></a>
+      <a id="searchbutton"  class="icon icon-search pull-right text"></a>
+       <img class="logo" src="img/headlogo.png"/>
+     </div>
+     <div class="box">
+        <div id="head" class="head"></div>
+        <div class="contenuto">  
+        <input id="inp" type="search" name="search" id="search-basic" value="" placeholder="Cerca.." />    
+        </div>
+     </div>
+     <div id="menu" class="menubox">
+        <div id="menuhead" class="head"></div>
+         <div class="menucontenuto">
+            <ul class="table-view">
+
+            <div id="startmenu">
+             <li class="table-view-cell text">
+               <a class="navigate-right" id="categorie">
+                  Scegli per Categoria
+               </a>
+             </li>
+             <li class="table-view-cell text">
+                <a class="navigate-right" id="aziende">
+                  Scegli per Azienda
+                </a>
+             </li>
+           </div>
+
+           <div id="aziendamenu" class="disabled menuscroll">
+             <li class="table-view-cell text">
+               <a id="indietroa">
+                  Indietro
+               </a>
+             </li>
+             
+             {{#each Aziende}}
+             <li id="manufacturer" data-id="{{id}}" class="table-view-cell text">
+                <a class="navigate-right">
+                  {{firstname}} {{lastname}}
+                </a>
+             </li>
+             {{/each}}
+
+             
+           </div>
+
+           <div id="categoriamenu" class="disabled menuscroll">
+             <li class="table-view-cell text">
+               <a id="indietroc">
+                 Indietro
+               </a>
+             </li>
+             
+            {{#each Categorie}}
+             {{#if active}}
+             <li id="category" data-id="{{id}}" class="table-view-cell text">
+                <a class="navigate-right">
+                  {{name}}
+                </a>
+             </li>
+             {{/if}}
+            {{/each}}
+
+           </div>
+
+
+
+
+            </ul>  
+         </div>
+        </div>
+</header>
+
+    <nav class="bar bar-tab disabled" id="navbar">
+      <a class="tab-item">
+        <span id="home" class="icon icon-home" style="font-size: 30px;"></span>
+        <span class="tab-label"></span>
+      </a>
+      <a id="apri_carrello" class="tab-item">
+    <span class="glyphicon glyphicon-shopping-cart" style="font-size: 30px; padding-top: 7px;"></span>
+    <span id="badge_carrello">1</span>
+      </a>
+      <a class="tab-item" href="#">
+        <span class="icon icon-person" style="font-size: 30px;"></span>
+        <span class="tab-label"></span>
+      </a>
+    </nav>
+
+    <nav class="bar bar-tab acquistabtn disabled" id="acquistabtn" >
+      <button id="add_to_cart" class="btn btn-positive btn-block"><span>Aggiungi al Carrello</span></button>
+      <div class="heart"></div>
+    </nav>
+
+    <div id="copertura_carrello"></div>
+    
+    <div id="lista_quantita"> 
+      <div id="lista_item">
+        <span class="item_q">1</span>
+        <span class="item_q">2</span>
+        <span class="item_q">3</span>
+        <span class="item_q">4</span>
+        <span class="item_q">5</span>
+        <span class="item_q">6</span>
+        <span class="item_q">7</span>
+        <span class="item_q">8</span>    
+      </div>
+    </div>
+
+
+    <div id="content" class="content">
+    </div>
+
+
+    <div id="carrello">
+
+      <div id="x_car" class="car_chiusura"><span class="icon icon-close" style="font-size: 30px;"></span></div> 
+
+      <div id="car_lista_prodotti">
+
+      <div id="car_checkout"><button class="btn btn-positive btn-block">PROCEDI AL CHECKOUT</button></div>
+
+    </div>
+  </div>
+
+
+    <div id="car_copertura_carrello"></div>
+
+    <div id="car_lista_quantita"> 
+      <div id="car_lista_item">
+        <span class="car_item_q">1</span>
+        <span class="car_item_q">2</span>
+        <span class="car_item_q">3</span>
+        <span class="car_item_q">4</span>
+        <span class="car_item_q">5</span>
+        <span class="car_item_q">6</span>
+        <span class="car_item_q">7</span>
+        <span class="car_item_q">8</span>    
+      </div>
+    </div>
