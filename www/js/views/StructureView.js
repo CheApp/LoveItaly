@@ -196,11 +196,13 @@ define(function(require) {
           prodotto.style.animation = "car_elimina_prodotto 0.5s";
           prodotto.style.WebkitAnimation = "car_elimina_prodotto 0.5s"; 
           setTimeout(function() { 
-            //debugger;
-            prodotto.remove();
-
+            
             var id_cart_object = prodotto.getAttribute('data-id');
 
+            prodotto.remove();
+
+            ListaCarrello.fetch({ajaxSync: false});
+            
             var array_cart = ListaCarrello.models;
                 
             var c;

@@ -100,7 +100,9 @@ define(function(require) {
 			window.mappa = map_obj;
 		});
 
-		$(".segmented-control").css("margin-top", "44px");
+		setTimeout(function() {
+			$(".segmented-control").css("margin-top", "44px");
+		}, 300); 
 	        
 		$("#item1mobile, #item2mobile, #item3mobile").removeClass('opaco');
 		            

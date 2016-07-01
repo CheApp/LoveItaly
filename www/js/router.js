@@ -142,6 +142,8 @@ define(function(require) {
     },
 
     refreshCart: function(){
+      ListaCarrello.fetch({ajaxSync: false});
+      
       var array_cart = ListaCarrello.models;
         var prodotti_nel_carrello = Collezione.byIDList(array_cart);
         var carrello = new Cart({
