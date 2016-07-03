@@ -59,7 +59,13 @@ define(function(require) {
     },
 
 
-    script: function(){
+    script: function() {
+		document.getElementById("acquistabtn").classList.add("disabled");
+		document.getElementById("head").classList.add("disabled");
+		document.getElementById("menu").classList.add("disabled");
+		document.getElementById("navbar").classList.remove("disabled");
+
+
     	var latitudine, longitudine;
     	var par = this.model.citta+", "+this.model.indirizzo;
     	var URL = "http://maps.google.com/maps/api/geocode/json?address="+encodeURIComponent(par)+"&sensor=false";

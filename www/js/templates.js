@@ -15,5 +15,6 @@ define({
     infoprodotto: "templates/infoprodotto.html",
     listaprodotti: "templates/listaprodotti.html",
     infoazienda: "templates/infoazienda.html",
-    cart: "templates/cart.html"
+    cart: "templates/cart.html",
+    checkout: "templates/checkout.html"
 });

@@ -18,6 +18,10 @@ define(function(require) {
   var Indirizzo = require("models/Indirizzo");
   var InfoAzienda = require("views/pages/InfoAzienda");
   var Cart = require("views/pages/Cart");
+  var checkoutView = require("views/pages/checkoutView")
+  var AddressCollection = require("collections/Address_Collection");
+  var StateModel = require("models/State_Model");
+  var StateCollection = require("collections/State_Collection");
 
 
   var Collezione = new CollezioneProdotti();
@@ -37,7 +41,8 @@ define(function(require) {
       "home": "Home",
       "infoprodotto?pid=:pid" : "InfoProdotto",
       "listaprodotti?action=:act&param=:par" : "ListaProdotti",
-      "infoazienda?aid=:aid" : "InfoAzienda"
+      "infoazienda?aid=:aid" : "InfoAzienda",
+      "checkout?cid=:cid": "showCheckout"
     },
 
     firstView: "splashscreen",
@@ -141,16 +146,90 @@ define(function(require) {
       });
     },
 
+    showCheckout: function(cid) {
+
+      
+      var AddrCollection = new AddressCollection();
+
+      AddrCollection.fetch({
+        success: function(lista_ind, response, options) {
+
+          var ElencoProvince = new StateCollection();
+
+          ElencoProvince.fetch({
+            success: function(province, response, options) {
+              
+              this.collezione_filtrata = lista_ind.byCustomer(cid);
+              console.log(this.collezione_filtrata);
+
+
+              var array_addr = this.collezione_filtrata.models;
+              var array_prov = province.models;
+
+              for (var c = 0; c < array_addr.length; c++) {
+
+                for (var j = 0; j < array_prov.length; j++) {
+
+                  if (array_addr[c].attributes.state == array_prov[j].attributes.id) {
+
+                    array_addr[c].attributes.provincia = array_prov[j].attributes.provincia;
+
+                  }
+
+                }
+
+               
+              }
+
+              var array_cart = ListaCarrello.models;
+              var prodotti_nel_checkout = Collezione.byIDList(array_cart);
+
+              var page = new checkoutView( {
+                  collection: {
+                    indirizzi: this.collezione_filtrata,
+                    ordini: prodotti_nel_checkout
+                  }
+              });
+                
+              this.changePage(page);
+
+            }.bind(this),
+
+
+
+            error: function(model, response, options) {
+              console.log('Errore fetch province!');
+            }
+
+
+          })            
+
+            
+            
+            
+          }.bind(this),
+
+          error: function(model, response, options) {
+              console.log('Errore fetch indirizzi!');
+          }
+
+        });
+
+      
+    },
+
     refreshCart: function(){
       ListaCarrello.fetch({ajaxSync: false});
       
       var array_cart = ListaCarrello.models;
-        var prodotti_nel_carrello = Collezione.byIDList(array_cart);
-        var carrello = new Cart({
-           collection: prodotti_nel_carrello
-           });
-           carrello.render();
-        this.structureView.setCart(carrello.el);
+      var prodotti_nel_carrello = Collezione.byIDList(array_cart);
+
+      var carrello = new Cart({
+          collection: prodotti_nel_carrello
+      });
+      carrello.render();
+
+      this.structureView.setCart(carrello.el);
     },
 
     // load the structure view

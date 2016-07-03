@@ -27,7 +27,8 @@ define(function(require) {
       "click #category"    : "goCategory",
       "click #manufacturer": "goManufacturer",
       "click #home"        : "goHome",
-      "keypress #inp"      : "search"
+      "keypress #inp"      : "search",
+      "click #car_checkout": "goToCheckout"
     },
 
     initialize: function(options) {
@@ -383,6 +384,41 @@ define(function(require) {
         return prodotti.length;
       }
 
+    },
+
+    goToCheckout: function(e) {
+      var cid = 2;
+
+        flag = false;
+        var carrello = document.getElementById("carrello");
+        carrello.style.animation =  "car_down 0.5s";
+        carrello.style.WebkitAnimation =  "car_down 0.5s";
+        var lista_prodotti = document.getElementById("car_lista_prodotti");
+        lista_prodotti.style.animation = "car_leave 0.4s"
+        lista_prodotti.style.WebkitAnimation = "car_leave 0.4s"
+        var header = document.getElementsByTagName("header");
+        header[0].style.visibility = "visible";
+        header[0].style.animation = "car_stay 0s";
+        header[0].style.WebkitAnimation = "car_stay 0s";
+        var checkout = document.getElementById("car_checkout");
+        checkout.style.animation = "car_down_checkout 0.5s";
+        checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
+        setTimeout(function() {
+          var content = document.getElementById("content");
+          content.style.display = "inline-block";
+        }, 200); 
+        setTimeout(function() {
+          var lista_prodotti = document.getElementById("car_lista_prodotti");
+          lista_prodotti.style.animation = "car_leave 0.3s"
+          lista_prodotti.style.WebkitAnimation = "car_leave 0.3s"
+          lista_prodotti.style.visibility = "hidden";
+          carrello.style.visibility = "hidden";
+          checkout.style.visibility = "hidden";
+        }, 300);
+
+      Backbone.history.navigate("checkout?cid=" + cid, {
+        trigger: true
+      });
     },
 
   });
