@@ -10,12 +10,12 @@ define(function(require) {
 
 	var Aziende = Backbone.Collection.extend({
 
-	  url: 'http://192.168.56.101/loveitaly/api/customers?io_format=JSON&display=full',
+	  url: 'http://192.168.56.101/loveitaly/api/manufacturers?io_format=JSON&display=full',
 
 	  constructorName: "Aziende",
 
 	  parse: function(data) {
-	        return data.customers;
+	        return data.manufacturers;
 	  },
 
 	  sync: function(method, collection, options){
