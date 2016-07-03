@@ -7,10 +7,13 @@ NUOVE FUNZIONALITÀ:
 5) RIferimento all'azienda interno ad info prodotto cliccabile.
 6) Gestione di ricerca senza risultati (viene mostrata la scritta "Nessun prodotto trovato!").
 7) Eliminazione dei prodotti dal carrello.
+8) aggiunto checkout
 
 
 PROBLEMI:
 
-1) Dopo l'aggiunta di un prodotto nel carrello, questo non viene aggiornato se non dopo il refresh dell'home.
-2) Dopo aver cliccato sul riferimento all'azienda presente in Info prodotto, rimangono la barra di "Aggiungi al carrello" e il cuoricino della wishlist.
-3) Gli id delle aziende nel menu "Ricerca per aziende" non corrispondono a quelli reali.
+1) Dopo l'aggiunta di un prodotto nel carrello, questo non viene aggiornato se non dopo il refresh dell'home. (RISOLTO)
+2) Dopo aver cliccato sul riferimento all'azienda presente in Info prodotto, rimangono la barra di "Aggiungi al carrello" e il cuoricino della wishlist. (RISOLTO)
+3) Gli id delle aziende nel menu "Ricerca per aziende" non corrispondono a quelli reali
+4) date di consegna non funzionanti nel checkout (getDate non definita???)
+5) nello step 1 del checkout, premendo inditro dovrebbe tornare al carrelo
