@@ -20,3 +20,4 @@ PROBLEMI:
 4) date di consegna non funzionanti nel checkout (getDate non definita???) (RISOLTO)
 5) nello step 1 del checkout, premendo inditro dovrebbe tornare al carrelo (RISOLTO)
 6) Quando si sceglie un' azienda dal menu dovrebbe aprire InfoAzienda nel tab dei prodotti e non ListaProdotti
+7) si riescono a piazzare solo ordini con un solo prodotto
