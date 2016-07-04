@@ -8,6 +8,8 @@ NUOVE FUNZIONALITÀ:
 6) Gestione di ricerca senza risultati (viene mostrata la scritta "Nessun prodotto trovato!").
 7) Eliminazione dei prodotti dal carrello.
 8) aggiunto checkout
+9) aggiunti profilo (ordini, indirizzi) senza parte server
+10) aggiunti login e registrazione
 
 
 PROBLEMI:
