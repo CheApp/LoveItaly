@@ -133,7 +133,7 @@ define(function(require) {
         var totale = document.getElementById("prezzo_totale").getElementsByTagName("span")[0].innerHTML;
         var totale_con_gestione = parseFloat(totale) + 2;
 
-        debugger;
+        
         var autenticazione = function (xhr) {
           var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
           var token = 'Basic '.concat(key64);
@@ -296,6 +296,7 @@ debugger;
       }
 
       $("#step_precedente").on("click", function() {
+        
         var content_steps = document.getElementById("steps");
         var lista = content_steps.getElementsByClassName("progress-indicator");
         var steps = lista[0].getElementsByTagName("li");
@@ -320,6 +321,10 @@ debugger;
         }
         else {
           document.getElementById("new_address").style.display = "none";
+        }
+
+        if (oldStep == 1) {
+          window.checkout.goBack();
         }
       });
 
@@ -981,13 +986,21 @@ debugger;
 
               this.el.querySelector("#ul_indirizzi").animate({ scrollTop: 205 });*/
 
-    }
+    },
 
-    /*goToMap: function(e) {
-      Backbone.history.navigate("map", {
-        trigger: true
-      });
-    }*/
+    goBack: function() {
+      if($("#menubutton").hasClass("disabled")){
+        document.getElementById("menubutton").classList.remove("disabled");
+        document.getElementById("backbutton").classList.add("disabled");
+        document.getElementById('topbar').classList.remove('disabled');
+        document.getElementById("navbar").classList.remove("disabled");
+        document.getElementById("acquistabtn").classList.add("disabled");
+      }
+    
+      window.history.back();
+
+      $('#apri_carrello').click();
+    }
     
   });
 
