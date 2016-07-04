@@ -37,8 +37,6 @@ define(function(require) {
     		header[0].style.display = "none";
     		var nav = document.getElementsByTagName("nav");
     		nav[0].style.display = "none";
-    		var content = document.getElementById("content");
-    		content.style.overflow = "hidden";
     	})
 
     	function validate(step) {
@@ -102,10 +100,10 @@ define(function(require) {
 		  setTimeout( function() {
 		    var annunci = divOldStep.getElementsByClassName("annunci");
 		    annunci[0].style.display = "none";
-		    divOldStep.style.visibility = "hidden";
+		    divOldStep.style.display = "none";
 		    var nNewStep = "reg_step" + newStep;
 		    var divNewStep = document.getElementById(nNewStep);
-		    divNewStep.style.visibility = "visible";
+		    divNewStep.style.display = "inline-block";
 		    divNewStep.style.animation = "fromRight 0.3s";
 		    divNewStep.style.WebkitAnimation = "fromRight 0.3s";
 		    $('#' + nNewStep).insertBefore('#' + nOldStep);
@@ -171,10 +169,10 @@ define(function(require) {
 		  divNewStep.style.animation = "toRight 0.3s";
 		  divNewStep.style.WebkitAnimation = "toRight 0.3s";
 		  setTimeout( function() {
-		    divNewStep.style.visibility = "hidden";
+		    divNewStep.style.display = "none";
 		    var nOldStep = "reg_step" + oldStep;
 		    var divOldStep = document.getElementById(nOldStep);
-		    divOldStep.style.visibility = "visible";
+		    divOldStep.style.display = "inline-block";
 		    divOldStep.style.animation = "fromLeft 0.3s";
 		    divOldStep.style.WebkitAnimation = "fromLeft 0.3s";
 		    $('#' + nOldStep).insertBefore('#' + nNewStep);
@@ -266,7 +264,6 @@ define(function(require) {
 			      setTimeout(function() {
 		  			  document.getElementsByTagName("header")[0].removeAttribute("style");
 					  document.getElementsByTagName("nav")[0].style.display = "inline-block";
-					  document.getElementById("content").style.overflowY = "auto";  
 			      	  var cdata = result.getElementsByTagName("id")[0].innerHTML;
 			      	  var maxL = cdata.length-3;
 				      localStorage.setItem("ID", cdata.substring(9, maxL));

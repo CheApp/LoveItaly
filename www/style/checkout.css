@@ -266,15 +266,15 @@ body {
         border-bottom: 0px;   
       }
       
-      .bar .btn-link {
+      #avanti .bar .btn-link {
         color: #444;
       }
       
-      .btn {
+      #avanti .btn {
         border-radius: 0px;
       }
       
-      .btn-positive {
+      #avanti .btn-positive {
         background-color: #147C3D;
         border: 0px solid #147C3D;
       }

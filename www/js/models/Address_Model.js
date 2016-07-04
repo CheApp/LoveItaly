@@ -15,7 +15,7 @@ define(function(require) {
       constructorName: "AddressModel",
 
       initialize: function(options) {
-        this.attributes.id_indirizzo = options.id;
+        
         this.attributes.customer = options.id_customer;
         this.attributes.firstname = options.firstname;
         this.attributes.lastname = options.lastname;
