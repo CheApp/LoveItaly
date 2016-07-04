@@ -27,6 +27,7 @@ define(function(require) {
   var AddressCollection = require("collections/Address_Collection");
   var StateModel = require("models/State_Model");
   var StateCollection = require("collections/State_Collection");
+  var Registrazione = require("views/pages/Registrazione");
 
 
   var Collezione = new CollezioneProdotti();
@@ -52,6 +53,7 @@ define(function(require) {
       "indirizzi" : "Indirizzi",
       "showindirizzo" : "Showindirizzo",
       "addindirizzo" : "Addindirizzo",
+      "registrazione" : "Registrazione",      
       "ordini": "Ordini"
     },
 
@@ -298,6 +300,13 @@ define(function(require) {
       });
      }
     },
+
+  Registrazione: function() {
+      
+      var page = new Registrazione();
+      this.changePage(page); 
+
+    }
     
 
   });

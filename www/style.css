@@ -1099,3 +1099,476 @@ infoprodtto select {
     margin-left: 5%;
   }
 
+
+/******* REGISTRAZIONE **********/
+
+@font-face {
+  font-family: ARIALRB;
+  src: url('../fonts/ARLRDBD_0.TTF');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+ @keyframes fromRight {
+  0% {margin-right: -100%; margin-left: 100%;}
+  100% {margin-right: 0; margin-left: 0;}
+}
+
+ @-webkit-keyframes fromRight {
+  0% {margin-right: -100%; margin-left: 100%;}
+  100% {margin-right: 0; margin-left: 0;}
+}
+
+ @keyframes toLeft {
+  0% {margin-left: 0; margin-right: 0;}
+  100% {margin-left: -100%; margin-right: 100%;}
+}
+
+ @-webkit-keyframes toLeft {
+  0% {margin-left: 0; margin-right: 0;}
+  100% {margin-left: -100%; margin-right: 100%;}
+}
+
+ @keyframes fromLeft {
+  0% {margin-left: -100%; margin-right: 100%;}
+  100% {margin-left: 0; margin-right: 0;}
+}
+
+ @-webkit-keyframes fromLeft {
+  0% {margin-left: -100%; margin-right: 100%;}
+  100% {margin-left: 0; margin-right: 0;}
+}
+
+ @keyframes toRight {
+  0% {margin-right: 0; margin-left: 0;}
+  100% {margin-right: -100%; margin-left: 100%;}
+}
+
+ @-webkit-keyframes toRight {
+  0% {margin-right: 0; margin-left: 0;}
+  100% {margin-right: -100%; margin-left: 100%;}
+}
+
+#indietro {
+  position: absolute;
+  width: 100%;
+  float: left;
+  left: 2%;
+  top: 2%;
+  display: none;
+}
+
+#reg_steps {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+}
+
+#reg_steps img {
+  width: 70%; 
+  height: 70%; 
+  margin-top: 20%;
+  padding-bottom: 10%;
+}
+
+.numero_su_bubble {
+  position: absolute; 
+  margin-top: -30px; 
+  margin-left: -5px; 
+  color: #333; 
+  font-family: ARIALRB;
+  font-size: 15px;
+}
+
+#form_registrazione {
+  width: 90%;
+  margin-top: 30px;
+  margin-left: 5%;
+}
+
+#titolo_nascita {
+  font-family: Arial; 
+  color: #767676;
+}
+
+#nascita {
+  width: 100%; 
+  display: block; 
+  margin-top: 5px;
+}
+
+#check_genere {
+  height: 5%; 
+  margin-bottom: 5%; 
+  color: #767676;
+}
+
+.check {
+  width: 90%;
+  margin-left: 10%;
+  float: left;
+}
+
+.check .check-box {
+  display: inline-block;
+  width: 10%;
+}
+
+.check label {
+  font-family: Arial;
+  display: inline-block;
+  width: 80%;
+  margin-bottom: 10%;
+  font-weight: normal;
+}
+
+#reg_step1 {
+  visibility: hidden;
+}
+
+#reg_step2 {
+  visibility: hidden;
+}
+
+#reg_step3 {
+  visibility: hidden;
+}
+
+.campi_richiesti {
+  color: #767676;
+  font-size: 13px;
+}
+
+.annunci {
+  display: none;
+  font-family: ARIALRB;
+  color: #767676;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.glyphicon.glyphicon-asterisk {
+  width: 3%; 
+  margin-right: 2%; 
+  color: #157e3f;
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+#reg_step0 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#reg_step1 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#reg_step2 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#reg_step3 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#end_reg1 {
+  background: #ccc;
+}
+
+#end_reg2 {
+  display: none;
+}
+
+
+
+/********** PROGRESS-WIZARD ************/
+
+.flexer, .progress-indicator {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.no-flexer, .progress-indicator.stacked {
+    display: block;
+}
+.no-flexer-element {
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    -moz-flex: 0;
+    flex: 0;
+}
+.flexer-element, .progress-indicator>li {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+}
+.progress-indicator {
+    margin: 0 0 1em;
+    padding: 0;
+    font-size: 80%;
+    text-transform: uppercase;
+}
+.progress-indicator>li {
+    list-style: none;
+    text-align: center;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    text-overflow: ellipsis;
+    color: #bbb;
+    display: block;
+}
+.progress-indicator>li:hover {
+    color: #6f6f6f;
+}
+.progress-indicator>li.completed, .progress-indicator>li.completed .bubble {
+    color: #65d074;
+}
+.progress-indicator>li .bubble {
+    border-radius: 1000px;
+    width: 30px;
+    height: 30px;
+    background-color: #bbb;
+    display: block;
+    margin: 0 auto .5em;
+    border-bottom: 1px solid #888;
+     transition:  background-color 1s;
+     -moz-transition:  background-color 1s;
+     -webkit-transition:  background-color 1s;
+}
+.progress-indicator>li .bubble:after, .progress-indicator>li .bubble:before {
+    display: block;
+    position: absolute;
+    top: 14px;
+    width: 100%;
+    height: 3px;
+    content: '';
+    background-color: #bbb;
+     transition:  background-color 1s;
+     -webkit-transition:  background-color 1s;
+     -moz-transition:  background-color 1s;
+}
+.progress-indicator>li.completed .bubble, .progress-indicator>li.completed .bubble:after, .progress-indicator>li.completed .bubble:before {
+    background-color: #65d074;
+    border-color: #247830;
+}
+.progress-indicator>li .bubble:before {
+    left: 0;
+}
+.progress-indicator>li .bubble:after {
+    right: 0;
+}
+.progress-indicator>li:first-child .bubble:after, .progress-indicator>li:first-child .bubble:before {
+    width: 50%;
+    margin-left: 50%}
+.progress-indicator>li:last-child .bubble:after, .progress-indicator>li:last-child .bubble:before {
+    width: 50%;
+    margin-right: 50%}
+.progress-indicator>li.active, .progress-indicator>li.active .bubble {
+    color: #337AB7;
+}
+.progress-indicator>li.active .bubble, .progress-indicator>li.active .bubble:after, .progress-indicator>li.active .bubble:before {
+    background-color: #337AB7;
+    border-color: #122a3f;
+}
+.progress-indicator>li a:hover .bubble, .progress-indicator>li a:hover .bubble:after, .progress-indicator>li a:hover .bubble:before {
+    background-color: #5671d0;
+    border-color: #1f306e;
+}
+.progress-indicator>li a:hover .bubble {
+    color: #5671d0;
+}
+.progress-indicator>li.danger .bubble, .progress-indicator>li.danger .bubble:after, .progress-indicator>li.danger .bubble:before {
+    background-color: #d3140f;
+    border-color: #440605;
+}
+.progress-indicator>li.danger .bubble {
+    color: #d3140f;
+}
+.progress-indicator>li.warning .bubble, .progress-indicator>li.warning .bubble:after, .progress-indicator>li.warning .bubble:before {
+    background-color: #edb10a;
+    border-color: #5a4304;
+}
+.progress-indicator>li.warning .bubble {
+    color: #edb10a;
+}
+.progress-indicator>li.info .bubble, .progress-indicator>li.info .bubble:after, .progress-indicator>li.info .bubble:before {
+    background-color: #5b32d6;
+    border-color: #25135d;
+}
+.progress-indicator>li.info .bubble {
+    color: #5b32d6;
+}
+.progress-indicator.stacked>li {
+    text-indent: -10px;
+    text-align: center;
+    display: block;
+}
+.progress-indicator.stacked>li .bubble:after, .progress-indicator.stacked>li .bubble:before {
+    left: 50%;
+    margin-left: -1.5px;
+    width: 3px;
+    height: 100%}
+.progress-indicator.stacked .stacked-text {
+    position: relative;
+    z-index: 10;
+    top: 0;
+    margin-left: 60%!important;
+    width: 45%!important;
+    display: inline-block;
+    text-align: left;
+    line-height: 1.2em;
+}
+.progress-indicator.stacked>li a {
+    border: none;
+}
+.progress-indicator.stacked.nocenter>li .bubble {
+    margin-left: 0;
+    margin-right: 0;
+}
+.progress-indicator.stacked.nocenter>li .bubble:after, .progress-indicator.stacked.nocenter>li .bubble:before {
+    left: 10px;
+}
+.progress-indicator.stacked.nocenter .stacked-text {
+    width: auto!important;
+    display: block;
+    margin-left: 40px!important;
+}
+@media handheld, screen and (max-width:400px) {
+    .progress-indicator {
+    font-size: 60%}
+}
+
+
+
+/*********** LOGIN ************/
+
+@font-face {
+  font-family: ARIALRB;
+  src: url('../fonts/ARLRDBD_0.TTF');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@-webkit-keyframes up {
+  0% {bottom: -40em;}
+  100% {bottom: 0em;}
+}
+
+@-webkit-keyframes down {
+  0% {bottom: 0em;}
+  100% {bottom: -40em;}
+}
+
+@-webkit-keyframes leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes up_nav {
+  0% {bottom: -2em;}
+  100% {bottom: 0em;}
+}
+
+@keyframes up {
+  0% {bottom: -40em;}
+  100% {bottom: 0em;}
+}
+
+@keyframes down {
+  0% {bottom: 0em;}
+  100% {bottom: -40em;}
+}
+
+@keyframes leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes up_nav {
+  0% {bottom: -2em;}
+  100% {bottom: 0em;}
+}
+
+
+nav {
+  visibility: visible;
+}
+
+#login {
+  position: absolute;
+    background: #eaeaea;
+    color: #333;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  text-align: center;
+}
+
+
+.log_chiusura {
+  height: 20px;
+  float:right;  
+  margin-bottom: 10px;
+}
+
+#log_logo {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 1em;
+}
+
+#log_logo img {
+  width: 70%; 
+  height: 70%; 
+}
+
+#form_login {
+  width: 90%;
+  margin-top: 30px;
+  margin-left: 5%;
+}
+
+#log_annunci {
+  display: none;
+  font-family: ARIALRB;
+  color: #767676;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+#login .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.log_more {
+  display: inline-block;
+  padding-top: 5%;
+}
+
+.log_more a {
+  color: #157e3f;
+}
+
+
+
