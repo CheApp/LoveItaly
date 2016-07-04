@@ -6,9 +6,17 @@ define(function(require) {
   var Home = require("views/pages/Home");
   var InfoProdotto = require("views/pages/InfoProdotto");
   var ListaProdotti = require("views/pages/ListaProdotti");
+  var SplashScreen = require("views/pages/SplashScreen");
+  var checkoutView = require("views/pages/checkoutView");
+  var InfoAzienda = require("views/pages/InfoAzienda");
+  var Cart = require("views/pages/Cart");
+  var Profilo = require("views/pages/Profilo");
+  var Indirizzi = require("views/pages/Indirizzi");
+  var Showindirizzo = require("views/pages/Showindirizzo");
+  var Addindirizzo = require("views/pages/Addindirizzo");
+  var Ordini = require("views/pages/Ordini");
   var CartList = require("collections/Nel_Carrello");
   var cart_object = require("models/cart_object");
-  var SplashScreen = require("views/pages/SplashScreen");
   var Prodotto = require("models/Prodotto");
   var CollezioneProdotti = require("collections/CollezioneProdotti");
   var CollezioneAziende = require("collections/Aziende");
@@ -16,9 +24,6 @@ define(function(require) {
   var Search = require("collections/Search");
   var Azienda = require("models/Azienda");
   var Indirizzo = require("models/Indirizzo");
-  var InfoAzienda = require("views/pages/InfoAzienda");
-  var Cart = require("views/pages/Cart");
-  var checkoutView = require("views/pages/checkoutView")
   var AddressCollection = require("collections/Address_Collection");
   var StateModel = require("models/State_Model");
   var StateCollection = require("collections/State_Collection");
@@ -42,7 +47,12 @@ define(function(require) {
       "infoprodotto?pid=:pid" : "InfoProdotto",
       "listaprodotti?action=:act&param=:par" : "ListaProdotti",
       "infoazienda?aid=:aid" : "InfoAzienda",
-      "checkout?cid=:cid": "showCheckout"
+      "checkout?cid=:cid": "showCheckout",
+      "profilo" : "Profilo",
+      "indirizzi" : "Indirizzi",
+      "showindirizzo" : "Showindirizzo",
+      "addindirizzo" : "Addindirizzo",
+      "ordini": "Ordini"
     },
 
     firstView: "splashscreen",
@@ -217,6 +227,41 @@ define(function(require) {
 
       
     },
+
+    Profilo: function() {    
+        var page = new Profilo();
+        this.changePage(page);   
+      },
+
+
+    Indirizzi: function() {
+      
+      var page = new Indirizzi();
+      this.changePage(page); 
+
+    },
+
+     Showindirizzo: function() {
+      
+      var page = new Showindirizzo();
+      this.changePage(page); 
+
+    },
+
+     Addindirizzo: function() {
+      
+      var page = new Addindirizzo();
+      this.changePage(page); 
+
+    },
+
+    Ordini: function() {
+      
+      var page = new Ordini();
+      this.changePage(page); 
+
+    },
+
 
     refreshCart: function(){
       ListaCarrello.fetch({ajaxSync: false});

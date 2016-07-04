@@ -25,10 +25,6 @@ define(function(require) {
            $(this.el).html(this.template); 
     },
 
-    script: function(){
-    
-    },
-
     start: function(e) {
       document.getElementById("navbar").classList.remove("disabled");
       document.getElementById("headbar").classList.remove("disabled");

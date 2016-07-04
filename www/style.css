@@ -49,7 +49,7 @@ body {
     padding : 5px;
     margin-top:35px;
 }
-.table-view{
+.tablemenu{
 	background-color: #157e3f;
     margin-bottom:-4.48px;
     border-bottom: 0;
@@ -1035,5 +1035,67 @@ infoprodtto select {
 }
 
 
+/********** PROFILO ************/
 
+.disabledp {
+  visibility: hidden;
+}
+.wrapperp{
+  margin-top: 21%;
+}
+.titlep{
+  text-align: center;
+  margin-bottom: 27px;
+}
+.col-6 {
+      background-color: #eee;
+      width: 50%;
+      height: 50%;
+      float: left;
+      padding: 15px;
+    }
+    .topsx{
+     border-bottom: 1px solid #ddd;
+     border-right: 1px solid #ddd;
+    }
+    .topdx{
+     border-bottom: 1px solid #ddd;
+    }
+    .botsx{
+     border-right: 1px solid #ddd;
+    }
+    .iconbtn{
+      text-align: center;
+      margin-top: 50px;
+    }
+    .iconbtn img{
+        width: 70%;
+        max-width: 150px; 
+        margin: 5px auto;
+    }
+    .iconbtn span{
+      display:block;
+      font-weight: bold;
+      color: #767676;
+    }
+    .addaddressbtn{
+    margin-top:40px;
+    width: 90%;
+    height: 45px;
+    margin: 20px auto;
+  }
+  .editaddressbtn{
+    width:45%;
+    float:left;
+    margin-left:10px;
+  }
+  .removeaddressbtn{
+    width:45%;
+    float:right;
+    margin-right:10px;
+  }
+  .addressform input[type="text"]{
+    width: 90%;
+    margin-left: 5%;
+  }
 
