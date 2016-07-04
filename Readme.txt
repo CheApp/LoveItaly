@@ -15,5 +15,5 @@ PROBLEMI:
 1) Dopo l'aggiunta di un prodotto nel carrello, questo non viene aggiornato se non dopo il refresh dell'home. (RISOLTO)
 2) Dopo aver cliccato sul riferimento all'azienda presente in Info prodotto, rimangono la barra di "Aggiungi al carrello" e il cuoricino della wishlist. (RISOLTO)
 3) Gli id delle aziende nel menu "Ricerca per aziende" non corrispondono a quelli reali
-4) date di consegna non funzionanti nel checkout (getDate non definita???)
-5) nello step 1 del checkout, premendo inditro dovrebbe tornare al carrelo
+4) date di consegna non funzionanti nel checkout (getDate non definita???) (RISOLTO)
+5) nello step 1 del checkout, premendo inditro dovrebbe tornare al carrelo (RISOLTO)
