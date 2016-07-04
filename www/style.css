@@ -49,7 +49,7 @@ body {
     padding : 5px;
     margin-top:35px;
 }
-.table-view{
+.tablemenu{
 	background-color: #157e3f;
     margin-bottom:-4.48px;
     border-bottom: 0;
@@ -1033,3 +1033,861 @@ infoprodtto select {
   margin-left: -5px;
   border-radius: 6px;
 }
+
+
+/********** PROFILO ************/
+
+.disabledp {
+  visibility: hidden;
+}
+.wrapperp{
+  margin-top: 21%;
+}
+.titlep{
+  text-align: center;
+  margin-bottom: 27px;
+}
+.col-6 {
+      background-color: #eee;
+      width: 50%;
+      height: 50%;
+      float: left;
+      padding: 15px;
+    }
+    .topsx{
+     border-bottom: 1px solid #ddd;
+     border-right: 1px solid #ddd;
+    }
+    .topdx{
+     border-bottom: 1px solid #ddd;
+    }
+    .botsx{
+     border-right: 1px solid #ddd;
+    }
+    .iconbtn{
+      text-align: center;
+      margin-top: 50px;
+    }
+    .iconbtn img{
+        width: 70%;
+        max-width: 150px; 
+        margin: 5px auto;
+    }
+    .iconbtn span{
+      display:block;
+      font-weight: bold;
+      color: #767676;
+    }
+    .addaddressbtn{
+    margin-top:40px;
+    width: 90%;
+    height: 45px;
+    margin: 20px auto;
+  }
+  .editaddressbtn{
+    width:45%;
+    float:left;
+    margin-left:10px;
+  }
+  .removeaddressbtn{
+    width:45%;
+    float:right;
+    margin-right:10px;
+  }
+  .addressform input[type="text"]{
+    width: 90%;
+    margin-left: 5%;
+  }
+
+
+/******* REGISTRAZIONE **********/
+
+@font-face {
+  font-family: ARIALRB;
+  src: url('../fonts/ARLRDBD_0.TTF');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+ @keyframes fromRight {
+  0% {margin-right: -100%; margin-left: 100%;}
+  100% {margin-right: 0; margin-left: 0;}
+}
+
+ @-webkit-keyframes fromRight {
+  0% {margin-right: -100%; margin-left: 100%;}
+  100% {margin-right: 0; margin-left: 0;}
+}
+
+ @keyframes toLeft {
+  0% {margin-left: 0; margin-right: 0;}
+  100% {margin-left: -100%; margin-right: 100%;}
+}
+
+ @-webkit-keyframes toLeft {
+  0% {margin-left: 0; margin-right: 0;}
+  100% {margin-left: -100%; margin-right: 100%;}
+}
+
+ @keyframes fromLeft {
+  0% {margin-left: -100%; margin-right: 100%;}
+  100% {margin-left: 0; margin-right: 0;}
+}
+
+ @-webkit-keyframes fromLeft {
+  0% {margin-left: -100%; margin-right: 100%;}
+  100% {margin-left: 0; margin-right: 0;}
+}
+
+ @keyframes toRight {
+  0% {margin-right: 0; margin-left: 0;}
+  100% {margin-right: -100%; margin-left: 100%;}
+}
+
+ @-webkit-keyframes toRight {
+  0% {margin-right: 0; margin-left: 0;}
+  100% {margin-right: -100%; margin-left: 100%;}
+}
+
+#indietro {
+  position: absolute;
+  width: 100%;
+  float: left;
+  left: 2%;
+  top: 2%;
+  display: none;
+}
+
+#reg_steps {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+}
+
+#reg_steps img {
+  width: 70%; 
+  height: 70%; 
+  margin-top: 20%;
+  padding-bottom: 10%;
+}
+
+.numero_su_bubble {
+  position: absolute; 
+  margin-top: -30px; 
+  margin-left: -5px; 
+  color: #333; 
+  font-family: ARIALRB;
+  font-size: 15px;
+}
+
+#form_registrazione {
+  width: 90%;
+  margin-top: 30px;
+  margin-left: 5%;
+}
+
+#titolo_nascita {
+  font-family: Arial; 
+  color: #767676;
+}
+
+#nascita {
+  width: 100%; 
+  display: block; 
+  margin-top: 5px;
+}
+
+#check_genere {
+  height: 5%; 
+  margin-bottom: 5%; 
+  color: #767676;
+}
+
+.check {
+  width: 90%;
+  margin-left: 10%;
+  float: left;
+}
+
+.check .check-box {
+  display: inline-block;
+  width: 10%;
+}
+
+.check label {
+  font-family: Arial;
+  display: inline-block;
+  width: 80%;
+  margin-bottom: 10%;
+  font-weight: normal;
+}
+
+#reg_step1 {
+  visibility: hidden;
+}
+
+#reg_step2 {
+  visibility: hidden;
+}
+
+#reg_step3 {
+  visibility: hidden;
+}
+
+.campi_richiesti {
+  color: #767676;
+  font-size: 13px;
+}
+
+.annunci {
+  display: none;
+  font-family: ARIALRB;
+  color: #767676;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.glyphicon.glyphicon-asterisk {
+  width: 3%; 
+  margin-right: 2%; 
+  color: #157e3f;
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+#reg_step0 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#reg_step1 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#reg_step2 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#reg_step3 .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#end_reg1 {
+  background: #ccc;
+}
+
+#end_reg2 {
+  display: none;
+}
+
+
+
+/********** PROGRESS-WIZARD ************/
+
+.flexer, .progress-indicator {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.no-flexer, .progress-indicator.stacked {
+    display: block;
+}
+.no-flexer-element {
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    -moz-flex: 0;
+    flex: 0;
+}
+.flexer-element, .progress-indicator>li {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+}
+.progress-indicator {
+    margin: 0 0 1em;
+    padding: 0;
+    font-size: 80%;
+    text-transform: uppercase;
+}
+.progress-indicator>li {
+    list-style: none;
+    text-align: center;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    text-overflow: ellipsis;
+    color: #bbb;
+    display: block;
+}
+.progress-indicator>li:hover {
+    color: #6f6f6f;
+}
+.progress-indicator>li.completed, .progress-indicator>li.completed .bubble {
+    color: #65d074;
+}
+.progress-indicator>li .bubble {
+    border-radius: 1000px;
+    width: 30px;
+    height: 30px;
+    background-color: #bbb;
+    display: block;
+    margin: 0 auto .5em;
+    border-bottom: 1px solid #888;
+     transition:  background-color 1s;
+     -moz-transition:  background-color 1s;
+     -webkit-transition:  background-color 1s;
+}
+.progress-indicator>li .bubble:after, .progress-indicator>li .bubble:before {
+    display: block;
+    position: absolute;
+    top: 14px;
+    width: 100%;
+    height: 3px;
+    content: '';
+    background-color: #bbb;
+     transition:  background-color 1s;
+     -webkit-transition:  background-color 1s;
+     -moz-transition:  background-color 1s;
+}
+.progress-indicator>li.completed .bubble, .progress-indicator>li.completed .bubble:after, .progress-indicator>li.completed .bubble:before {
+    background-color: #65d074;
+    border-color: #247830;
+}
+.progress-indicator>li .bubble:before {
+    left: 0;
+}
+.progress-indicator>li .bubble:after {
+    right: 0;
+}
+.progress-indicator>li:first-child .bubble:after, .progress-indicator>li:first-child .bubble:before {
+    width: 50%;
+    margin-left: 50%}
+.progress-indicator>li:last-child .bubble:after, .progress-indicator>li:last-child .bubble:before {
+    width: 50%;
+    margin-right: 50%}
+.progress-indicator>li.active, .progress-indicator>li.active .bubble {
+    color: #337AB7;
+}
+.progress-indicator>li.active .bubble, .progress-indicator>li.active .bubble:after, .progress-indicator>li.active .bubble:before {
+    background-color: #337AB7;
+    border-color: #122a3f;
+}
+.progress-indicator>li a:hover .bubble, .progress-indicator>li a:hover .bubble:after, .progress-indicator>li a:hover .bubble:before {
+    background-color: #5671d0;
+    border-color: #1f306e;
+}
+.progress-indicator>li a:hover .bubble {
+    color: #5671d0;
+}
+.progress-indicator>li.danger .bubble, .progress-indicator>li.danger .bubble:after, .progress-indicator>li.danger .bubble:before {
+    background-color: #d3140f;
+    border-color: #440605;
+}
+.progress-indicator>li.danger .bubble {
+    color: #d3140f;
+}
+.progress-indicator>li.warning .bubble, .progress-indicator>li.warning .bubble:after, .progress-indicator>li.warning .bubble:before {
+    background-color: #edb10a;
+    border-color: #5a4304;
+}
+.progress-indicator>li.warning .bubble {
+    color: #edb10a;
+}
+.progress-indicator>li.info .bubble, .progress-indicator>li.info .bubble:after, .progress-indicator>li.info .bubble:before {
+    background-color: #5b32d6;
+    border-color: #25135d;
+}
+.progress-indicator>li.info .bubble {
+    color: #5b32d6;
+}
+.progress-indicator.stacked>li {
+    text-indent: -10px;
+    text-align: center;
+    display: block;
+}
+.progress-indicator.stacked>li .bubble:after, .progress-indicator.stacked>li .bubble:before {
+    left: 50%;
+    margin-left: -1.5px;
+    width: 3px;
+    height: 100%}
+.progress-indicator.stacked .stacked-text {
+    position: relative;
+    z-index: 10;
+    top: 0;
+    margin-left: 60%!important;
+    width: 45%!important;
+    display: inline-block;
+    text-align: left;
+    line-height: 1.2em;
+}
+.progress-indicator.stacked>li a {
+    border: none;
+}
+.progress-indicator.stacked.nocenter>li .bubble {
+    margin-left: 0;
+    margin-right: 0;
+}
+.progress-indicator.stacked.nocenter>li .bubble:after, .progress-indicator.stacked.nocenter>li .bubble:before {
+    left: 10px;
+}
+.progress-indicator.stacked.nocenter .stacked-text {
+    width: auto!important;
+    display: block;
+    margin-left: 40px!important;
+}
+@media handheld, screen and (max-width:400px) {
+    .progress-indicator {
+    font-size: 60%}
+}
+
+
+
+/*********** LOGIN ************/
+
+@font-face {
+  font-family: ARIALRB;
+  src: url('../fonts/ARLRDBD_0.TTF');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@-webkit-keyframes up {
+  0% {bottom: -40em;}
+  100% {bottom: 0em;}
+}
+
+@-webkit-keyframes down {
+  0% {bottom: 0em;}
+  100% {bottom: -40em;}
+}
+
+@-webkit-keyframes leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes up_nav {
+  0% {bottom: -2em;}
+  100% {bottom: 0em;}
+}
+
+@keyframes up {
+  0% {bottom: -40em;}
+  100% {bottom: 0em;}
+}
+
+@keyframes down {
+  0% {bottom: 0em;}
+  100% {bottom: -40em;}
+}
+
+@keyframes leave {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes stay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes up_nav {
+  0% {bottom: -2em;}
+  100% {bottom: 0em;}
+}
+
+
+nav {
+  visibility: visible;
+}
+
+#login {
+  position: absolute;
+    background: #eaeaea;
+    color: #333;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  text-align: center;
+}
+
+
+.log_chiusura {
+  height: 20px;
+  float:right;  
+  margin-bottom: 10px;
+}
+
+#log_logo {
+  text-align: center;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 1em;
+}
+
+#log_logo img {
+  width: 70%; 
+  height: 70%; 
+}
+
+#form_login {
+  width: 90%;
+  margin-top: 30px;
+  margin-left: 5%;
+}
+
+#log_annunci {
+  display: none;
+  font-family: ARIALRB;
+  color: #767676;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+#login .btn.btn-positive.btn-block {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.log_more {
+  display: inline-block;
+  padding-top: 5%;
+}
+
+.log_more a {
+  color: #157e3f;
+}
+
+
+
+/********* CHECKOUT **********/
+
+
+
+#indietro {
+  position: absolute;
+  width: 100%;
+  float: left;
+  left: 2%;
+  top: 2%;
+}
+
+#checkoutView {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#contenuto {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 2em;
+  background-color: #eaeaea;
+}
+
+#form_checkout {
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
+}
+
+#step0 {
+  width: 100%;
+  height: 100%; 
+}
+
+#lista_prodotti_checkout {
+  width: 100%;
+  height: 60%;
+  overflow-y: auto; 
+}
+
+#lista_prodotti_checkout .prodotto_checkout {
+  width: 100%;
+  height: 5em;
+  margin-top: 5%;
+  border-bottom: 1px solid #ddd;
+}
+
+.prodotto_checkout .quantita_prodotto {
+  display: inline-block;
+  text-align: center;
+  float: left;
+  width: 10%;
+  margin-right: 5%;
+  margin-left: 5%;
+  background-color: #ddd;
+  border-radius: 20px;
+  line-height: 4em;
+}
+
+.prodotto_checkout .left_prodotto {
+  display: inline-block;
+  width: 60%;
+  float: left;
+}
+
+.left_prodotto .titolo_prodotto {
+  font-family: ARIALRB;
+  font-size: 14px;
+}
+
+.left_prodotto .descrizione_prodotto {
+  line-height: 1.35;
+  font-size: 12px;
+  width: 80%;
+}
+
+.prodotto_checkout .prezzo_prodotto {
+  display: inline-block;
+  text-align: center;
+  border-radius: 10px;
+  width: 15%;
+  line-height: 4em;
+  float: left;
+  font-weight: bold;
+  color: #157e3f;
+}
+
+#prezzo_totale {
+  width: 100%;
+  height: 1.5em;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 5%;
+  background-color: #ddd;
+
+}
+
+#avanti {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3em;
+}
+
+/*.btn.btn-positive.btn-block {
+  height: 100%;
+}*/
+
+#steps {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 3.5em;
+}
+
+#step1 {
+  visibility: hidden;
+}
+
+body {
+  font-size: 14px;
+}
+      
+#text_choice {
+  margin: 0px 0px 0px 6px;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  font-size: 18px;
+}
+      
+      .indirizzi {
+        margin: 0px 0px 0px 0px;
+      }
+      
+      #lista_indirizzi {
+        position: relative;
+        margin-top: 20px;
+        background-image: url("../img/icona-spedizioni.png");
+        background-repeat: no-repeat;
+        background-size: 35px;
+        background-position: left 10px top 22px;
+        background-color: white;
+      }
+      
+      #shadow_indirizzi {
+        background: linear-gradient(rgba(234,234,234,1), rgba(234,234,234,0.5) 30%, rgba(0,0,0,0) 50%, rgba(234,234,234,0.5) 70%, rgba(234,234,234,1) );
+        position: absolute;
+        top: -1px;
+        left: 0px;
+        height: 72px;
+        width: 100%;
+        pointer-events: none;
+      }
+      
+      #lista_indirizzi ul {
+        height: 70px; 
+        width: 100%;
+        padding: 20px 15px 22px 0px;
+        margin-top: 10px;
+        overflow:hidden; 
+        overflow-y:scroll;
+        list-style-type: none;
+        margin: 0px 0px 0px 0px;
+      }
+      
+      
+      #lista_indirizzi li {
+        font-size: 20px;
+        text-align: right;
+        height: 100%;
+        padding: 0px 0px 0px 0px;
+      }
+      
+      #input_item {
+        padding: 0px; 
+        font-size: 18px; 
+        width: 80%; 
+        height: 20px; 
+        text-align: right; 
+        border: 0px;
+      }
+      
+      #selected_address {
+        margin: 20px 0px 0px 0px;
+      }
+      
+      .sottotitolo {
+        font-size: 15px;
+        float: left;
+        font-weight: bold;
+        margin: 0px;
+        padding: 0px 0px 0px 6px;
+      }
+      
+      .sub_value {
+        display: none;
+      }
+      
+      .mostra {
+        display: block;
+        padding: 1px 0px 0px 0px;
+        text-decoration: underline;
+        opacity: 0;
+        transition: opacity .6s;
+      }
+      
+      .opaco {
+        opacity: 1;
+      }
+      
+      #checktopbar {
+        background-color: #eaeaea;
+        border-bottom: 0px;   
+      }
+      
+      #avanti .bar .btn-link {
+        color: #444;
+      }
+      
+      
+      #avanti .btn-positive {
+        background-color: #147C3D;
+        border: 0px solid #147C3D;
+      }
+
+      #forward_button {
+        height: 100%;
+      }
+     
+      #new_address {
+        margin-top: 1px;
+        height: 3em;
+        color: #BF1E2E;
+        display: none;
+      }
+      
+      .input-group {
+        top: -10px;
+        display: none;
+      }
+      
+      .input-row {
+        height: 36px;
+      }
+      
+      .input-row label {
+        width: 42%;
+        padding: 15px 10px 8px 6px;
+      }
+      
+      .input-row input {
+        width: 58%;
+        padding: 8px 0px 0px 0px;
+      }
+      
+      #save_addr {
+        bottom: 0;        
+      }
+
+      #step2 span {
+        font-weight: bold;
+      }
+
+      #sped_martedi {
+        width: 60%;
+        height: 2em;
+        background: #ddd;
+        text-align: center;
+        margin-top: 2%;
+        margin-left: 20%;
+        padding-top: 1%;
+      }
+
+      #sped_venerdi {
+        width: 60%;
+        height: 2em;
+        margin-top: 5%;
+        margin-left: 20%;
+        background: #ddd;
+        text-align: center;
+        padding-top: 1%;
+      }
+
+      .selected_day {
+        background-color: #767676;
+        color: #fff;
+      }
+
+      #scelta_gg {
+        visibility: hidden;
+        width: 100%;
+        margin-top: 10%;
+      }
+
+      #giorno1 {
+        width: 60%;
+        height: 2em;
+        margin-top: 2%;
+        margin-left: 20%;
+        background: #ddd;
+        text-align: center;
+        padding-top: 1%;
+      }
+
+      #giorno2 {
+        margin-top: 5%;
+        margin-left: 20%;
+        width: 60%;
+        height: 2em;
+        background: #ddd;
+        text-align: center;
+        padding-top: 1%;
+      }

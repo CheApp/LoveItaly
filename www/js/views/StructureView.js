@@ -6,6 +6,7 @@ define(function(require) {
   var ProdottiCarrello = require("collections/CollezioneProdotti");
   var CartList = require("collections/Nel_Carrello");
   var cart_object = require("models/cart_object");
+  var md5 = require("md5");
 
   var flag = false;
   var quantita_selezionata = false;
@@ -27,7 +28,11 @@ define(function(require) {
       "click #category"    : "goCategory",
       "click #manufacturer": "goManufacturer",
       "click #home"        : "goHome",
-      "keypress #inp"      : "search"
+      "click #profilo"     : "goProfile",
+      "click #go_reg"      : "goReg",
+      "click #log_acc"     : "login",
+      "keypress #inp"      : "search",
+      "click #car_checkout": "goToCheckout"
     },
 
     initialize: function(options) {
@@ -50,9 +55,81 @@ define(function(require) {
     },
 
      goHome: function() {
+      if($("#menubutton").hasClass("disabled")){
+      document.getElementById("menubutton").classList.remove("disabled");    
+      }
+      if($("#menubutton").hasClass("disabledp")){
+      document.getElementById("menubutton").classList.remove("disabledp");    
+      }
+      if(!($("#backbutton").hasClass("disabled"))){
+      document.getElementById("backbutton").classList.add("disabled");    
+      }
+      if($("#searchbutton").hasClass("disabled")){
+      document.getElementById("searchbutton").classList.remove("disabled");    
+      }
+
       Backbone.history.navigate("home", {
         trigger: true
       });
+    },
+
+    goProfile: function() {
+      if (localStorage.getItem("ID")>0) {
+        Backbone.history.navigate("profilo", {
+          trigger: true
+        });
+      } else {
+        apriLogin();
+
+        function apriLogin() {
+          var login = document.getElementById("login");
+          login.style.visibility = "visible";
+          login.style.animation = "up 0.3s";
+          login.style.WebkitAnimation =   "up 0.3s";
+          var header = document.getElementsByTagName("header");
+          header[0].style.animation = "leave 0.3s";
+          header[0].style.WebkitAnimation = "leave 0.3s";
+          var nav = document.getElementsByTagName("nav");
+          nav[0].style.animation = "leave 0.3s";
+          nav[0].style.WebkitAnimation = "leave 0.3s";
+          setTimeout(impostaLogin, 300);
+        }
+
+        function impostaLogin() {
+          var header = document.getElementsByTagName("header");
+          var nav = document.getElementsByTagName("nav");
+          var content = document.getElementById("content");
+          nav[0].style.visibility = "hidden";
+          header[0].style.visibility = "hidden";
+          content.style.display = "none";
+        }
+
+        $(".log_chiusura").click(chiudiLogin);
+
+        $("#go_reg").click(chiudiLogin);
+
+        function chiudiLogin() {
+          var login = document.getElementById("login");
+          login.style.animation = "down 0.5s";
+          login.style.WebkitAnimation = "down 0.5s";
+          var header = document.getElementsByTagName("header");
+          header[0].style.visibility = "visible";
+          header[0].style.animation = "stay 0.2s";
+          header[0].style.WebkitAnimation = "stay 0.2s";
+          var content = document.getElementById("content");
+          content.style.display = "inline-block";     
+          setTimeout(togliLogin, 500);
+        }
+
+        function togliLogin() {
+          var login = document.getElementById("login");
+          login.style.visibility = "hidden";
+          var nav = document.getElementsByTagName("nav");
+          nav[0].style.visibility = "visible";
+          nav[0].style.animation = "up_nav 0.1s";
+          nav[0].style.WebkitAnimation = "up_nav 0.1s";     
+        }
+      }
     },
  
     goBack: function() {
@@ -196,11 +273,13 @@ define(function(require) {
           prodotto.style.animation = "car_elimina_prodotto 0.5s";
           prodotto.style.WebkitAnimation = "car_elimina_prodotto 0.5s"; 
           setTimeout(function() { 
-            //debugger;
-            prodotto.remove();
-
+            
             var id_cart_object = prodotto.getAttribute('data-id');
 
+            prodotto.remove();
+
+            ListaCarrello.fetch({ajaxSync: false});
+            
             var array_cart = ListaCarrello.models;
                 
             var c;
@@ -382,6 +461,100 @@ define(function(require) {
       }
 
     },
+
+    goToCheckout: function(e) {
+      var cid = 2;
+
+        flag = false;
+        var carrello = document.getElementById("carrello");
+        carrello.style.animation =  "car_down 0.5s";
+        carrello.style.WebkitAnimation =  "car_down 0.5s";
+        var lista_prodotti = document.getElementById("car_lista_prodotti");
+        lista_prodotti.style.animation = "car_leave 0.4s"
+        lista_prodotti.style.WebkitAnimation = "car_leave 0.4s"
+        var header = document.getElementsByTagName("header");
+        header[0].style.visibility = "visible";
+        header[0].style.animation = "car_stay 0s";
+        header[0].style.WebkitAnimation = "car_stay 0s";
+        var checkout = document.getElementById("car_checkout");
+        checkout.style.animation = "car_down_checkout 0.5s";
+        checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
+        setTimeout(function() {
+          var content = document.getElementById("content");
+          content.style.display = "inline-block";
+        }, 200); 
+        setTimeout(function() {
+          var lista_prodotti = document.getElementById("car_lista_prodotti");
+          lista_prodotti.style.animation = "car_leave 0.3s"
+          lista_prodotti.style.WebkitAnimation = "car_leave 0.3s"
+          lista_prodotti.style.visibility = "hidden";
+          carrello.style.visibility = "hidden";
+          checkout.style.visibility = "hidden";
+        }, 300);
+
+      Backbone.history.navigate("checkout?cid=" + cid, {
+        trigger: true
+      });
+    },
+
+    login: function() {
+      checkUtente(); 
+
+      function autenticazione (xhr) {
+        var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; 
+        var token = 'Basic '.concat(key64);
+        xhr.setRequestHeader('Authorization', token);
+      }
+
+
+      function checkUtente () {
+        var email = $("#email").val();
+        var pwd = $("#pass").val();
+        var pass = md5('7j3EQiXxwscCNaOIORd8YqmvkjfEmDVxs4EcihNJNVNyCG4bHA3ThTnk'+pwd);
+        $.ajax({
+          url: 'http://192.168.56.101/loveitaly/api/customers/?filter[email]='+email+'&filter[passwd]='+pass,
+          async: true,
+          type: "GET",
+          dataType: 'xml',
+          beforeSend: autenticazione,
+
+          success: function (result) {
+            var customer = result.getElementsByTagName("customer")[0];
+            var log_annunci = document.getElementById("log_annunci");
+            log_annunci.style.display = "inline-block";
+            if (customer != null) {
+              localStorage.setItem("ID", customer.getAttribute("id"));
+              log_annunci.innerHTML = "Accesso effettuato!"
+              setTimeout(function() {
+                var login = document.getElementById("login");
+                login.style.display = "none";
+                var header = document.getElementsByTagName("header");
+                var nav = document.getElementsByTagName("nav");
+                var content = document.getElementById("content");
+                nav[0].style.visibility = "visible";
+                header[0].style.visibility = "visible";
+                content.style.display = "inline-block";
+              }, 2000)
+
+            } else {
+              log_annunci.innerHTML = "Credenziali errate!";
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+          }
+        })
+      }
+    },
+
+    goReg: function() {
+      Backbone.history.navigate("registrazione", {
+        trigger: true
+      });      
+    }
 
   });
 

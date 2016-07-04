@@ -1,0 +1,197 @@
+<header class="bar bar-nav" id="checktopbar">
+    <button id="step_precedente" class="btn btn-link btn-nav pull-left">
+      <span class="icon icon-left-nav"></span>
+      Indietro
+    </button>
+    <button id="new_address" class="btn btn-link btn-nav pull-right">
+      Nuovo
+      <span class="icon icon-plus"></span>
+    </button>
+  
+</header>
+
+  <div id="contenuto">
+
+    <div id="form_checkout">
+      <form id="checkout"></form>
+
+      <div id="step0co"> 
+        <div class="annunci"></div>
+
+        <div id="lista_prodotti_checkout">
+
+{{#each ordini}}
+            <div class="prodotto_checkout">
+              <div class="quantita_prodotto">
+                {{ quantita}}
+              </div>
+              <div class="left_prodotto">
+                <div class="titolo_prodotto">
+                  {{ nome_prodotto }}
+                </div>
+                <div class="descrizione_prodotto">
+                  {{shortD }}
+                </div>
+              </div>
+              <div class="prezzo_prodotto">
+               € <span>{{ prezzo }}</span>
+              </div>  
+            </div>        
+{{/each}}
+             
+          </div>
+          <div id="prezzo_totale">
+            € <span></span>
+          </div>
+      </div>
+
+      <div id="step1co"> 
+        <div class="annunci"></div>
+        
+        <div class="indirizzi">
+          <h4 id="text_choice">Scegli un indirizzo di consegna</h4>
+          
+          <div id="lista_indirizzi">
+            <ul id="ul_indirizzi">
+{{#each Indirizzi}}
+              <li>{{ alias }}</li>
+{{/each}}
+           
+              <li id="form_addr" style="display: none;">
+                <input id="input_item" type="text" placeholder="Nuovo indirizzo" autofocus>
+              </li>                     
+            </ul>
+            
+            <div id="shadow_indirizzi"></div>
+          </div>
+
+          <!--<div id="curroff">Currentoffset: </div>
+          <div id="poscrol">Positionscroll: </div>-->
+          
+          <div id="selected_address">
+            <p class="sottotitolo">Nome:&nbsp&nbsp</p>
+{{#each Indirizzi}}                                        
+                <p class="sub_value mostra opaco">{{ firstname }} {{ lastname }}</p>
+{{/each}}                   
+
+
+            <p class="sottotitolo">Via:&nbsp&nbsp</p>
+{{#each Indirizzi}}                                               
+                <p class="sub_value mostra opaco">{{ address1 }}</p>  
+{{/each}}                     
+
+
+            <p class="sottotitolo">CAP e Paese:&nbsp&nbsp</p>
+{{#each Indirizzi}}                                             
+                <p class="sub_value mostra opaco">{{ postcode }} {{ paese }}</p>
+{{/each}}   
+
+
+            <p class="sottotitolo">Città:&nbsp&nbsp</p>
+{{#each Indirizzi}}                                             
+                <p class="sub_value mostra opaco">{{ city }}</p>
+{{/each}}              
+
+
+            <p class="sottotitolo">Provincia:&nbsp&nbsp</p>
+{{#each Indirizzi}}                                         
+                <p class="sub_value mostra opaco">{{ provincia }}</p>
+{{/each}}                                       
+
+
+            <!--<p class="sottotitolo">Codice Fiscale:&nbsp&nbsp</p>
+                                            
+                <p class="sub_value mostra opaco">DFRSFN92M03G878H</p>
+                <!--<p class="sub_value">cbecckajcnedjwcH</p>
+                <p class="sub_value">DFRSqwdcqcqq878H</p>
+                <p class="sub_value">hhhhhN92M03G878H</p>-->
+                                        
+            <p class="sottotitolo">Cellulare:&nbsp&nbsp</p>
+{{#each Indirizzi}}                                             
+                <p class="sub_value mostra opaco">{{ phone }}</p>
+{{/each}}       
+
+
+          </div>
+          
+          <form id="input_addr" class="input-group" >
+            <div class="input-row">
+              <label>Nome:</label>
+              <input type="text" >
+            </div>
+            <div class="input-row">
+              <label>Cognome:</label>
+              <input type="text" >
+            </div>
+            <div class="input-row">
+              <label>Via:</label>
+              <input type="text" >
+            </div>
+            <div class="input-row">
+              <label>CAP:</label>
+              <input type="number" >
+            </div>
+            <div class="input-row">
+              <label>Paese:</label>
+              <input type="text" >
+            </div>
+            <div class="input-row">
+              <label>Provincia:</label>
+              <input type="text" >
+            </div>
+            <!--<div class="input-row">
+              <label>Codice fiscale:</label>
+              <input type="text" >
+            </div>-->
+            <div class="input-row">
+              <label>Telefono:</label>
+              <input type="tel" >
+            </div>
+            
+          </form>
+         
+          
+        </div>
+        
+        
+      </div>
+
+      <div id="step2co"> 
+        <div class="annunci"></div>
+
+        <h4 id="text_choice">Scegli il giorno di spedizione</h4><br/>
+        <div id="sped_martedi">MARTEDÌ</div>
+        <div id="sped_venerdi">VENERDÌ</div>
+
+        <div id="scelta_gg">  
+          <h4 id="text_choice">Date disponibili</h4><br/>
+          <div id="giorno1"></div>
+          <div id="giorno2"></div>
+        </div>
+
+      </div>
+
+      <div id="step3co"> 
+        <div class="annunci"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+  
+
+
+  <div id="stepsco">
+      <ul class="progress-indicator">
+        <li class="completed"> <span class="bubble"></span><span class="numero_su_bubble"></span></li>
+        <li> <span class="bubble"></span><span class="numero_su_bubble"/></li>
+        <li> <span class="bubble"></span><span class="numero_su_bubble"/></li>
+        <li> <span class="bubble"></span><span class="numero_su_bubble"/></li>
+      </ul>
+  </div>
+
+  <div id="avanti">
+    <button id="forward_button" class="btn btn-positive btn-block">Avanti</button>
+    <button data-id="{{ Indirizzi.1.customer }}" id="save_addr_button" class="btn btn-positive btn-block">Salva</button>
+  </div>

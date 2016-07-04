@@ -1,5 +1,5 @@
 <header id="headbar" class="disabled">
-<div class="bar bar-nav headbar">
+<div class="bar bar-nav headbar" id="topbar">
       <a id="menubutton" class="icon icon-bars pull-left text"></a>
       <a id="backbutton" class="icon icon-left-nav pull-left text disabled"></a>
       <a id="searchbutton"  class="icon icon-search pull-right text"></a>
@@ -14,7 +14,7 @@
      <div id="menu" class="menubox">
         <div id="menuhead" class="head"></div>
          <div class="menucontenuto">
-            <ul class="table-view">
+            <ul class="table-view tablemenu">
 
             <div id="startmenu">
              <li class="table-view-cell text">
@@ -36,10 +36,10 @@
                </a>
              </li>
              
-             {{#each Aziende}}
+              {{#each Aziende}}
              <li id="manufacturer" data-id="{{id}}" class="table-view-cell text">
                 <a class="navigate-right">
-                  {{firstname}} {{lastname}}
+                  {{name}}
                 </a>
              </li>
              {{/each}}
@@ -83,8 +83,8 @@
     <span class="glyphicon glyphicon-shopping-cart" style="font-size: 30px; padding-top: 7px;"></span>
     <span id="badge_carrello">1</span>
       </a>
-      <a class="tab-item" href="#">
-        <span class="icon icon-person" style="font-size: 30px;"></span>
+      <a class="tab-item">
+        <span id="profilo" class="icon icon-person" style="font-size: 30px;"></span>
         <span class="tab-label"></span>
       </a>
     </nav>
@@ -140,3 +140,25 @@
         <span class="car_item_q">8</span>    
       </div>
     </div>
+
+
+  <div id="login">
+
+      <div class="log_chiusura"><span class="icon icon-close" style="font-size: 30px;"></span></div>
+
+      <div id="log_logo">
+      <img src="/img/splash.png">
+      </div>
+
+      <div id="form_login">
+        <form id="login"></form>
+        <div id="log_annunci"></div>
+        <div>
+          <input type="text" id="email" name="email" placeholder="E-mail" form="login" required>
+          <input type="password" id="pass" name="pass" placeholder="Password" form="login" required>
+          <input id="log_acc" class="btn btn-positive btn-block" style="margin-top: 20px;" type="submit" form="login" value="Accedi!">
+        </div>
+        <span class="log_more">Se hai perso i tuoi dai, <a href="#">recuperali qui.</a></span>
+        <span class="log_more">Se non hai un profilo, <a id="go_reg">registrati ora!</a></span>
+        
+  </div>

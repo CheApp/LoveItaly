@@ -22,7 +22,7 @@ define(function(require) {
       
     },
 
-    id: "myview",
+    id: "home",
 
     events: {
       "click .product": "goinfoprodotto"

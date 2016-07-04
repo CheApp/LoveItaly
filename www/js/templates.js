@@ -15,5 +15,12 @@ define({
     infoprodotto: "templates/infoprodotto.html",
     listaprodotti: "templates/listaprodotti.html",
     infoazienda: "templates/infoazienda.html",
-    cart: "templates/cart.html"
+    cart: "templates/cart.html",
+    checkout: "templates/checkout.html",
+    profilo : "templates/profilo.html",
+    indirizzi : "templates/indirizzi.html",
+    showindirizzo : "templates/showindirizzo.html",
+    addindirizzo : "templates/addindirizzo.html",
+    registrazione: "templates/registrazione.html",
+    ordini : "templates/ordini.html"
 });
