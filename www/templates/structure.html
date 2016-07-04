@@ -17,16 +17,31 @@
             <ul class="table-view tablemenu">
 
             <div id="startmenu">
-             <li class="table-view-cell text">
-               <a class="navigate-right" id="categorie">
-                  Scegli per Categoria
-               </a>
-             </li>
-             <li class="table-view-cell text">
-                <a class="navigate-right" id="aziende">
-                  Scegli per Azienda
+              <li>
+                <select name="posizione" id="mylocation">
+                  <option value="null">Dove vuoi ricevere i tuoi acquisti?</option>
+                  <option value="Castel frentano">Castel Frentano (CH)</option>
+                  <option value="Fossacesia">Fossacesia (CH)</option>
+                  <option value="Frisa">Frisa (CH)</option>
+                  <option value="Lanciano">Lanciano (CH)</option>
+                  <option value="Mozzagrogna">Mozzagrogna (CH)</option>
+                  <option value="Ortona">Ortona (CH)</option>
+                  <option value="Rocca San Giovanni">Rocca San Giovanni (CH)</option>
+                  <option value="Santa Maria Imbaro">Santa Maria Imbaro (CH)</option>
+                  <option value="San Vito Chietino">San Vito Chietino (CH)</option>
+                  <option value="Treglio">Treglio (CH)</option>
+                </select>
+              </li>
+              <li class="table-view-cell text">
+                <a class="navigate-right" id="categorie">
+                    Scegli per Categoria
                 </a>
-             </li>
+              </li>
+              <li class="table-view-cell text">
+                  <a class="navigate-right" id="aziende">
+                    Scegli per Azienda
+                  </a>
+              </li>
            </div>
 
            <div id="aziendamenu" class="disabled menuscroll">
@@ -95,6 +110,24 @@
     </nav>
 
     <div id="copertura_carrello"></div>
+
+    <div id="popup_location">
+      <p id="irraggiungibile">Loveitaly non spedisce nella tua zona, scegli uno dei seguenti comuni:</p>
+      <p id="nondisponibile">Non sei sotto copertura GPS, scegli dove desideri ricevere i tuoi ordini:</p>
+      <ul>
+        <li class="loc_option" data-value="Castel frentano">Castel Frentano (CH)</li>
+        <li class="loc_option" data-value="Fossacesia">Fossacesia (CH)</li>
+        <li class="loc_option" data-value="Frisa">Frisa (CH)</li>
+        <li class="loc_option" data-value="Lanciano">Lanciano (CH)</li>
+        <li class="loc_option" data-value="Mozzagrogna">Mozzagrogna (CH)</li>
+        <li class="loc_option" data-value="Ortona">Ortona (CH)</option>
+        <li class="loc_option" data-value="Rocca San Giovanni">Rocca San Giovanni (CH)</li>
+        <li class="loc_option" data-value="Santa Maria Imbaro">Santa Maria Imbaro (CH)</li>
+        <li class="loc_option" data-value="San Vito Chietino">San Vito Chietino (CH)</li>
+        <li class="loc_option" data-value="Treglio">Treglio (CH)</li>
+      </ul>
+      
+    </div>
     
     <div id="lista_quantita"> 
       <div id="lista_item">

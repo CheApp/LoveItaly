@@ -350,6 +350,29 @@ infoprodtto select {
   z-index: 150;
 }
 
+#popup_location {
+  width: 300px;
+  height: 500px;
+  background: gray;
+  opacity: 1;
+  display: none;
+  position: absolute;
+  margin: -250px 0 0 -150px;
+  top: 50%;  
+  left: 50%;  
+  z-index: 150;
+}
+
+#irraggiungibile {
+  display: none;
+  color: #000;
+}
+
+#nondisponibile {
+  display: none;
+  color: #000;
+}
+
 .quantita .num_prodotti {
   position: relative;
   float: left;
