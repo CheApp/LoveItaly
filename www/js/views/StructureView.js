@@ -27,6 +27,7 @@ define(function(require) {
       "click #category"    : "goCategory",
       "click #manufacturer": "goManufacturer",
       "click #home"        : "goHome",
+      "click #profilo"     : "goProfile",
       "keypress #inp"      : "search",
       "click #car_checkout": "goToCheckout"
     },
@@ -51,7 +52,26 @@ define(function(require) {
     },
 
      goHome: function() {
+      if($("#menubutton").hasClass("disabled")){
+      document.getElementById("menubutton").classList.remove("disabled");    
+      }
+      if($("#menubutton").hasClass("disabledp")){
+      document.getElementById("menubutton").classList.remove("disabledp");    
+      }
+      if(!($("#backbutton").hasClass("disabled"))){
+      document.getElementById("backbutton").classList.add("disabled");    
+      }
+      if($("#searchbutton").hasClass("disabled")){
+      document.getElementById("searchbutton").classList.remove("disabled");    
+      }
+
       Backbone.history.navigate("home", {
+        trigger: true
+      });
+    },
+
+    goProfile: function() {
+      Backbone.history.navigate("profilo", {
         trigger: true
       });
     },
