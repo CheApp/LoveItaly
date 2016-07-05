@@ -49,7 +49,7 @@ define(function(require) {
 
       document.getElementById("topbar").classList.add("disabled");
       document.getElementById("menubutton").classList.add("disabled");
-      document.getElementById("navbar").classList.add("disabled");
+      document.getElementsByTagName("nav")[0].classList.add("disabled");
       document.getElementById("acquistabtn").classList.add("disabled");
       document.getElementById("head").classList.add("disabled");
       document.getElementById("menu").classList.add("disabled");

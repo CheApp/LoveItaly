@@ -54,7 +54,7 @@
           <div id="lista_indirizzi">
             <ul id="ul_indirizzi">
 {{#each Indirizzi}}
-              <li>{{ alias }}</li>
+              <li data-id="{{ id_indirizzo }}">{{ alias }}</li>
 {{/each}}
            
               <li id="form_addr" style="display: none;">
@@ -173,7 +173,9 @@
 
       <div id="step3"> 
         <div class="annunci"></div>
-
+        <h4>Ordine effettuato</h4>
+        <p>Il tuo ordine è stato preso in carico, riceverai a breve una email con tutti i dettagli.</p>
+        <p>Si ricorda che il pagamento avviene esclusivamente per mezzo di contrassegno.</p>
       </div>
 
     </div>
