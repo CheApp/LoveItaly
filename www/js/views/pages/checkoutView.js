@@ -112,6 +112,13 @@ define(function(require) {
           }
 
           if (newStep == 3) {
+            document.getElementById('step_precedente').style.display = "none";
+            var done = $('#forward_button');
+            done.html("Torna alla Home");
+            done.unbind('click');
+            done.on("click", function() {
+              window.checkout.goHome();
+            });
             close_order();
           }
           
@@ -1000,7 +1007,26 @@ debugger;
       window.history.back();
 
       $('#apri_carrello').click();
-    }
+    },
+
+    goHome: function() {
+      if($("#menubutton").hasClass("disabled")){
+      document.getElementById("menubutton").classList.remove("disabled");    
+      }
+      if($("#menubutton").hasClass("disabledp")){
+      document.getElementById("menubutton").classList.remove("disabledp");    
+      }
+      
+      document.getElementById("topbar").classList.remove("disabled");    
+      document.getElementById("navbar").classList.remove("disabled"); 
+      if($("#searchbutton").hasClass("disabled")){
+      document.getElementById("searchbutton").classList.remove("disabled");    
+      }
+
+      Backbone.history.navigate("home", {
+        trigger: true
+      });
+    },
     
   });
 
