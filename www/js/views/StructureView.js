@@ -158,7 +158,7 @@ define(function(require) {
       e.preventDefault();
       var aid = $(e.currentTarget).data("id");
      
-      Backbone.history.navigate("listaprodotti?action=2&param="+aid, {
+      Backbone.history.navigate("infoazienda?aid=" + aid + "&tab=3", {
         trigger: true
       });
     },
