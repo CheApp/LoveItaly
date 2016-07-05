@@ -110,12 +110,193 @@ define(function(require) {
           else {
             document.getElementById("new_address").style.display = "none";
           }
+
+          if (newStep == 3) {
+            close_order();
+          }
           
         }, 300);
 
       }
 
+      function close_order() {
+        
+        if (indice_indirizzo === undefined) {
+          var id_indirizzo = document.getElementById('ul_indirizzi').children[0].getAttribute('data-id');
+        } else {
+          var id_indirizzo = document.getElementById('ul_indirizzi').children[indice_indirizzo].getAttribute('data-id');
+        }        
+        
+        var id_cliente = document.getElementById("save_addr_button").getAttribute("data-id");
+
+        var prodotti = window.checkout.collection.ordini;
+        var totale = document.getElementById("prezzo_totale").getElementsByTagName("span")[0].innerHTML;
+        var totale_con_gestione = parseFloat(totale) + 2;
+
+        
+        var autenticazione = function (xhr) {
+          var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
+          var token = 'Basic '.concat(key64);
+          xhr.setRequestHeader('Authorization', token);
+        }
+
+        $.ajax({
+          url: 'http://192.168.56.101/loveitaly/api/carts/?io_format=XML&schema=blank',
+          async: true,
+          type: "GET",
+          dataType: 'xml',
+          beforeSend: autenticazione,
+
+          success: function (result) {
+
+            var $xml = $(result);
+            $xml.find('id_address_delivery').text(id_indirizzo);
+            $xml.find('id_address_invoice').text(id_indirizzo);
+            $xml.find('id_currency').text("1");
+            $xml.find('id_customer').text(id_cliente);
+            $xml.find('id_lang').text("1");
+            $xml.find('id_carrier').text("21");
+            $xml.find('secure_key').text("c513dacd36bd36e27c51568d2cc6a10a");
+
+            for (var i = 0; i < prodotti.length - 1; i++) {
+              var riga = $xml.find('associations').find('cart_rows')[1].cloneNode(true);
+              $xml.find('associations').find('cart_rows')[0].appendChild(riga);
+            }
+
+            var array_id = $xml.find('id_product');
+            var array_quantita = $xml.find('quantity');
+            var array_indirizzi = $xml.find('id_address_delivery');
+            var array_attribute = $xml.find('id_product_attribute');
+
+            for (var i = 0; i < prodotti.length; i++) {
+              array_id[i].innerHTML = prodotti[i].id_prodotto;
+              array_quantita[i].innerHTML = prodotti[i].quantita;
+              array_indirizzi[i].innerHTML = id_indirizzo;
+              //array_attribute[i].innerHTML = "0";
+            }
+
+            var carrello = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
+
+            $.ajax({
+              url: 'http://192.168.56.101/loveitaly/api/carts/?io_format=XML',
+              async: true,
+              type: "POST",
+              dataType: 'xml',
+              contentType: "text/xml",
+              beforeSend: autenticazione,
+              data: carrello,
+
+              success: function (result) {
+                console.log(result);
+                console.log("carrello salvato nel db");
+
+                var id_carrello = $(result).find('id')[0].firstChild.nodeValue;
+debugger;
+                $.ajax({
+                  url: 'http://192.168.56.101/loveitaly/api/orders/?io_format=XML&schema=blank',
+                  async: true,
+                  type: "GET",
+                  dataType: 'xml',
+                  beforeSend: autenticazione,
+
+                  success: function (result) {
+                          
+                    var $xml = $(result);
+                    $xml.find('id_customer').text(id_cliente);
+                    $xml.find('id_address_delivery').text(id_indirizzo);
+                    $xml.find('id_address_invoice').text(id_indirizzo);
+                    $xml.find('total_paid').text(totale_con_gestione.toString());
+                    $xml.find('id_cart').text(id_carrello);     
+                    $xml.find('id_currency').text("1");
+                    $xml.find('id_lang').text("1");     
+                    $xml.find('id_carrier').text("21");
+                    //$xml.find('current_state').text("10");
+                    $xml.find('payment').text('Payment by check');
+                    $xml.find('module').text('cheque');         
+                    $xml.find('total_paid_real').text(totale_con_gestione.toString());  
+                    $xml.find('total_products').text(totale.toString());  
+                    $xml.find('total_products_wt').text(totale.toString());     
+                    $xml.find('conversion_rate').text("1");
+                    $xml.find('secure_key').text("c513dacd36bd36e27c51568d2cc6a10a");
+                    //$xml.find('delivery_date').text(data_consegna);
+
+                    // c'è il - 1 perchè un nodo (ordine) è già presente nell' xml
+                    /*for (var i = 0; i < prodotti.length - 1; i++) {
+                        var riga = $xml.find('associations').find('order_rows')[1].cloneNode(true);
+                        $xml.find('associations').find('order_rows')[0].appendChild(riga);
+                      }
+
+                      var array_id = $xml.find('product_id');
+                      var array_quantita = $xml.find('product_quantity');
+                      var array_prezzi = $xml.find('product_price');
+                      //var array_attribute = $xml.find('product_attribute_id');
+
+                      for (var i = 0; i < prodotti.length; i++) {
+                        array_id[i].innerHTML = prodotti[i].id_prodotto;
+                        array_quantita[i].innerHTML = prodotti[i].quantita;
+                        array_prezzi[i].innerHTML = prodotti[i].prezzo;
+                        //array_attribute[i].innerHTML = "0";
+                    }*/
+
+                  debugger;       
+                    var ordine = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
+
+                    $.ajax({
+                      url: 'http://192.168.56.101/loveitaly/api/orders/?io_format=XML',
+                      async: true,
+                      type: "POST",
+                      dataType: 'xml',
+                      contentType: "text/xml",
+                      beforeSend: autenticazione,
+                      data: ordine,
+
+                      success: function (result) {
+                        console.log("ordine salvato nel db");
+                      },
+
+                      error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log('Errore chiamata ajax! Post di order' +
+                                    '\nReponseText: ' + XMLHttpRequest.responseText +
+                                    '\nStatus: ' + textStatus +
+                                    '\nError: ' + errorThrown);
+                      }
+                    })
+
+                  },
+
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax! Get di order' +
+                                '\nReponseText: ' + XMLHttpRequest.responseText +
+                                '\nStatus: ' + textStatus +
+                                '\nError: ' + errorThrown);
+                  }
+
+                })
+              },
+                
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log('Errore chiamata ajax! Post di cart' +
+                            '\nReponseText: ' + XMLHttpRequest.responseText +
+                            '\nStatus: ' + textStatus +
+                            '\nError: ' + errorThrown);
+              }
+            })
+
+          },
+
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log('Errore chiamata ajax! Get di cart' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+          }
+
+        })
+
+      }
+
       $("#step_precedente").on("click", function() {
+        
         var content_steps = document.getElementById("steps");
         var lista = content_steps.getElementsByClassName("progress-indicator");
         var steps = lista[0].getElementsByTagName("li");
@@ -140,6 +321,10 @@ define(function(require) {
         }
         else {
           document.getElementById("new_address").style.display = "none";
+        }
+
+        if (oldStep == 1) {
+          window.checkout.goBack();
         }
       });
 
@@ -435,7 +620,7 @@ define(function(require) {
 
 
                   var indirizzo = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
-
+debugger;
                   $.ajax({
                     url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML',
                     async: true,
@@ -801,13 +986,21 @@ define(function(require) {
 
               this.el.querySelector("#ul_indirizzi").animate({ scrollTop: 205 });*/
 
-    }
+    },
 
-    /*goToMap: function(e) {
-      Backbone.history.navigate("map", {
-        trigger: true
-      });
-    }*/
+    goBack: function() {
+      if($("#menubutton").hasClass("disabled")){
+        document.getElementById("menubutton").classList.remove("disabled");
+        document.getElementById("backbutton").classList.add("disabled");
+        document.getElementById('topbar').classList.remove('disabled');
+        document.getElementById("navbar").classList.remove("disabled");
+        document.getElementById("acquistabtn").classList.add("disabled");
+      }
+    
+      window.history.back();
+
+      $('#apri_carrello').click();
+    }
     
   });
 

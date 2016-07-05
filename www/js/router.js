@@ -10,7 +10,7 @@ define(function(require) {
   var checkoutView = require("views/pages/checkoutView");
   var InfoAzienda = require("views/pages/InfoAzienda");
   var Cart = require("views/pages/Cart");
-  var Profilo = require("views/pages/Profilo");
+  var User = require("views/pages/User");
   var Indirizzi = require("views/pages/Indirizzi");
   var Showindirizzo = require("views/pages/Showindirizzo");
   var Addindirizzo = require("views/pages/Addindirizzo");
@@ -27,11 +27,13 @@ define(function(require) {
   var AddressCollection = require("collections/Address_Collection");
   var StateModel = require("models/State_Model");
   var StateCollection = require("collections/State_Collection");
+  var Registrazione = require("views/pages/Registrazione");
 
 
   var Collezione = new CollezioneProdotti();
   var Aziende    = new CollezioneAziende();
   var Categorie  = new CollezioneCategorie();
+  var ListaIndirizzi  = new AddressCollection();
   var ListaCarrello = new CartList();
 
   var AppRouter = Backbone.Router.extend({
@@ -48,10 +50,11 @@ define(function(require) {
       "listaprodotti?action=:act&param=:par" : "ListaProdotti",
       "infoazienda?aid=:aid" : "InfoAzienda",
       "checkout?cid=:cid": "showCheckout",
-      "profilo" : "Profilo",
+      "user" : "User",
       "indirizzi" : "Indirizzi",
-      "showindirizzo" : "Showindirizzo",
+      "showindirizzo?aid=:aid" : "Showindirizzo",
       "addindirizzo" : "Addindirizzo",
+      "registrazione" : "Registrazione",      
       "ordini": "Ordini"
     },
 
@@ -135,6 +138,7 @@ define(function(require) {
     },
 
     InfoAzienda: function(aid) {
+      this.refreshCart();
       var router = this;
       var manufacturer = new Azienda({ id : aid });
       manufacturer.fetch({
@@ -228,22 +232,50 @@ define(function(require) {
       
     },
 
-    Profilo: function() {    
-        var page = new Profilo();
+    User: function() { 
+        this.refreshCart();   
+        var page = new User();
         this.changePage(page);   
       },
 
 
     Indirizzi: function() {
       
-      var page = new Indirizzi();
-      this.changePage(page); 
+      var router = this;
+      ListaIndirizzi.fetch({
 
+        success: function(collezione, response, options) {
+
+            var ElencoProvince = new StateCollection();
+            ElencoProvince.fetch({
+
+              success: function(province, response, options) {
+                
+                var collezione_filtrata = collezione.byCustomer(localStorage.getItem("ID"));
+                var array_addr = collezione_filtrata.models;
+                var array_prov = province.models;
+
+
+                for (var c = 0; c < array_addr.length; c++) {
+                  for (var j = 0; j < array_prov.length; j++) {
+
+                    if (array_addr[c].attributes.state == array_prov[j].attributes.id) {
+                      array_addr[c].attributes.provincia = array_prov[j].attributes.provincia;
+                    }
+                  }
+                }
+            router.ListaIndirizzi = collezione_filtrata;
+            var page = new Indirizzi({collection : collezione_filtrata});
+            router.changePage(page);
+          }
+            });
+            }
+            });    
     },
 
-     Showindirizzo: function() {
+     Showindirizzo: function(id) {
       
-      var page = new Showindirizzo();
+      var page = new Showindirizzo({model : ListaIndirizzi.at(id)});
       this.changePage(page); 
 
     },
@@ -298,6 +330,13 @@ define(function(require) {
       });
      }
     },
+
+  Registrazione: function() {
+      
+      var page = new Registrazione();
+      this.changePage(page); 
+
+    }
     
 
   });

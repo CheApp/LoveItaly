@@ -1,0 +1,91 @@
+
+  <div id="indietro"><a class="icon icon-left-nav pull-left" style="color: #767676;"></a> Indietro</div>
+
+    <div id="reg_steps">
+      <img src="/img/splash.png">
+      <ul class="progress-indicator">
+        <li class="completed"> <span class="bubble"></span><span class="numero_su_bubble">1</span></li>
+        <li> <span class="bubble"></span><span class="numero_su_bubble">2</span></li>
+        <li> <span class="bubble"></span><span class="numero_su_bubble">3</span></li>
+        <li> <span class="bubble"></span><span class="numero_su_bubble">4</span></li>
+      </ul>
+    </div>
+
+    <div id="form_registrazione">
+      <form id="registrazione"></form>
+
+      <div id="reg_step0"> 
+        <div class="annunci"></div>
+        <div>
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          <input style="width: 93%;" type="text" id="email" name="email" placeholder="E-mail" form="registrazione" required>
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          <input style="width: 93%;" type="password" id="pass" name="pass" placeholder="Password" form="registrazione" required>
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          <input style="width: 93%;" type="password" id="conf_pass" name="conf_pass" placeholder="Conferma Password" form="registrazione" required>
+          <button class="btn btn-positive btn-block">Avanti</button>
+          <span class="campi_richiesti"> 
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          Campi richiesti 
+          </span>
+        </div>
+      </div>
+
+      <div id="reg_step1"> 
+        <div class="annunci"></div>
+        <div>
+          <div id="check_genere">
+            <input type="radio" id="genere" name="genere" value="1" form="registrazione"> Sig.</input>
+            <input type="radio" id="genere" name="genere" value="2" form="registrazione"> Sig.ra</input>
+          </div>
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          <input style="width: 93%;" type="text" id="nome" name="nome" placeholder="Nome" form="registrazione" required>
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          <input style="width: 93%;" type="text" id="cognome" name="cognome" placeholder="Cognome" form="registrazione" required>
+          <span id="titolo_nascita">Data di nascita</span>
+          <span id="nascita">
+            <input type="number" id="dd" min="1" max="31" placeholder="gg" form="registrazione" style="width: 30%;">
+            <input type="number" id="mm" min="1" max="12" placeholder="mm" form="registrazione" style="width: 30%;">
+            <input type="number" id="aaaa" min="1900" max="2016" placeholder="aaaa" form="registrazione" style="width: 35%;">
+          </span>
+          <button class="btn btn-positive btn-block" style="margin-top: 20px;">Avanti</button>
+          <span class="campi_richiesti">
+          <span class="glyphicon glyphicon-asterisk"></span> 
+          Campi richiesti 
+          </span>
+        </div>
+      </div>
+
+      <div id="reg_step2"> 
+        <div class="annunci"></div>
+        <div>
+          <div class="check">
+            <div class="check-box"><input type="checkbox" name="proposte" id="proposte_1" value="newsletter" form="registrazione"></div>
+            <label for="proposte_1">Iscriviti alla newsletter!</label>
+          </div>
+          <div class="check">
+            <div class="check-box"><input type="checkbox" name="proposte" id="proposte_2" value="offerte_speciali" form="registrazione"></div>
+            <label for="proposte_2">Ricevi le offerte dei nostri produttori!</label>
+          </div>
+          <button class="btn btn-positive btn-block" style="margin-top: 20px;">Avanti</button>
+        </div>
+      </div>
+
+      <div id="reg_step3"> 
+        <div class="annunci"></div>
+        <div>
+          <div class="check">
+            <label for="proposte_1">Ho letto ed accetto integralmente le nostre Condizioni 
+            d'uso e la nostra Informativa sulla privacy</label>
+          </div>
+          <div class="check">
+            <label for="proposte_2">Ho letto ed accetto, ai sensi degli art. 1341-1342 del c.c., 
+            le clausole indicate agli art. 3,6,7,8,9,11,12 (Condizioni d'uso)</label>
+          </div>
+          <input id="end_reg1" class="btn btn-positive btn-block" style="margin-top: 20px;" type="submit" form="registrazione" value="Conferma">
+          <input id="end_reg2" class="btn btn-positive btn-block" style="margin-top: 20px;" type="submit" form="registrazione" value="Registrati!">
+        </div>
+      </div>
+
+    </div>
+
