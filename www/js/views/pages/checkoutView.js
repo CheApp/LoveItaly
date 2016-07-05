@@ -537,7 +537,7 @@ debugger;
       
       function getLocation() {
           if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition);
+              navigator.geolocation.getCurrentPosition(showPosition, displayError, {timeout: 5000, enableHighAccuracy: false});
           } else {
               //debugger;
           }
@@ -546,6 +546,8 @@ debugger;
       function showPosition(position) {
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
+        console.log('lat');
+        console.log('lon');
         $.getJSON("http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=18&addressdetails=1", function(data) {
           var myplace = data;
           
@@ -558,6 +560,16 @@ debugger;
         });
         
       }
+
+      function displayError(error) {
+            var errors = { 
+              1: 'Permission denied',
+              2: 'Position unavailable',
+              3: 'Request timeout'
+            };
+            console.log("Error: " + errors[error.code]);
+            
+          }
 
 
       function postAddress(id_cliente, alias) {
