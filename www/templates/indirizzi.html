@@ -1,14 +1,15 @@
 <div class="wrapperp">
+	<h3 class="titlep"> I Tuoi Indirizzi </h3>
 <ul class="table-view">
-  <li class="table-view-cell"> 
+  {{#each Indirizzi}}
+  <li data-id="{{@index}}" id="indirizzo" class="table-view-cell"> 
     <a class="navigate-right">
-      Casa
-    </a>
-
-  </li>
-  </li>
+      {{alias}}
+    </a> 
+  </li>    
+     {{/each}}
  
 </ul>
 
-<button class="btn btn-positive btn-block addaddressbtn">Aggiungi Nuovo</button>
+<button id="addaddr" class="btn btn-positive btn-block addaddressbtn">Aggiungi Nuovo</button>
 </div>

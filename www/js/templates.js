@@ -17,7 +17,7 @@ define({
     infoazienda: "templates/infoazienda.html",
     cart: "templates/cart.html",
     checkout: "templates/checkout.html",
-    profilo : "templates/profilo.html",
+    user : "templates/user.html",
     indirizzi : "templates/indirizzi.html",
     showindirizzo : "templates/showindirizzo.html",
     addindirizzo : "templates/addindirizzo.html",

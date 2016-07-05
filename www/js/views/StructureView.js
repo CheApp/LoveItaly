@@ -75,7 +75,7 @@ define(function(require) {
 
     goProfile: function() {
       if (localStorage.getItem("ID")>0) {
-        Backbone.history.navigate("profilo", {
+        Backbone.history.navigate("user", {
           trigger: true
         });
       } else {
@@ -158,11 +158,7 @@ define(function(require) {
       e.preventDefault();
       var aid = $(e.currentTarget).data("id");
      
-      /*Backbone.history.navigate("listaprodotti?action=2&param="+aid, {
-        trigger: true
-      });*/
-
-       Backbone.history.navigate("infoazienda?aid=" + aid + "&tab=3", {
+      Backbone.history.navigate("infoazienda?aid=" + aid + "&tab=3", {
         trigger: true
       });
     },
@@ -189,11 +185,7 @@ define(function(require) {
       this.$('#car_lista_prodotti').append(cart);
 
       $(document).ready(function() {
-        $(".loc_option").click (function () {
-          
-          $('#mylocation').val(this.getAttribute('data-value'));
-          $('#popup_location').attr("style", "display: none");
-        })
+
 
         $(".popupQuantita").click(function () {
           var carrello = document.getElementById("carrello");

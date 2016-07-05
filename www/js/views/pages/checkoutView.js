@@ -620,7 +620,7 @@ debugger;
 
 
                   var indirizzo = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
-
+debugger;
                   $.ajax({
                     url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML',
                     async: true,
