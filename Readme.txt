@@ -10,6 +10,7 @@ NUOVE FUNZIONALITÀ:
 8) aggiunto checkout
 9) aggiunti profilo (ordini, indirizzi) senza parte server
 10) aggiunti login e registrazione
+11) aggiunta geolocalizzazione con popup brutto
 
 
 PROBLEMI:
