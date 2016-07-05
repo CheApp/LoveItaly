@@ -185,6 +185,11 @@ define(function(require) {
       this.$('#car_lista_prodotti').append(cart);
 
       $(document).ready(function() {
+        $(".loc_option").click (function () {
+          
+          $('#mylocation').val(this.getAttribute('data-value'));
+          $('#popup_location').attr("style", "display: none");
+        })
 
 
         $(".popupQuantita").click(function () {
