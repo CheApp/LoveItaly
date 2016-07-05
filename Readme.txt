@@ -20,7 +20,7 @@ PROBLEMI:
 3) Gli id delle aziende nel menu "Ricerca per aziende" non corrispondono a quelli reali (RISOLTO)
 4) date di consegna non funzionanti nel checkout (getDate non definita???) (RISOLTO)
 5) nello step 1 del checkout, premendo inditro dovrebbe tornare al carrelo (RISOLTO)
-6) Quando si sceglie un' azienda dal menu dovrebbe aprire InfoAzienda nel tab dei prodotti e non ListaProdotti
+6) Quando si sceglie un' azienda dal menu dovrebbe aprire InfoAzienda nel tab dei prodotti e non ListaProdotti (RISOLTO)
 7) si riescono a piazzare solo ordini con un solo prodotto
 8) per la registrazione si dovrebbero usare i form autovalidanti di html5, ad esempio l'email non ti avvisa se non corrisponde al pattern, e quando ti vai a registrare la chiamata non funziona (vai gianlu aggiusta)
 9) il checkout non è ancora collegato all'utente loggato (per permettere i test) (si dovrà mettere un check sulla var logged)
