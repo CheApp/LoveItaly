@@ -48,12 +48,12 @@ define(function(require) {
       "home": "Home",
       "infoprodotto?pid=:pid" : "InfoProdotto",
       "listaprodotti?action=:act&param=:par" : "ListaProdotti",
-      "infoazienda?aid=:aid&tab=:tab" : "InfoAzienda",
+      "infoazienda?aid=:aid" : "InfoAzienda",
       "checkout?cid=:cid": "showCheckout",
       "user" : "User",
       "indirizzi" : "Indirizzi",
       "showindirizzo?aid=:aid" : "Showindirizzo",
-      "addindirizzo" : "Addindirizzo",
+      "addindirizzo?act=:act&aid=:aid" : "Addindirizzo",
       "registrazione" : "Registrazione",      
       "ordini": "Ordini"
     },
@@ -137,7 +137,8 @@ define(function(require) {
       }
     },
 
-    InfoAzienda: function(aid, tab) {
+    InfoAzienda: function(aid) {
+      this.refreshCart();
       var router = this;
       var manufacturer = new Azienda({ id : aid });
       manufacturer.fetch({
@@ -152,8 +153,6 @@ define(function(require) {
               azienda.cel = model.cel;
               var prodotti = Collezione.byManufacturer(azienda.id);
               var page = new InfoAzienda ({ model : azienda, collection : prodotti });
-              page.tab_selected = tab;
-              
               router.changePage(page);            
             }
           });
@@ -274,17 +273,75 @@ define(function(require) {
             });    
     },
 
-     Showindirizzo: function(id) {
+     Showindirizzo: function(aid) {
+
+       var router = this;
+      ListaIndirizzi.fetch({
+
+        success: function(collezione, response, options) {
+
+            var ElencoProvince = new StateCollection();
+            ElencoProvince.fetch({
+
+              success: function(province, response, options) {
+                
+                var collezione_filtrata = collezione.byId(aid)[0];
+                var array_prov = province.models;
+
+
+            
+                  for (var j = 0; j < array_prov.length; j++) {
+
+                    if (collezione_filtrata.get("state") == array_prov[j].attributes.id) {
+                      collezione_filtrata.attributes.provincia = array_prov[j].attributes.provincia;
+                    }
+                  }
+              var page = new Showindirizzo({model : collezione_filtrata});
+              router.changePage(page); 
+  
+          }
+            });
+            }
+            }); 
       
-      var page = new Showindirizzo({model : ListaIndirizzi.at(id)});
-      this.changePage(page); 
 
     },
 
-     Addindirizzo: function() {
+     Addindirizzo: function(act,aid) {
       
-      var page = new Addindirizzo();
+      if(act == 0){
+      var page = new Addindirizzo({act : act});
       this.changePage(page); 
+    } else {
+      var router = this;
+      ListaIndirizzi.fetch({
+
+        success: function(collezione, response, options) {
+
+            var ElencoProvince = new StateCollection();
+            ElencoProvince.fetch({
+
+              success: function(province, response, options) {
+                
+                var collezione_filtrata = collezione.byId(aid)[0];
+                var array_prov = province.models;
+
+
+            
+                  for (var j = 0; j < array_prov.length; j++) {
+
+                    if (collezione_filtrata.get("state") == array_prov[j].attributes.id) {
+                      collezione_filtrata.attributes.provincia = array_prov[j].attributes.provincia;
+                    }
+                  }
+              var page = new Addindirizzo({act : act, model : collezione_filtrata});
+              router.changePage(page);
+  
+          }
+            });
+            }
+            }); 
+    }
 
     },
 

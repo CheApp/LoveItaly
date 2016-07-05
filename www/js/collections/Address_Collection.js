@@ -34,6 +34,15 @@ define(function(require) {
 			return this;
         },
 
+        byId: function(aid) {
+      	filtered = this.filter(function (indirizzo) {
+      		if(indirizzo.get("id_indirizzo") == aid) {
+      			return indirizzo;
+      		}
+      	});
+      	return filtered;
+      },
+
 		parse: function(data) {
 			return data.addresses;
 		},

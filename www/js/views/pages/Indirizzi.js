@@ -39,7 +39,7 @@ define(function(require) {
 
     goAddindirizzo: function(e) {
       e.preventDefault();
-      Backbone.history.navigate("addindirizzo", {
+      Backbone.history.navigate("addindirizzo?act=0&aid=0", {
         trigger: true
       });
     },

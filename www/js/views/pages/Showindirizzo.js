@@ -17,14 +17,14 @@ define(function(require) {
 
       this.template = Utils.templates.showindirizzo;
       this.listenTo(this, "inTheDOM", this.script);
-      console.log(this.model.toJSON());
       
     },
 
     id: "showindirizzo",
 
     events: {
-      "click #delete"  : "deleteAddress"
+      "click #delete"  : "deleteAddress",
+      "click #editbtn" : "editAddress"
     },
 
 
@@ -32,9 +32,16 @@ define(function(require) {
            $(this.el).html(this.template(this.model.toJSON())); 
     },
 
+     editAddress: function(e) {
+      e.preventDefault();
+      Backbone.history.navigate("addindirizzo?act=1&aid=" + document.getElementById("aid").value , {
+        trigger: true
+      });
+    },
+
     deleteAddress : function() {
 
-        var autenticazione = function (xhr) {
+          var autenticazione = function (xhr) {
           var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
           var token = 'Basic '.concat(key64);
           xhr.setRequestHeader('Authorization', token);
