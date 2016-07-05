@@ -25,3 +25,4 @@ PROBLEMI:
 8) per la registrazione si dovrebbero usare i form autovalidanti di html5, ad esempio l'email non ti avvisa se non corrisponde al pattern, e quando ti vai a registrare la chiamata non funziona (vai gianlu aggiusta)
 9) il checkout non è ancora collegato all'utente loggato (per permettere i test) (si dovrà mettere un check sulla var logged)
 10) aggiungere excepert (o quello che è) al primo step di checkout
+11) dopo il checkout svuotare il carrello
