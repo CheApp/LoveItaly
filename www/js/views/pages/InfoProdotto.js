@@ -230,7 +230,7 @@ define(function(require) {
       e.preventDefault();
       var aid = $(e.currentTarget).data("id");
      
-      Backbone.history.navigate("infoazienda?aid="+aid, {
+      Backbone.history.navigate("infoazienda?aid=" + aid + "&tab=1", {
         trigger: true
       });
     }

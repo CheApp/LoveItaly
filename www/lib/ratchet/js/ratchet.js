@@ -686,11 +686,11 @@
     
     if (targetTab.id != "c_item2") {
       if (activeTab.id == "c_item1") {
-        setTimeout(function(){ document.getElementById("card").scrollTop = 0; }, 400); 
+        setTimeout(function(){ document.getElementById("card").scrollTop = 0; }, 300); 
         //document.getElementById("item1mobile").classList.remove('opaco');
       }
       if (activeTab.id == "c_item3") {
-        setTimeout(function(){ document.getElementById("card").scrollTop = 0; }, 100); 
+        setTimeout(function(){ document.getElementById("card").scrollTop = 0; }, 150); 
         //document.getElementById("item3mobile").classList.remove('opaco');
       }  
       if (activeTab.id == "c_item2") {

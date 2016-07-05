@@ -111,10 +111,22 @@ define(function(require) {
 	        
 		$("#item1mobile, #item2mobile, #item3mobile").removeClass('opaco');
 		            
-		$("#item1mobile, #item2mobile, #item3mobile").removeClass('active');
-		            
-		$("#item1mobile").addClass('active');
-		$("#item1mobile").addClass('opaco');
+		//$("#item1mobile, #item2mobile, #item3mobile").removeClass('active');
+
+		if (this.tab_selected == 1) {
+			//$('#c_item3').removeClass('active');
+			//$('#c_item1').addClass('active');
+			$("#item1mobile").addClass('active');
+			$("#item1mobile").addClass('opaco');
+		}   		
+		else {
+			if (this.tab_selected == 3) {
+				$('#c_item1').removeClass('active');
+				$('#c_item3').addClass('active');
+				$("#item3mobile").addClass('active');
+				$("#item3mobile").addClass('opaco');
+			}			
+		}
 		
 	},
 

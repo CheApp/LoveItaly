@@ -47,7 +47,7 @@ define(function(require) {
       "home": "Home",
       "infoprodotto?pid=:pid" : "InfoProdotto",
       "listaprodotti?action=:act&param=:par" : "ListaProdotti",
-      "infoazienda?aid=:aid" : "InfoAzienda",
+      "infoazienda?aid=:aid&tab=:tab" : "InfoAzienda",
       "checkout?cid=:cid": "showCheckout",
       "profilo" : "Profilo",
       "indirizzi" : "Indirizzi",
@@ -136,7 +136,7 @@ define(function(require) {
       }
     },
 
-    InfoAzienda: function(aid) {
+    InfoAzienda: function(aid, tab) {
       var router = this;
       var manufacturer = new Azienda({ id : aid });
       manufacturer.fetch({
@@ -151,6 +151,8 @@ define(function(require) {
               azienda.cel = model.cel;
               var prodotti = Collezione.byManufacturer(azienda.id);
               var page = new InfoAzienda ({ model : azienda, collection : prodotti });
+              page.tab_selected = tab;
+              
               router.changePage(page);            
             }
           });
