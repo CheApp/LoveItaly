@@ -33,7 +33,7 @@ define(function(require) {
               navigator.geolocation.getCurrentPosition(
                 showPosition,
                 displayError,
-                {timeout: 5000, enableHighAccuracy: false}
+                {timeout: 3000, enableHighAccuracy: false}
               );
               
           } else {
@@ -47,12 +47,10 @@ define(function(require) {
             $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon, function(data) {
               if (data.results.length != 0) {
                 var myplace = data.results[0].address_components[2].long_name;
-                $('#mylocation').val(myplace);
+                $('#mylocation').text("Stai guardando: " + myplace);
+                $('#mylocation').attr("data-value", "1");
+
                 
-                if ($('#mylocation').val() == null) {
-                  $('#popup_location').attr("style", "display: block");
-                  $('#irraggiungibile').attr("style", "display: block");
-                }
                 
               }
               else {
@@ -60,6 +58,16 @@ define(function(require) {
               }
               
             });
+
+            setTimeout(function () {
+
+                if ($('#mylocation').attr("data-value") == "null") {
+                  
+                  $('#popup_location').attr("style", "display: block");
+                  $('#irraggiungibile').attr("style", "display: block");
+                }
+
+            }, 2000);
             
           }
 

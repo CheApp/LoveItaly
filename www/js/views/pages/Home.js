@@ -64,6 +64,8 @@ define(function(require) {
         spaceBetween: 10,
         freeMode: true
     });
+
+    document.getElementById("menu").classList.remove("disabled");
       
     },
 

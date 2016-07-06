@@ -13,7 +13,8 @@ define(function(require) {
      events: {
       "click #addr"  : "goAddresses",
       "click #userdetails" : "goDettagli",
-      "click #ordini" : "goOrdini"
+      "click #ordini" : "goOrdini",
+      "click #wishlist" : "gowish"
     },
 
     
@@ -53,6 +54,13 @@ define(function(require) {
      goDettagli: function(e) {
      e.preventDefault();
      Backbone.history.navigate("dettagli", {
+        trigger: true
+      });
+    },
+
+    gowish: function(e) {
+     e.preventDefault();
+     Backbone.history.navigate("desideri", {
         trigger: true
       });
     }

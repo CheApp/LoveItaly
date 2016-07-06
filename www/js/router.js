@@ -17,6 +17,9 @@ define(function(require) {
   var Showindirizzo = require("views/pages/Showindirizzo");
   var Addindirizzo = require("views/pages/Addindirizzo");
   var Ordini = require("views/pages/Ordini");
+  var Desideri = require("views/pages/desideri");
+  var WishList = require("collections/ListaDesideri");
+  var Wish = require("models/Prodotto_Desiderio");
   var CartList = require("collections/Nel_Carrello");
   var cart_object = require("models/cart_object");
   var Prodotto = require("models/Prodotto");
@@ -38,6 +41,7 @@ define(function(require) {
   var Categorie  = new CollezioneCategorie();
   var ListaIndirizzi  = new AddressCollection();
   var ListaCarrello = new CartList();
+  var ListaDesideri = new WishList();
 
   var AppRouter = Backbone.Router.extend({
     
@@ -60,7 +64,8 @@ define(function(require) {
       "registrazione" : "Registrazione",      
       "ordini?oid=:oid": "Ordini",
       "dettagli" : "Dettagli",
-      "showordine?oid=:oid&uid=:uid" : "Showordine"
+      "showordine?oid=:oid&uid=:uid" : "Showordine",
+      "desideri": "desideri"
     },
 
     firstView: "splashscreen",
@@ -382,6 +387,18 @@ define(function(require) {
                router.changePage(page);  
             }
           });
+    },
+
+    desideri: function() {
+
+      ListaDesideri.fetch({ajaxSync: false});
+      var array_wish = ListaDesideri.models;
+
+      var desideri_nel_profilo = Collezione.byIDList(array_wish);
+
+      var page = new Desideri({ collection: desideri_nel_profilo});
+      this.changePage(page); 
+
     },
 
 
