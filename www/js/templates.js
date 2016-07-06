@@ -23,5 +23,6 @@ define({
     addindirizzo : "templates/addindirizzo.html",
     registrazione: "templates/registrazione.html",
     ordini : "templates/ordini.html",
+    showordine : "templates/showordine.html",
     dettagli : "templates/dettagli.html"
 });

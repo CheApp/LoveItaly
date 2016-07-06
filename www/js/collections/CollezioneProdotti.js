@@ -68,6 +68,18 @@ define(function(require) {
       	return filtered;
       },
 
+      byOrder: function(array) {
+      	filtered = this.filter(function (prodotto) {
+      		for (c = 0; c < array.length; c++) {
+      		if(prodotto.get("id") == array[c].id_product ) {
+      			return prodotto;
+      		}
+      	}
+      	});
+      	return filtered;
+      },
+
+
 	  parse: function(data) {
 	        return data.products;
 	  },

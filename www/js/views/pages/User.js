@@ -12,7 +12,8 @@ define(function(require) {
 
      events: {
       "click #addr"  : "goAddresses",
-      "click #userdetails" : "goDettagli"
+      "click #userdetails" : "goDettagli",
+      "click #ordini" : "goOrdini"
     },
 
     
@@ -33,6 +34,13 @@ define(function(require) {
     script: function(){
       document.getElementById("menubutton").classList.add("disabledp");
       document.getElementById("searchbutton").classList.add("disabled"); 
+    },
+
+    goOrdini: function(e) {
+     e.preventDefault();
+     Backbone.history.navigate("ordini?oid=" + localStorage.getItem("ID"), {
+        trigger: true
+      });
     },
 
      goAddresses: function(e) {

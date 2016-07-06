@@ -11,6 +11,7 @@ define(function(require) {
   var InfoAzienda = require("views/pages/InfoAzienda");
   var Cart = require("views/pages/Cart");
   var User = require("views/pages/User");
+  var Showordine = require("views/pages/Showordine");
   var Indirizzi = require("views/pages/Indirizzi");
   var Dettagli = require("views/pages/Dettagli");
   var Showindirizzo = require("views/pages/Showindirizzo");
@@ -28,6 +29,7 @@ define(function(require) {
   var AddressCollection = require("collections/Address_Collection");
   var StateModel = require("models/State_Model");
   var StateCollection = require("collections/State_Collection");
+  var CollezioneOrdini = require("collections/CollezioneOrdini");
   var Registrazione = require("views/pages/Registrazione");
 
 
@@ -56,8 +58,9 @@ define(function(require) {
       "showindirizzo?aid=:aid" : "Showindirizzo",
       "addindirizzo?act=:act&aid=:aid" : "Addindirizzo",
       "registrazione" : "Registrazione",      
-      "ordini": "Ordini",
-      "dettagli" : "Dettagli"
+      "ordini?oid=:oid": "Ordini",
+      "dettagli" : "Dettagli",
+      "showordine?oid=:oid&uid=:uid" : "Showordine"
     },
 
     firstView: "splashscreen",
@@ -87,6 +90,7 @@ define(function(require) {
 
     Home: function() {
             
+
             this.refreshCart();
             //Filtrano rispettivamente i prodotti attivi ed i prodotti da mostrare in home
             var attivi   = Collezione.where({active: "1",is_virtual: "0"});
@@ -348,11 +352,16 @@ define(function(require) {
 
     },
 
-    Ordini: function() {
-      
-      var page = new Ordini();
-      this.changePage(page); 
-
+    Ordini: function(oid) {
+        
+        var router = this;
+        var orders = new CollezioneOrdini({ id : oid });
+            orders.fetch({
+        success: function (collection, response, options) {
+               var page = new Ordini({ collection : orders });
+               router.changePage(page);  
+            }
+          });
     },
 
     Dettagli: function() {
@@ -360,6 +369,19 @@ define(function(require) {
       var page = new Dettagli();
       this.changePage(page); 
 
+    },
+
+    Showordine : function(oid,uid) {
+        var router = this;
+        var orders = new CollezioneOrdini({ id : oid });
+            orders.fetch({
+        success: function (collection, response, options) {
+               var filterorders = orders.byId(uid)[0];
+               var orderproducts = Collezione.byOrder(filterorders.cart_rows);
+               var page = new Showordine({ model : filterorders, collection : orderproducts });
+               router.changePage(page);  
+            }
+          });
     },
 
 

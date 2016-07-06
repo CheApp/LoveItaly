@@ -1,13 +1,16 @@
 <div class="wrapperp">
+		<h3 class="titlep"> I Miei Ordini </h3>
 <ul class="table-view">
-  <li class="table-view-cell"> 
+
+{{#each Ordini.models}}
+  <li id="orderitem" data-id="{{id}}" class="table-view-cell"> 
     <a class="navigate-right">
       Ordine del <br>
-      <p>29/05/2016</p>
+      <p>{{inserimento}}</p>
     </a>
-
   </li>
-  </li>
+{{/each}}  
  
 </ul>
 </div>
+
