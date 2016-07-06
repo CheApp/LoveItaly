@@ -1,0 +1,26 @@
+{{#each ProdottiNelCarrello}}
+        <div data-id="{{ id_prodotto }}" class="car_prodotto">
+
+          <div class="car_thumbnail_prodotto">
+            <img src="{{ img }}"/>
+            <div class="car_prezzo"><center><span>€</span> {{ prezzo }}</center></div>
+          </div>
+          <div class="car_right_prodotto">
+            <div class="car_info_prodotto">
+              <span class="car_titolo"> {{ nome_prodotto_short }}</span><br/>
+              <span class="car_descrizione">{{ shortD }} </span>
+            </div>
+            <div class="car_quantita">
+              <div class="car_gestione">
+                <div class="car_num_prodotti popupQuantita">
+                  <span class="glyphicon glyphicon-triangle-left" style="display: inline; color: #8f8f8f; float: left; padding-top: 3px;"></span>
+                  <span>{{ quantita }}</span>
+                  <span class="glyphicon glyphicon-triangle-right" style="display: inline; color: #8f8f8f; float: right; padding-top: 3px;"></span>
+                </div>
+              </div>
+            <div class="car_elimina"><button class="btn btn-negative eliminaProdotto"><span class="glyphicon glyphicon-trash"></button></div>
+            </div>
+          </div>
+
+      </div>
+{{/each}}

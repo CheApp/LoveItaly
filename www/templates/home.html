@@ -1,0 +1,59 @@
+
+<div class="wrapper">
+<div class="swiper-container" id="slide-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide slideshow"><img class="slide" src="/img/homeslide1.jpg"/></div>
+            <div class="swiper-slide slideshow"><img class="slide" src="/img/homeslide2.jpg"/></div>
+            <div class="swiper-slide slideshow"><img class="slide" src="/img/homeslide3.jpg"/></div>
+            <div class="swiper-slide slideshow"><img class="slide" src="/img/homeslide4.jpg"/></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+         
+    <h3 class="hometitle"> Prodotti in vetrina </h3>
+
+    <div class="swiper-container carouselcontainer" id="carousel">
+        <div class="swiper-wrapper productwrap">
+{{#each Prodotti}}
+    {{#unless nuovo }}
+            <div data-id="{{ id_prodotto }}" class="swiper-slide product">
+            <img class="carousel" src="{{img}}"/>
+            <center>
+            <span class="productitle"> {{ nome_prodotto_short }} </span>
+            <p><span class="aziendahome"> {{ nome_azienda_short }} </span></p>
+            <p class="pricep"><span class="pricehome">€{{ prezzo }}</span></p>
+            <center>
+            </div>  
+    {{/unless}}
+ {{/each}}
+ <div class="swiper-slide"/>  
+        </div>
+    </div>
+
+
+     <h3 class="hometitle"> Nuovi prodotti </h3>
+
+    <div class="swiper-container carouselcontainer" id="carousel2">
+        <div class="swiper-wrapper productwrap">
+
+{{#each Prodotti}}
+    {{#if nuovo }}
+            <div data-id="{{ id_prodotto }}" class="swiper-slide product">
+            <img class="carousel" src="{{img}}"/>
+            <center>
+            <span class="productitle"> {{ nome_prodotto_short }} </span>
+            <p><span class="aziendahome"> {{ nome_azienda_short }} </span></p>
+            <p class="pricep"><span class="pricehome">€{{ prezzo }}</span></p>
+            <center>
+            </div>  
+    {{/if}}
+{{/each}}         
+            
+            <div class="swiper-slide"/>
+             
+        </div>
+    </div>
+
