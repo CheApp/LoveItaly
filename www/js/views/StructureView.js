@@ -9,6 +9,7 @@ define(function(require) {
   var md5 = require("md5");
 
   var flag = false;
+  var flag_ = false;
   var quantita_selezionata = false;
   var num_quantita = 0;
 
@@ -181,6 +182,7 @@ define(function(require) {
 
 
         $(".popupQuantita").click(function () {
+          flag_ = true;
           var carrello = document.getElementById("carrello");
           var lista_quantita = document.getElementById("car_lista_quantita");
           var copertura = document.getElementById("car_copertura_carrello");
@@ -238,7 +240,7 @@ define(function(require) {
                 }
             } 
 
-
+            flag_ = false;
             var carrello = document.getElementById("carrello")
             var copertura = document.getElementById("car_copertura_carrello")
             var lista_quantita = document.getElementById("car_lista_quantita");
@@ -383,7 +385,7 @@ define(function(require) {
 
       $("#apri_carrello").click(function() {
         
-        if(flag){
+        if(flag && !flag_){
           close_car();
         }else{
         var carrello = document.getElementById("carrello");
