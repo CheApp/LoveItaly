@@ -17,6 +17,7 @@ define(function(require) {
     initialize: function(options) {
 
       this.template = Utils.templates.ordini;
+      this.listenTo(this, "inTheDOM", this.script);
       
     },
 
@@ -31,6 +32,11 @@ define(function(require) {
       Backbone.history.navigate("showordine?oid="+ localStorage.getItem("ID") + "uid=" + uid  , {
         trigger: true
       });
+    },
+
+     script: function() {
+          document.getElementById("menubutton").classList.add("disabled");
+          document.getElementById("backbutton").classList.remove("disabled");
     },
 
     render: function() {
