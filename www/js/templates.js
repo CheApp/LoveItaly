@@ -24,5 +24,6 @@ define({
     registrazione: "templates/registrazione.html",
     ordini : "templates/ordini.html",
     showordine : "templates/showordine.html",
-    dettagli : "templates/dettagli.html"
+    dettagli : "templates/dettagli.html",
+    desideri : "templates/pagina_desideri.html"
 });

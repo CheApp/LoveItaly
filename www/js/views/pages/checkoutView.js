@@ -198,7 +198,7 @@ define(function(require) {
                 console.log("carrello salvato nel db");
 
                 var id_carrello = $(result).find('id')[0].firstChild.nodeValue;
-debugger;
+
                 $.ajax({
                   url: 'http://192.168.56.101/loveitaly/api/orders/?io_format=XML&schema=blank',
                   async: true,
@@ -245,7 +245,7 @@ debugger;
                         //array_attribute[i].innerHTML = "0";
                     }*/
 
-                  debugger;       
+                        
                     var ordine = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
                     $.ajax({
@@ -639,7 +639,7 @@ debugger;
 
 
                   var indirizzo = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
-debugger;
+
                   $.ajax({
                     url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML',
                     async: true,

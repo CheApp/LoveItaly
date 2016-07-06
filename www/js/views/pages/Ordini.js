@@ -34,7 +34,7 @@ define(function(require) {
       });
     },
 
-     script: function() {
+    script: function() {
           document.getElementById("menubutton").classList.add("disabled");
           document.getElementById("backbutton").classList.remove("disabled");
     },
