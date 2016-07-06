@@ -32,6 +32,15 @@ define(function(require) {
            $(this.el).html(this.template(this.model.toJSON())); 
     },
 
+    script: function() {
+      if(($("#backbutton").hasClass("disabled"))){
+      document.getElementById("backbutton").classList.remove("disabled"); 
+    }
+      if((!($("#menubutton").hasClass("disabled")))){
+      document.getElementById("menubutton").classList.add("disabled");   
+      }
+    },
+
      editAddress: function(e) {
       e.preventDefault();
       Backbone.history.navigate("addindirizzo?act=1&aid=" + document.getElementById("aid").value , {

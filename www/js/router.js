@@ -12,6 +12,7 @@ define(function(require) {
   var Cart = require("views/pages/Cart");
   var User = require("views/pages/User");
   var Indirizzi = require("views/pages/Indirizzi");
+  var Dettagli = require("views/pages/Dettagli");
   var Showindirizzo = require("views/pages/Showindirizzo");
   var Addindirizzo = require("views/pages/Addindirizzo");
   var Ordini = require("views/pages/Ordini");
@@ -48,14 +49,15 @@ define(function(require) {
       "home": "Home",
       "infoprodotto?pid=:pid" : "InfoProdotto",
       "listaprodotti?action=:act&param=:par" : "ListaProdotti",
-      "infoazienda?aid=:aid&tab=:tab" : "InfoAzienda",
+      "infoazienda?aid=:aid" : "InfoAzienda",
       "checkout?cid=:cid": "showCheckout",
       "user" : "User",
       "indirizzi" : "Indirizzi",
       "showindirizzo?aid=:aid" : "Showindirizzo",
       "addindirizzo?act=:act&aid=:aid" : "Addindirizzo",
       "registrazione" : "Registrazione",      
-      "ordini": "Ordini"
+      "ordini": "Ordini",
+      "dettagli" : "Dettagli"
     },
 
     firstView: "splashscreen",
@@ -137,7 +139,7 @@ define(function(require) {
       }
     },
 
-    InfoAzienda: function(aid, tab) {
+    InfoAzienda: function(aid) {
       this.refreshCart();
       var router = this;
       var manufacturer = new Azienda({ id : aid });
@@ -153,8 +155,6 @@ define(function(require) {
               azienda.cel = model.cel;
               var prodotti = Collezione.byManufacturer(azienda.id);
               var page = new InfoAzienda ({ model : azienda, collection : prodotti });
-              page.tab_selected = tab;
-              
               router.changePage(page);            
             }
           });
@@ -164,7 +164,7 @@ define(function(require) {
 
     showCheckout: function(cid) {
 
-      
+      this.refreshCart();
       var AddrCollection = new AddressCollection();
 
       AddrCollection.fetch({
@@ -350,6 +350,13 @@ define(function(require) {
     Ordini: function() {
       
       var page = new Ordini();
+      this.changePage(page); 
+
+    },
+
+    Dettagli: function() {
+      
+      var page = new Dettagli();
       this.changePage(page); 
 
     },

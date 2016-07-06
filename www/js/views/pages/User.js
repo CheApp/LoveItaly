@@ -11,7 +11,8 @@ define(function(require) {
     id: "user",
 
      events: {
-      "click #addr"  : "goAddresses"
+      "click #addr"  : "goAddresses",
+      "click #userdetails" : "goDettagli"
     },
 
     
@@ -37,6 +38,13 @@ define(function(require) {
      goAddresses: function(e) {
      e.preventDefault();
      Backbone.history.navigate("indirizzi", {
+        trigger: true
+      });
+    },
+
+     goDettagli: function(e) {
+     e.preventDefault();
+     Backbone.history.navigate("dettagli", {
         trigger: true
       });
     }

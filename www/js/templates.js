@@ -22,5 +22,6 @@ define({
     showindirizzo : "templates/showindirizzo.html",
     addindirizzo : "templates/addindirizzo.html",
     registrazione: "templates/registrazione.html",
-    ordini : "templates/ordini.html"
+    ordini : "templates/ordini.html",
+    dettagli : "templates/dettagli.html"
 });

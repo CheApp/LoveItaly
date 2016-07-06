@@ -97,6 +97,9 @@ body {
         -webkit-align-items: center;
         align-items: center;   
     }
+    .menulocalita{
+      margin-bottom: -6px;
+    }
 
     .slide{
         width:100%;
