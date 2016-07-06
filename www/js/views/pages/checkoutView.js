@@ -6,7 +6,10 @@ define(function(require) {
   var StateModel = require("models/State_Model");
   var StateCollection = require("collections/State_Collection");
   var CollezioneProdotti = require("collections/CollezioneProdotti");
+  var CartList = require("collections/Nel_Carrello");
   var Utils = require("utils");
+
+  var ListaCarrello = new CartList();
 
   var checkoutView = Utils.Page.extend({
 
@@ -19,6 +22,8 @@ define(function(require) {
       this.template = Utils.templates.checkout;
       // here we can register to inTheDOM or removing events
       this.listenTo(this, "inTheDOM", this.script); 
+
+      ListaCarrello.fetch({ajaxSync: false});
          //$('#content').on("swipe", function(data){
            //console.log(data);
            
@@ -94,8 +99,8 @@ define(function(require) {
         divOldStep.style.animation = "toLeft 0.3s";
         divOldStep.style.WebkitAnimation = "toLeft 0.3s";
         setTimeout( function() {
-          var annunci = divOldStep.getElementsByClassName("annunci");
-          annunci[0].style.display = "none";
+          //var annunci = divOldStep.getElementsByClassName("annunci");
+          //annunci[0].style.display = "none";
           divOldStep.style.visibility = "hidden";
           var nNewStep = "step" + newStep;
           var divNewStep = document.getElementById(nNewStep);
@@ -106,12 +111,23 @@ define(function(require) {
           
           if (newStep == 1) {
             document.getElementById("new_address").style.display = "inherit";
+            if (window.checkout.collection.indirizzi.length == 0) {             
+              $('#forward_button').attr("style", "pointer-events: none");
+              document.getElementById('forward_button').style.background = "gray";
+              document.getElementById("selected_address").style.display = "none";
+            }
           }
           else {
             document.getElementById("new_address").style.display = "none";
           }
 
+          if (newStep == 2) {
+            $('#forward_button').attr("style", "pointer-events: none");
+            document.getElementById('forward_button').style.background = "gray";
+          }
+
           if (newStep == 3) {
+            document.getElementById('step3').style.height = "100%";
             document.getElementById('step_precedente').style.display = "none";
             var done = $('#forward_button');
             done.html("Torna alla Home");
@@ -120,6 +136,15 @@ define(function(require) {
               window.checkout.goHome();
             });
             close_order();
+            //svuota carrello
+            var array_cart = ListaCarrello.models;
+                
+            var c;
+            for (c = 0; c < array_cart.length; c++) {                
+                    var current_obj = array_cart[c];
+                    
+                    current_obj.destroy();
+            } 
           }
           
         }, 300);
@@ -134,7 +159,7 @@ define(function(require) {
           var id_indirizzo = document.getElementById('ul_indirizzi').children[indice_indirizzo].getAttribute('data-id');
         }        
         
-        var id_cliente = document.getElementById("save_addr_button").getAttribute("data-id");
+        var id_cliente = localStorage.getItem("ID");
 
         var prodotti = window.checkout.collection.ordini;
         var totale = document.getElementById("prezzo_totale").getElementsByTagName("span")[0].innerHTML;
@@ -482,11 +507,10 @@ define(function(require) {
 
 
        
+$('#new_address').on("click", function() { crea_nuovo_ind() });
+      //$('#dismiss_address').on("click", function() {nnulla_creazione()});
 
-
-
-      $('#new_address').on("click", function() {
-        
+      function crea_nuovo_ind() {
         document.getElementById("form_addr").style.display = "inherit";
         window.setTimeout(function() {document.getElementById("input_item").focus()}, 200);
         $("#ul_indirizzi").animate({ scrollTop: 805 });
@@ -494,16 +518,42 @@ define(function(require) {
         document.getElementById("selected_address").style.display = "none";
         document.getElementById("input_addr").style.display = "block";
         document.getElementById("input_addr").style.visibility = "visible";
-        document.getElementById("new_address").style.color = "#444";
-        document.getElementById("new_address").style.pointerEvents = "none";
+        //document.getElementById("new_address").style.color = "#444";
+        //document.getElementById("new_address").style.pointerEvents = "none";
+        document.getElementById('new_address').childNodes[0].textContent = 'Annulla';
         document.getElementById("forward_button").style.display = "none";
+        document.getElementById("step_precedente").style.display = "none";
         
         getLocation();
-      });
+
+        $('#new_address').unbind('click');
+        $('#new_address').on("click", function() { annulla_creazione() });
+        /*$('#new_address').attr("style", "display: none");
+        $('#dismiss_address').attr("style", "display: block");*/
+      }
+
+      function annulla_creazione() {
+          document.getElementById("forward_button").style.display = "block";
+          document.getElementById("steps").style.display = "block";
+          document.getElementById('new_address').childNodes[0].textContent = 'Nuovo';
+          document.getElementById("form_addr").style.display = "none";
+          document.getElementById("step_precedente").style.display = "inherit";
+          document.getElementById("input_addr").style.display = "none";
+          document.getElementById("input_addr").style.visibility = "hidden";
+          
+          /*$('#dismiss_address').attr("style", "display: none");
+          $('#new_address').attr("style", "display: block");*/
+          $('#new_address').unbind('click');
+          $('#new_address').on("click", function() { crea_nuovo_ind() });
+
+      }
 
       
-      $('#save_addr_button').on("click", function() {
-
+      $('#save_addr_button').on("click", function(event) {
+        event.stopPropagation();
+        document.getElementById('new_address').childNodes[0].textContent = 'Nuovo';
+        $('#new_address').unbind('click');
+        $('#new_address').on("click", function() { crea_nuovo_ind() });
         document.getElementById("forward_button").style.display = "block";
         //document.getElementById("input_addr").style.visibility = "hidden";
         //document.getElementById("selected_address").style.display = "block";
@@ -524,7 +574,7 @@ define(function(require) {
         }
         
         
-        var cliente = this.getAttribute("data-id");
+        var cliente = localStorage.getItem("ID");
         postAddress(cliente, nuovo_indirizzo);
         
 
@@ -570,7 +620,6 @@ define(function(require) {
             console.log("Error: " + errors[error.code]);
             
           }
-
 
       function postAddress(id_cliente, alias) {
 
@@ -697,12 +746,16 @@ define(function(require) {
         selectDay_1(this);
       });
 
-      $('#giorno1').on("click", function() {
+       $('#giorno1').on("click", function() {
         selectDate(this);
+        $('#forward_button').attr("style", "background: #147C3D");
+        $('#forward_button').attr("style", "pointer-events: auto");
       });
 
       $('#giorno2').on("click", function() {
         selectDate(this);
+        $('#forward_button').attr("style", "background: #147C3D");
+        $('#forward_button').attr("style", "pointer-events: auto");
       });
 
       function selectDay_1(giorno) {
@@ -966,6 +1019,9 @@ define(function(require) {
                 window.checkout.script();
                 this.el.querySelector('#step1').style.visibility = "visible";
                 $("#ul_indirizzi").animate({ scrollTop: 805 });
+
+                $('#forward_button').attr("style", "background: #147C3D");
+                $('#forward_button').attr("style", "pointer-events: auto");
 
               }.bind(this),
 
