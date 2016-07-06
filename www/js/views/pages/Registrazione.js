@@ -39,24 +39,32 @@ define(function(require) {
     		nav[0].style.display = "none";
     	})
 
+    	function validateEmail(email) {
+		  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		  return re.test(email);
+		}
+
     	function validate(step) {
+    	  var annunci = document.getElementById("reg_step" + step).getElementsByClassName("annunci");
 		  if (step == 0) {
 		      var x = $("#email").val();
 		      var y = $("#pass").val();
 		      var z = $("#conf_pass").val();
 		      if (y == null || y == "" || z == null || z == "" || x == null || x == "") {
-		        var annunci = document.getElementById("reg_step" + step).getElementsByClassName("annunci");
 		        annunci[0].style.display = "inline-block";
 		        annunci[0].innerHTML = "Compila i campi richiesti!";
 		        return false;
+		    } else if(!validateEmail(x)) {
+		      annunci[0].style.display = "inline-block";
+		      annunci[0].innerHTML = "E-mail non valida!";
+		      return false;
 		    } else {
-		      return true;
+		    	return true;
 		    }
 		  } else if (step == 1) {
 		      var x = $("#nome").val();
 		      var y = $("#cognome").val();
 		      if (y == null || y == "" || x == null || x == "") {
-		        var annunci = document.getElementById("reg_step" + step).getElementsByClassName("annunci");
 		        annunci[0].style.display = "inline-block";
 		        annunci[0].innerHTML = "Compila i campi richiesti!";
 		        return false;

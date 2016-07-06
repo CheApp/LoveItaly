@@ -79,30 +79,7 @@ define(function(require) {
           trigger: true
         });
       } else {
-        apriLogin();
-
-        function apriLogin() {
-          var login = document.getElementById("login");
-          login.style.visibility = "visible";
-          login.style.animation = "up 0.3s";
-          login.style.WebkitAnimation =   "up 0.3s";
-          var header = document.getElementsByTagName("header");
-          header[0].style.animation = "leave 0.3s";
-          header[0].style.WebkitAnimation = "leave 0.3s";
-          var nav = document.getElementsByTagName("nav");
-          nav[0].style.animation = "leave 0.3s";
-          nav[0].style.WebkitAnimation = "leave 0.3s";
-          setTimeout(impostaLogin, 300);
-        }
-
-        function impostaLogin() {
-          var header = document.getElementsByTagName("header");
-          var nav = document.getElementsByTagName("nav");
-          var content = document.getElementById("content");
-          nav[0].style.visibility = "hidden";
-          header[0].style.visibility = "hidden";
-          content.style.display = "none";
-        }
+        this.apriLogin();
 
         $(".log_chiusura").click(chiudiLogin);
 
@@ -468,39 +445,67 @@ define(function(require) {
     },
 
     goToCheckout: function(e) {
-      var cid = 2;
-
-        flag = false;
-        var carrello = document.getElementById("carrello");
-        carrello.style.animation =  "car_down 0.5s";
-        carrello.style.WebkitAnimation =  "car_down 0.5s";
+      flag = false;
+      var carrello = document.getElementById("carrello");
+      carrello.style.animation =  "car_down 0.5s";
+      carrello.style.WebkitAnimation =  "car_down 0.5s";
+      var lista_prodotti = document.getElementById("car_lista_prodotti");
+      lista_prodotti.style.animation = "car_leave 0.4s"
+      lista_prodotti.style.WebkitAnimation = "car_leave 0.4s"
+      var header = document.getElementsByTagName("header");
+      header[0].style.visibility = "visible";
+      header[0].style.animation = "car_stay 0s";
+      header[0].style.WebkitAnimation = "car_stay 0s";
+      var checkout = document.getElementById("car_checkout");
+      checkout.style.animation = "car_down_checkout 0.5s";
+      checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
+      setTimeout(function() {
+        var content = document.getElementById("content");
+        content.style.display = "inline-block";
+      }, 200); 
+      setTimeout(function() {
         var lista_prodotti = document.getElementById("car_lista_prodotti");
-        lista_prodotti.style.animation = "car_leave 0.4s"
-        lista_prodotti.style.WebkitAnimation = "car_leave 0.4s"
-        var header = document.getElementsByTagName("header");
-        header[0].style.visibility = "visible";
-        header[0].style.animation = "car_stay 0s";
-        header[0].style.WebkitAnimation = "car_stay 0s";
-        var checkout = document.getElementById("car_checkout");
-        checkout.style.animation = "car_down_checkout 0.5s";
-        checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
-        setTimeout(function() {
-          var content = document.getElementById("content");
-          content.style.display = "inline-block";
-        }, 200); 
-        setTimeout(function() {
-          var lista_prodotti = document.getElementById("car_lista_prodotti");
-          lista_prodotti.style.animation = "car_leave 0.3s"
-          lista_prodotti.style.WebkitAnimation = "car_leave 0.3s"
-          lista_prodotti.style.visibility = "hidden";
-          carrello.style.visibility = "hidden";
-          checkout.style.visibility = "hidden";
-        }, 300);
+        lista_prodotti.style.animation = "car_leave 0.3s"
+        lista_prodotti.style.WebkitAnimation = "car_leave 0.3s"
+        lista_prodotti.style.visibility = "hidden";
+        carrello.style.visibility = "hidden";
+        checkout.style.visibility = "hidden";
+      }, 300);
+                
+      if (localStorage.getItem("ID") > 0) {
+        var cid = localStorage.getItem("ID");
 
-      Backbone.history.navigate("checkout?cid=" + cid, {
-        trigger: true
-      });
+        Backbone.history.navigate("checkout?cid=" + cid, {
+          trigger: true
+        });
+      } else {
+        this.apriLogin();
+      }
     },
+
+    apriLogin: function() {
+      var login = document.getElementById("login");
+      login.style.visibility = "visible";
+      login.style.animation = "up 0.3s";
+      login.style.WebkitAnimation =   "up 0.3s";
+      var header = document.getElementsByTagName("header");
+      header[0].style.animation = "leave 0.3s";
+      header[0].style.WebkitAnimation = "leave 0.3s";
+      var nav = document.getElementsByTagName("nav");
+      nav[0].style.animation = "leave 0.3s";
+      nav[0].style.WebkitAnimation = "leave 0.3s";
+      setTimeout(this.impostaLogin, 300);     
+    },
+
+    impostaLogin: function() {
+      var header = document.getElementsByTagName("header");
+      var nav = document.getElementsByTagName("nav");
+      var content = document.getElementById("content");
+      nav[0].style.visibility = "hidden";
+      header[0].style.visibility = "hidden";
+      content.style.display = "none";
+    },
+
 
     login: function() {
       checkUtente(); 
