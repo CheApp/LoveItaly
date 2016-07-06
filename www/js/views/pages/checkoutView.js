@@ -587,7 +587,7 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
       
       function getLocation() {
           if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition, displayError, {timeout: 5000, enableHighAccuracy: false});
+              navigator.geolocation.getCurrentPosition(showPosition, displayError, {timeout: 15000, enableHighAccuracy: true});
           } else {
               //debugger;
           }

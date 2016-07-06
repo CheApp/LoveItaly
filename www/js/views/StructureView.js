@@ -162,11 +162,22 @@ define(function(require) {
       this.$('#car_lista_prodotti').append(cart);
 
       $(document).ready(function() {
+        $("#mylocation").click(function () {
+          $('.menucontenuto').slideToggle();
+          $('#irrangiugibile').attr("style", "display: none");
+          $('#nondisponibile').attr("style", "display: none");
+          $('#popup_location').attr("style", "display: block");
+          $('#sceltamanuale').attr("style", "display: block");
+        });
+
         $(".loc_option").click (function () {
-          
-          $('#mylocation').val(this.getAttribute('data-value'));
+          $('#mylocation').text("Stai guardando: " + this.getAttribute('data-value'));
           $('#popup_location').attr("style", "display: none");
-        })
+        });
+
+        $("#skip_popup").click (function () {
+          $('#popup_location').attr("style", "display: none");
+        });
 
 
         $(".popupQuantita").click(function () {
