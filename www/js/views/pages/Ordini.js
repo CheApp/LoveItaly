@@ -29,12 +29,12 @@ define(function(require) {
 
     goOrder : function(e) {
       var uid = $(e.currentTarget).data("id");
-      Backbone.history.navigate("showordine?oid="+ localStorage.getItem("ID") + "uid=" + uid  , {
+      Backbone.history.navigate("showordine?oid="+ localStorage.getItem("ID") + "&uid=" + uid  , {
         trigger: true
       });
     },
 
-    script: function() {
+     script: function() {
           document.getElementById("menubutton").classList.add("disabled");
           document.getElementById("backbutton").classList.remove("disabled");
     },
