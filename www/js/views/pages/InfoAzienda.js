@@ -61,7 +61,7 @@ define(function(require) {
 
     script: function() {
 		document.getElementById("acquistabtn").classList.add("disabled");
-		document.getElementById("head").classList.add("disabled");
+		//document.getElementById("head").classList.add("disabled");
 		document.getElementById("navbar").classList.remove("disabled");
 
 

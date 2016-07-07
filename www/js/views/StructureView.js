@@ -164,8 +164,8 @@ define(function(require) {
 
       $(document).ready(function() {
         $("#mylocation").click(function () {
-          $('.menucontenuto').slideToggle();
-          $('#irrangiugibile').attr("style", "display: none");
+         // $('.menucontenuto').slideToggle(500);
+          $('#irraggiungibile').attr("style", "display: none");
           $('#nondisponibile').attr("style", "display: none");
           $('#popup_location').attr("style", "display: block");
           $('#sceltamanuale').attr("style", "display: block");

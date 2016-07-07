@@ -33,7 +33,7 @@ define(function(require) {
               navigator.geolocation.getCurrentPosition(
                 showPosition,
                 displayError,
-                {timeout: 3000, enableHighAccuracy: false}
+                {timeout: 2000, enableHighAccuracy: false}
               );
               
           } else {

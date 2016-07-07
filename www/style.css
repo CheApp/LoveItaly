@@ -360,7 +360,7 @@ infoprodtto select {
 
 #popup_location {
   width: 300px;
-  height: 520px;
+  /*height: 520px;*/
   background: #cacaca;
   opacity: 1;
   display: none;
