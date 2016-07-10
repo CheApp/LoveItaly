@@ -3,8 +3,10 @@ define(function(require) {
   var Backbone = require("backbone");
   var Utils = require("utils");
   var Jquery = require("jquery");
+  var AddressCollection = require("collections/Address_Collection");
+  var StateCollection = require("collections/State_Collection");
 
-
+  var flag;
   var Addindirizzo = Utils.Page.extend({
 
     constructorName: "Addindirizzo",
@@ -13,11 +15,45 @@ define(function(require) {
 
     
 
-    initialize: function(options) {
+    initialize: function(act , aid) {
 
+      this.act = act;
+      flag = false;
       this.template = Utils.templates.addindirizzo;
-      this.listenTo(this, "inTheDOM", this.script);
-      this.act = options;
+      if(act == 0) this.listenTo(this, "inTheDOM", this.script);
+      view = this;
+      
+      var ListaIndirizzi  = new AddressCollection();
+      if(act != 0){
+      ListaIndirizzi.fetch({
+
+        success: function(collezione, response, options) {
+
+            var ElencoProvince = new StateCollection();
+            ElencoProvince.fetch({
+
+              success: function(province, response, options) {
+                
+                var collezione_filtrata = collezione.byId(aid)[0];
+                var array_prov = province.models;
+
+
+            
+                  for (var j = 0; j < array_prov.length; j++) {
+
+                    if (collezione_filtrata.get("state") == array_prov[j].attributes.id) {
+                      collezione_filtrata.attributes.provincia = array_prov[j].attributes.provincia;
+                    }
+                  }
+              view.model = collezione_filtrata;
+              flag = true;
+              view.render();
+              view.script();
+          }
+            });
+            }
+            }); 
+    } else flag = true;
       
     },
 
@@ -30,21 +66,21 @@ define(function(require) {
 
 
     render: function() {
-           $(this.el).html(this.template); 
+      if(flag) $(this.el).html(this.template); 
     },
 
     script : function() {
-      if(this.act.act!=0){
+      if(this.act!=0){
         document.getElementById("addaddress").innerHTML = "Modifica";
         document.getElementById("addrtitle").innerHTML = "Modifica Indirizzo";
-        document.getElementById("alias").value = this.act.model.get("alias");
-        document.getElementById("name").value  = this.act.model.get("firstname");
-        document.getElementById("surname").value = this.act.model.get("lastname");
-        document.getElementById("address").value = this.act.model.get("address1");
-        document.getElementById("CAP").value = this.act.model.get("postcode");
-        document.getElementById("city").value = this.act.model.get("city");
-        document.getElementById("provincia").value = this.act.model.get("provincia");
-        document.getElementById("phone").value = this.act.model.get("phone");
+        document.getElementById("alias").value = this.model.get("alias");
+        document.getElementById("name").value  = this.model.get("firstname");
+        document.getElementById("surname").value = this.model.get("lastname");
+        document.getElementById("address").value = this.model.get("address1");
+        document.getElementById("CAP").value = this.model.get("postcode");
+        document.getElementById("city").value = this.model.get("city");
+        document.getElementById("provincia").value = this.model.get("provincia");
+        document.getElementById("phone").value = this.model.get("phone");
       } else {
         document.getElementById("addrtitle").innerHTML = "Nuovo Indirizzo";
         document.getElementById("addaddress").innerHTML = "Aggiungi";
@@ -53,18 +89,13 @@ define(function(require) {
 
    
    opAddress : function() {
-     if(this.act.act == 0) this.addAddress();
+     if(this.act == 0) this.addAddress();
      else this.editAddress();
    },
 
    editAddress : function() {
     
-    var id_indirizzo = this.act.model.get("id_indirizzo");
-    var autenticazione = function (xhr) {
-          var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-          var token = 'Basic '.concat(key64);
-          xhr.setRequestHeader('Authorization', token);
-        }
+        var id_indirizzo = this.model.get("id_indirizzo");
         var id_cliente = localStorage.getItem("ID");
 
         var alias = document.getElementById("alias").value;
@@ -78,11 +109,11 @@ define(function(require) {
 
 
         $.ajax({
-          url: 'http://192.168.56.101/loveitaly/api/states/?io_format=XML&display=full',
+          url: window.SERVER_PATH+'/states/?io_format=XML&display=full&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
           async: true,
           type: "GET",
           dataType: 'xml',
-          beforeSend: autenticazione,
+    //      beforeSend: window.autenticazione,
 
           success: function (result) {
               
@@ -101,11 +132,11 @@ define(function(require) {
             var id_stato = stati[c].childNodes[1].firstChild.nodeValue;
 
               $.ajax({
-                url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML&schema=blank',
+                url: window.SERVER_PATH+'/addresses/?io_format=XML&schema=blank&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                 async: true,
                 type: "GET",
                 dataType: 'xml',
-                beforeSend: autenticazione,
+        //        beforeSend: window.autenticazione,
 
                 success: function (result) {
                   
@@ -126,12 +157,12 @@ define(function(require) {
                   var indirizzo = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
                   $.ajax({
-                    url: 'http://192.168.56.101/loveitaly/api/addresses/' + id_indirizzo + '?io_format=XML',
+                    url: window.SERVER_PATH+'/addresses/' + id_indirizzo + '?io_format=XML&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                     async: true,
                     type: "PUT",
                     dataType: 'xml',
                     contentType: "text/xml",
-                    beforeSend: autenticazione,
+           //         beforeSend: window.autenticazione,
                     data: indirizzo,
                     success: function (result) {
                        window.history.back();
@@ -167,11 +198,6 @@ define(function(require) {
 
     addAddress : function() {
 
-        var autenticazione = function (xhr) {
-          var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-          var token = 'Basic '.concat(key64);
-          xhr.setRequestHeader('Authorization', token);
-        }
         var id_cliente = localStorage.getItem("ID");
 
         var alias = document.getElementById("alias").value;
@@ -185,11 +211,11 @@ define(function(require) {
 
 
         $.ajax({
-          url: 'http://192.168.56.101/loveitaly/api/states/?io_format=XML&display=full',
+          url: window.SERVER_PATH+'/states/?io_format=XML&display=full&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
           async: true,
           type: "GET",
           dataType: 'xml',
-          beforeSend: autenticazione,
+    //      beforeSend: window.autenticazione,
 
           success: function (result) {
               
@@ -208,11 +234,11 @@ define(function(require) {
             var id_stato = stati[c].childNodes[1].firstChild.nodeValue;
 
               $.ajax({
-                url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML&schema=blank',
+                url: window.SERVER_PATH+'/addresses/?io_format=XML&schema=blank&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                 async: true,
                 type: "GET",
                 dataType: 'xml',
-                beforeSend: autenticazione,
+        //        beforeSend: window.autenticazione,
 
                 success: function (result) {
                   
@@ -232,12 +258,12 @@ define(function(require) {
                   var indirizzo = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
                   $.ajax({
-                    url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML',
+                    url: window.SERVER_PATH+'/addresses/?io_format=XML&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                     async: true,
                     type: "POST",
                     dataType: 'xml',
                     contentType: "text/xml",
-                    beforeSend: autenticazione,
+           //         beforeSend: window.autenticazione,
                     data: indirizzo,
                     success: function (result) {
                        window.history.back();

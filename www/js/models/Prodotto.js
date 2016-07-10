@@ -19,7 +19,7 @@ define(function(require) {
 	    this.descr               =  this.remove_tags(options.description);
 	    this.shortD              =  this.excerpt(this.remove_tags(options.description_short));
 	    this.prezzo              =  (Math.round(options.price*100)/100).toFixed(2);
-	    this.img                 =  "http://192.168.56.101/loveitaly/api/images/products/"+options.id+"/"+options.id_default_image+"?ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H"
+	    this.img                 =  window.SERVER_PATH+"/images/products/"+options.id+"/"+options.id_default_image+"?ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H"
 	    this.immagini            =  options.associations.images;           //images[n].id  to get img ID
 	    this.categorie           =  options.associations.categories;       //category[n].id to get category ID
 	    this.quantita            =  options.quantity;

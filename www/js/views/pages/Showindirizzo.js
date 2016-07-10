@@ -4,8 +4,10 @@ define(function(require) {
   var Utils = require("utils");
   var Jquery = require("jquery");
   var Indirizzo = require("models/Indirizzo");
+  var AddressCollection = require("collections/Address_Collection");
+  var StateCollection = require("collections/State_Collection");
 
-
+  var flag;
   var Showindirizzo = Utils.Page.extend({
 
     constructorName: "Showindirizzo",
@@ -13,10 +15,40 @@ define(function(require) {
 
     
 
-    initialize: function(options) {
+    initialize: function(aid) {
 
       this.template = Utils.templates.showindirizzo;
       this.listenTo(this, "inTheDOM", this.script);
+      var view = this;
+      flag = false;
+      var ListaIndirizzi  = new AddressCollection();
+      ListaIndirizzi.fetch({
+
+        success: function(collezione, response, options) {
+
+            var ElencoProvince = new StateCollection();
+            ElencoProvince.fetch({
+
+              success: function(province, response, options) {
+                
+                var collezione_filtrata = collezione.byId(aid)[0];
+                var array_prov = province.models;
+
+
+            
+                  for (var j = 0; j < array_prov.length; j++) {
+
+                    if (collezione_filtrata.get("state") == array_prov[j].attributes.id) {
+                      collezione_filtrata.attributes.provincia = array_prov[j].attributes.provincia;
+                    }
+                  }
+                  view.model = collezione_filtrata; 
+                  flag = true;
+                  view.render(); 
+          }
+            });
+            }
+            }); 
       
     },
 
@@ -29,7 +61,7 @@ define(function(require) {
 
 
     render: function() {
-           $(this.el).html(this.template(this.model.toJSON())); 
+         if(flag)  $(this.el).html(this.template(this.model.toJSON())); 
     },
 
     script: function() {
@@ -50,19 +82,14 @@ define(function(require) {
 
     deleteAddress : function() {
 
-          var autenticazione = function (xhr) {
-          var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-          var token = 'Basic '.concat(key64);
-          xhr.setRequestHeader('Authorization', token);
-        }
         var id_cliente = localStorage.getItem("ID");
         var id_indirizzo = document.getElementById("aid").value;
 
         $.ajax({
-                    url: 'http://192.168.56.101/loveitaly/api/addresses/'+id_indirizzo,
+                    url: window.SERVER_PATH+'/addresses/'+id_indirizzo+'&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                     async: true,
                     type: "DELETE",
-                    beforeSend: autenticazione,
+                    beforeSend: window.autenticazione,
                     success: function (result) {
                        window.history.back();
                     },

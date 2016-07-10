@@ -14,10 +14,18 @@ define(function(require) {
 
     
 
-    initialize: function(options) {
+    initialize: function(oid) {
 
       this.template = Utils.templates.ordini;
       this.listenTo(this, "inTheDOM", this.script);
+      view = this;
+       var orders = new CollezioneOrdini({ id : oid });
+            orders.fetch({
+        success: function (collection, response, options) {
+                view.collection = orders;
+                view.render();
+            }
+          });
       
     },
 

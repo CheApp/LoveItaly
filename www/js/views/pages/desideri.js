@@ -17,10 +17,14 @@ define(function(require) {
 
     
 
-    initialize: function(options) {
+    initialize: function(Collezione) {
 
       this.template = Utils.templates.desideri;
       this.listenTo(this, "inTheDOM", this.script);
+      var ListaDesideri = new WishList();
+      ListaDesideri.fetch({ajaxSync: false});
+      var array_wish = ListaDesideri.models;
+      this.collection = Collezione.byIDList(array_wish);
       
     },
 

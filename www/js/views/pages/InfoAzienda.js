@@ -6,9 +6,10 @@ define(function(require) {
   var Swiper = require("swiper");
   var Leaflet = require("leaflet");
   var Azienda = require("models/Azienda");
+  var Indirizzo = require("models/Indirizzo");
   var CollezioneProdotti = require("collections/CollezioneProdotti");
 
-
+  var flag;
   var InfoAzienda = Utils.Page.extend({
 
     constructorName: "InfoAzienda",
@@ -17,10 +18,33 @@ define(function(require) {
 
     
 
-    initialize: function(options) {
+    initialize: function(Collezione, aid , tab) {
 
       this.template = Utils.templates.infoazienda;
-      this.listenTo(this, "inTheDOM", this.script);
+      flag= false;
+      var view = this;
+      var manufacturer = new Azienda({ id : aid });
+      manufacturer.fetch({
+        success: function (model, response, options) {
+          var ind = new Indirizzo ({ id : model.num_ind });
+          var azienda = model;
+          ind.fetch({
+            success: function(model, response, options) {
+              azienda.citta = model.citta;
+              azienda.indirizzo = model.via;
+              azienda.tel = model.tel;
+              azienda.cel = model.cel;
+              var prodotti = Collezione.byManufacturer(azienda.id);
+              view.model = azienda;
+              view.collection = prodotti;
+              view.tab_selected = tab; 
+              flag = true;
+              view.render();     
+              view.script();      
+            }
+          });
+        }
+      });
 
     },
 
@@ -32,6 +56,7 @@ define(function(require) {
     },
 
     render: function() {
+    	if(flag){
            $(this.el).html(this.template({
            		azienda : this.model, 
            		prodotti : this.collection
@@ -56,6 +81,7 @@ define(function(require) {
 	           	thumbnail_azienda.appendChild(img);
 	           }	               	
            }, 1000);
+       }
     },
 
 

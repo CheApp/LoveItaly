@@ -36,19 +36,30 @@ define(function(require) {
       "click #car_checkout": "goToCheckout"
     },
 
-    initialize: function(options) {
+    initialize: function(Aziende, Categorie) {
     
       this.template = Utils.templates.structure;
-      this.listenTo(this, "inTheDOM", this.bars);
-      this.Aziende = options.Aziende.toJSON();
-      this.Categorie  = options.Categorie.toJSON();
+      var view = this;
+
+       Aziende.fetch({
+          success: function (collection, response, options) {
+            Categorie.fetch({
+               success: function (collection, response, options) {
+                view.Aziende = Aziende.toJSON();
+                view.Categorie  = Categorie.toJSON();
+                view.render();
+                view.bars();
+              }
+            });
+          }
+        });
+
 
       ListaCarrello.fetch({ajaxSync: false});
   
     },
 
     render: function() {
-
       this.el.innerHTML = this.template({Aziende : this.Aziende, Categorie : this.Categorie});
       this.contentElement = this.$el.find('#content')[0];
       return this;
@@ -82,31 +93,49 @@ define(function(require) {
       } else {
         this.apriLogin();
 
-        $(".log_chiusura").click(chiudiLogin);
-
-        $("#go_reg").click(chiudiLogin);
-
-        function chiudiLogin() {
-          var login = document.getElementById("login");
-          login.style.animation = "down 0.5s";
-          login.style.WebkitAnimation = "down 0.5s";
-          var header = document.getElementsByTagName("header");
-          header[0].style.visibility = "visible";
-          header[0].style.animation = "stay 0.2s";
-          header[0].style.WebkitAnimation = "stay 0.2s";
-          var content = document.getElementById("content");
-          content.style.display = "inline-block";     
-          setTimeout(togliLogin, 500);
+        $(".log_chiusura").click(
+          function() {
+            var login = document.getElementById("login");
+            login.style.animation = "down 0.5s";
+            login.style.WebkitAnimation = "down 0.5s";
+            var header = document.getElementsByTagName("header");
+            header[0].style.visibility = "visible";
+            header[0].style.animation = "stay 0.2s";
+            header[0].style.WebkitAnimation = "stay 0.2s";
+            var content = document.getElementById("content");
+            content.style.display = "inline-block";     
+            setTimeout(function() {
+              var login = document.getElementById("login");
+              login.style.visibility = "hidden";
+              var nav = document.getElementsByTagName("nav");
+              nav[0].style.visibility = "visible";
+              nav[0].style.animation = "up_nav 0.1s";
+              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+            }, 500);
         }
+        );
 
-        function togliLogin() {
-          var login = document.getElementById("login");
-          login.style.visibility = "hidden";
-          var nav = document.getElementsByTagName("nav");
-          nav[0].style.visibility = "visible";
-          nav[0].style.animation = "up_nav 0.1s";
-          nav[0].style.WebkitAnimation = "up_nav 0.1s";     
+        $("#go_reg").click(
+          function() {
+            var login = document.getElementById("login");
+            login.style.animation = "down 0.5s";
+            login.style.WebkitAnimation = "down 0.5s";
+            var header = document.getElementsByTagName("header");
+            header[0].style.visibility = "visible";
+            header[0].style.animation = "stay 0.2s";
+            header[0].style.WebkitAnimation = "stay 0.2s";
+            var content = document.getElementById("content");
+            content.style.display = "inline-block";     
+            setTimeout(function() {
+              var login = document.getElementById("login");
+              login.style.visibility = "hidden";
+              var nav = document.getElementsByTagName("nav");
+              nav[0].style.visibility = "visible";
+              nav[0].style.animation = "up_nav 0.1s";
+              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+            }, 500);
         }
+        );
       }
     },
  
@@ -172,7 +201,7 @@ define(function(require) {
         });
 
         $(".loc_option").click (function () {
-          $('#mylocation').text("Stai guardando: " + this.getAttribute('data-value'));
+          $('#mylocation').text("Sei localizzato a: " + this.getAttribute('data-value'));
           $('#popup_location').attr("style", "display: none");
         });
 
@@ -215,7 +244,7 @@ define(function(require) {
             quantita.getElementsByTagName("span")[1].innerHTML = num_quantita;
             
             var id_cart_object = quantita.parentNode.parentNode.parentNode.parentNode.getAttribute('data-id');
-
+            ListaCarrello.fetch({ajaxSync: false});
             var array_cart = ListaCarrello.models;
                 
             var c;
@@ -493,6 +522,50 @@ define(function(require) {
         });
       } else {
         this.apriLogin();
+
+        $(".log_chiusura").click(
+          function() {
+            var login = document.getElementById("login");
+            login.style.animation = "down 0.5s";
+            login.style.WebkitAnimation = "down 0.5s";
+            var header = document.getElementsByTagName("header");
+            header[0].style.visibility = "visible";
+            header[0].style.animation = "stay 0.2s";
+            header[0].style.WebkitAnimation = "stay 0.2s";
+            var content = document.getElementById("content");
+            content.style.display = "inline-block";     
+            setTimeout(function() {
+              var login = document.getElementById("login");
+              login.style.visibility = "hidden";
+              var nav = document.getElementsByTagName("nav");
+              nav[0].style.visibility = "visible";
+              nav[0].style.animation = "up_nav 0.1s";
+              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+            }, 500);
+        }
+        );
+
+        $("#go_reg").click(
+          function() {
+            var login = document.getElementById("login");
+            login.style.animation = "down 0.5s";
+            login.style.WebkitAnimation = "down 0.5s";
+            var header = document.getElementsByTagName("header");
+            header[0].style.visibility = "visible";
+            header[0].style.animation = "stay 0.2s";
+            header[0].style.WebkitAnimation = "stay 0.2s";
+            var content = document.getElementById("content");
+            content.style.display = "inline-block";     
+            setTimeout(function() {
+              var login = document.getElementById("login");
+              login.style.visibility = "hidden";
+              var nav = document.getElementsByTagName("nav");
+              nav[0].style.visibility = "visible";
+              nav[0].style.animation = "up_nav 0.1s";
+              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+            }, 500);
+        }
+        );
       }
     },
 
@@ -519,27 +592,19 @@ define(function(require) {
       content.style.display = "none";
     },
 
-
     login: function() {
       checkUtente(); 
-
-      function autenticazione (xhr) {
-        var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; 
-        var token = 'Basic '.concat(key64);
-        xhr.setRequestHeader('Authorization', token);
-      }
-
 
       function checkUtente () {
         var email = $("#email").val();
         var pwd = $("#pass").val();
         var pass = md5('7j3EQiXxwscCNaOIORd8YqmvkjfEmDVxs4EcihNJNVNyCG4bHA3ThTnk'+pwd);
         $.ajax({
-          url: 'http://192.168.56.101/loveitaly/api/customers/?filter[email]='+email+'&filter[passwd]='+pass,
+          url: window.SERVER_PATH+'/customers/?filter[email]='+email+'&filter[passwd]='+pass+'&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
           async: true,
           type: "GET",
           dataType: 'xml',
-          beforeSend: autenticazione,
+    //      beforeSend: window.autenticazione,
 
           success: function (result) {
             var customer = result.getElementsByTagName("customer")[0];

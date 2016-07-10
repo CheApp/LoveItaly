@@ -192,32 +192,25 @@ define(function(require) {
     put_reg: function() {
     	insertUtente(); 
 
-    	function autenticazione (xhr) {
-		  var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; 
-		  var token = 'Basic '.concat(key64);
-		  xhr.setRequestHeader('Authorization', token);
-		}
-
-
 		function insertUtente () {
 		 var email = $("#email").val();
 
 	     $.ajax({
-          url: 'http://192.168.56.101/loveitaly/api/customers/?filter[email]='+email,
+          url: window.SERVER_PATH+'/customers/?filter[email]='+email+"&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H",
           async: true,
           type: "GET",
           dataType: 'xml',
-          beforeSend: autenticazione,
+   //       beforeSend: window.autenticazione,
 
           success: function (result) {
             var customer = result.getElementsByTagName("customer")[0];
             if (customer == null) {
 	            $.ajax({
-			    url: 'http://192.168.56.101/loveitaly/api/customers/?io_format=XML&schema=blank',
+			    url: window.SERVER_PATH+'/customers/?io_format=XML&schema=blank&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
 			    async: true,
 			    type: "GET",
 			    dataType: 'xml',
-			    beforeSend: autenticazione,
+		//	    beforeSend: window.autenticazione,
 
 			    success: function (result) {
 			      putUtente(result);
@@ -258,12 +251,12 @@ define(function(require) {
 			  var contact = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
 			  $.ajax({
-			    url: 'http://192.168.56.101/loveitaly/api/customers/?io_format=XML',
+			    url: window.SERVER_PATH+'/customers/?io_format=XML&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
 			    async: true,
 			    type: "POST",
 			    dataType: 'xml',
 			    contentType: "text/xml",
-			    beforeSend: autenticazione,
+			//    beforeSend: window.autenticazione,
 			    data: contact,
 			    success: function (result) {
 			      var annunci = document.getElementById("reg_step3").getElementsByClassName("annunci");

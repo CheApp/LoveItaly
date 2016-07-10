@@ -2,12 +2,6 @@ define(function(require) {
 
 	var Backbone = require("backbone");
 
-	var autenticazione = function (xhr) {
-	  var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-	  var token = 'Basic '.concat(key64);
-	  xhr.setRequestHeader('Authorization', token);
-	}
-
 	var Indirizzo = Backbone.Model.extend({
 	  initialize: function(options) {
 	  	this.id = options.id;
@@ -21,9 +15,9 @@ define(function(require) {
 	  },
 
 	  url: function () {
-	    var url = 'http://192.168.56.101/loveitaly/api/addresses/';
+	    var url = window.SERVER_PATH+'/addresses/';
 	    url += this.id;
-	    url += '?io_format=JSON';
+	    url += '?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H';
 	    return url;
 	  },
 
@@ -38,7 +32,7 @@ define(function(require) {
 
 	  sync: function(method, collection, options){
 	    options = options || {};
-	    options.beforeSend = autenticazione;
+	//    options.beforeSend = window.autenticazione;
 	    return Backbone.Model.prototype.sync.apply(this, arguments);
 	  }
 	});

@@ -11,9 +11,15 @@ define(function(require) {
 
     
 
-    initialize: function(options) {
+    initialize: function(prodotti) {
 
       this.template = Utils.templates.splashscreen;
+      var view = this;
+      prodotti.fetch({
+        success: function (collection, response, options) {
+             view.start();  
+            }
+          });
       
     },
 
@@ -43,12 +49,22 @@ define(function(require) {
           function showPosition(position) {
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
+
+        
+            var choices = ["Castel Frentano", "Fossacesia", "Frisa", "Lanciano", "Mozzagrogna", "Ortona", "Rocca San Giovanni", "Santa Maria Imbaro", "San Vito Chietino", "Treglio"];
             
             $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon, function(data) {
               if (data.results.length != 0) {
                 var myplace = data.results[0].address_components[2].long_name;
-                $('#mylocation').text("Stai guardando: " + myplace);
-                $('#mylocation').attr("data-value", "1");
+
+                
+                for (var i = 0; i < choices.length; i++) {
+                  if (myplace == choices[i]) {
+                    $('#mylocation').text("Stai guardando: " + myplace);
+                    $('#mylocation').attr("data-value", "1");
+                  }
+                }
+                
 
                 
                 

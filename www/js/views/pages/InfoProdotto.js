@@ -48,7 +48,7 @@ define(function(require) {
 
     script: function(){
         
-        $("#add_to_cart").css("background-color", "green");
+        $("#add_to_cart").css("background-color", "#157e3f");
         var array_cart = ListaCarrello.models;
         
         var c;
@@ -155,7 +155,7 @@ define(function(require) {
                     
             Cart_Object.save();
                     
-            $("#add_to_cart").css("background-color", "gray");
+            $("#add_to_cart").attr("style", "background-color: gray;");
                     
         }.bind(this));
     

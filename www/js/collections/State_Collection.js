@@ -3,14 +3,10 @@ define(function(require) {
 	var Backbone = require("backbone");
 	var StateModel = require("models/State_Model");
 
-	var autenticazione = function (xhr) {
-	  var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-	  var token = 'Basic '.concat(key64);
-	  xhr.setRequestHeader('Authorization', token);
-	}
-
 	var StateCollection = Backbone.Collection.extend({
-		url: 'http://192.168.56.101/loveitaly/api/states/?io_format=JSON&display=full',
+		url: function() {
+			return window.SERVER_PATH+'/states/?io_format=JSON&display=full&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H';
+		},
 
 		constructorName: "StateCollection",
 		model: StateModel,
@@ -23,7 +19,7 @@ define(function(require) {
 
 		sync: function(method, collection, options){
 			options = options || {};
-			options.beforeSend = autenticazione;
+		//	options.beforeSend = window.autenticazione;
 			return Backbone.Collection.prototype.sync.apply(this, arguments);
 		}
 	});

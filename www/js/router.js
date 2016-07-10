@@ -4,6 +4,7 @@ define(function(require) {
   var Backbone = require("backbone");
   var StructureView = require("views/StructureView");
   var Home = require("views/pages/Home");
+  var Registrazione = require("views/pages/Registrazione");
   var InfoProdotto = require("views/pages/InfoProdotto");
   var ListaProdotti = require("views/pages/ListaProdotti");
   var SplashScreen = require("views/pages/SplashScreen");
@@ -18,30 +19,19 @@ define(function(require) {
   var Addindirizzo = require("views/pages/Addindirizzo");
   var Ordini = require("views/pages/Ordini");
   var Desideri = require("views/pages/desideri");
-  var WishList = require("collections/ListaDesideri");
-  var Wish = require("models/Prodotto_Desiderio");
   var CartList = require("collections/Nel_Carrello");
   var cart_object = require("models/cart_object");
   var Prodotto = require("models/Prodotto");
   var CollezioneProdotti = require("collections/CollezioneProdotti");
   var CollezioneAziende = require("collections/Aziende");
   var CollezioneCategorie = require("collections/Categorie");
-  var Search = require("collections/Search");
   var Azienda = require("models/Azienda");
-  var Indirizzo = require("models/Indirizzo");
-  var AddressCollection = require("collections/Address_Collection");
-  var StateModel = require("models/State_Model");
-  var StateCollection = require("collections/State_Collection");
-  var CollezioneOrdini = require("collections/CollezioneOrdini");
-  var Registrazione = require("views/pages/Registrazione");
 
 
   var Collezione = new CollezioneProdotti();
   var Aziende    = new CollezioneAziende();
   var Categorie  = new CollezioneCategorie();
-  var ListaIndirizzi  = new AddressCollection();
   var ListaCarrello = new CartList();
-  var ListaDesideri = new WishList();
 
   var AppRouter = Backbone.Router.extend({
     
@@ -77,40 +67,17 @@ define(function(require) {
       this.currentView = undefined;
     },
 
-
-
     SplashScreen: function() {
       
-      var page = new SplashScreen();
-
-      Collezione.fetch({
-        success: function (collection, response, options) {
-              setTimeout(page.start , 1500);  
-            }
-          });
-
+      var page = new SplashScreen(Collezione);
       this.changePage(page); 
-
     },
 
     Home: function() {
             
-
-            this.refreshCart();
-            //Filtrano rispettivamente i prodotti attivi ed i prodotti da mostrare in home
-            var attivi   = Collezione.where({active: "1",is_virtual: "0"});
-            var prodotti = Collezione.byCategory("2");
-            
-            //Aggiunge i 6 prodotti più recenti inseriti ed attivi di loveitaly alla lista
-            for(var i=attivi.length-6; i<attivi.length; i++){
-              attivi[i].nuovo=true;
-              prodotti.push(attivi[i]);
-            }
-           
-           var page = new Home({
-           collection: prodotti
-           });
-        this.changePage(page);   
+      this.refreshCart();   
+      var page = new Home(Collezione);
+       this.changePage(page);   
       },
 
 
@@ -122,126 +89,22 @@ define(function(require) {
     },
 
     ListaProdotti: function(action, param) {
-
       this.refreshCart();
-      if (action == "1") {
-        var prodotti = Collezione.byCategory(param);
-        var page = new ListaProdotti ({ collection : prodotti });
-        this.changePage(page);
-      } else if (action == "2") {
-          var prodotti = Collezione.byManufacturer(param);
-          var page = new ListaProdotti ({ collection : prodotti });
-          this.changePage(page);
-      } else {
-          var newSearch = new Search({ query : param });
-          var router = this;
-          newSearch.fetch({ 
-            success: function (collection, response, options) {
-              var prodotti = null;
-              if (collection.length > 0) {
-                    prodotti = Collezione.bySearch(collection);
-                  } 
-              var page = new ListaProdotti ({ collection : prodotti });
-              router.changePage(page);
-            }
-        }); 
-      }
+      var page = new ListaProdotti(Collezione, action, param);
+      this.changePage(page);
     },
 
     InfoAzienda: function(aid, tab) {
       this.refreshCart();
-      var router = this;
-      var manufacturer = new Azienda({ id : aid });
-      manufacturer.fetch({
-        success: function (model, response, options) {
-          var ind = new Indirizzo ({ id : model.num_ind });
-          var azienda = model;
-          ind.fetch({
-            success: function(model, response, options) {
-              azienda.citta = model.citta;
-              azienda.indirizzo = model.via;
-              azienda.tel = model.tel;
-              azienda.cel = model.cel;
-              var prodotti = Collezione.byManufacturer(azienda.id);
-              var page = new InfoAzienda ({ model : azienda, collection : prodotti });
-              page.tab_selected = tab;
-              router.changePage(page);            
-            }
-          });
-        }
-      });
+      var page = new InfoAzienda(Collezione, aid , tab);
+      this.changePage(page);
     },
 
     showCheckout: function(cid) {
 
       this.refreshCart();
-      var AddrCollection = new AddressCollection();
-
-      AddrCollection.fetch({
-        success: function(lista_ind, response, options) {
-
-          var ElencoProvince = new StateCollection();
-
-          ElencoProvince.fetch({
-            success: function(province, response, options) {
-              
-              this.collezione_filtrata = lista_ind.byCustomer(cid);
-              console.log(this.collezione_filtrata);
-
-
-              var array_addr = this.collezione_filtrata.models;
-              var array_prov = province.models;
-
-              for (var c = 0; c < array_addr.length; c++) {
-
-                for (var j = 0; j < array_prov.length; j++) {
-
-                  if (array_addr[c].attributes.state == array_prov[j].attributes.id) {
-
-                    array_addr[c].attributes.provincia = array_prov[j].attributes.provincia;
-
-                  }
-
-                }
-
-               
-              }
-
-              var array_cart = ListaCarrello.models;
-              var prodotti_nel_checkout = Collezione.byIDList(array_cart);
-
-              var page = new checkoutView( {
-                  collection: {
-                    indirizzi: this.collezione_filtrata,
-                    ordini: prodotti_nel_checkout
-                  }
-              });
-                
-              this.changePage(page);
-
-            }.bind(this),
-
-
-
-            error: function(model, response, options) {
-              console.log('Errore fetch province!');
-            }
-
-
-          })            
-
-            
-            
-            
-          }.bind(this),
-
-          error: function(model, response, options) {
-              console.log('Errore fetch indirizzi!');
-          }
-
-        });
-
-      
+      var page = new checkoutView(Collezione, cid);
+      this.changePage(page);
     },
 
     User: function() { 
@@ -252,121 +115,23 @@ define(function(require) {
 
 
     Indirizzi: function() {
-      
-      var router = this;
-      ListaIndirizzi.fetch({
-
-        success: function(collezione, response, options) {
-
-            var ElencoProvince = new StateCollection();
-            ElencoProvince.fetch({
-
-              success: function(province, response, options) {
-                
-                var collezione_filtrata = collezione.byCustomer(localStorage.getItem("ID"));
-                var array_addr = collezione_filtrata.models;
-                var array_prov = province.models;
-
-
-                for (var c = 0; c < array_addr.length; c++) {
-                  for (var j = 0; j < array_prov.length; j++) {
-
-                    if (array_addr[c].attributes.state == array_prov[j].attributes.id) {
-                      array_addr[c].attributes.provincia = array_prov[j].attributes.provincia;
-                    }
-                  }
-                }
-            router.ListaIndirizzi = collezione_filtrata;
-            var page = new Indirizzi({collection : collezione_filtrata});
-            router.changePage(page);
-          }
-            });
-            }
-            });    
+        var page = new Indirizzi();
+        this.changePage(page);  
     },
 
      Showindirizzo: function(aid) {
-
-       var router = this;
-      ListaIndirizzi.fetch({
-
-        success: function(collezione, response, options) {
-
-            var ElencoProvince = new StateCollection();
-            ElencoProvince.fetch({
-
-              success: function(province, response, options) {
-                
-                var collezione_filtrata = collezione.byId(aid)[0];
-                var array_prov = province.models;
-
-
-            
-                  for (var j = 0; j < array_prov.length; j++) {
-
-                    if (collezione_filtrata.get("state") == array_prov[j].attributes.id) {
-                      collezione_filtrata.attributes.provincia = array_prov[j].attributes.provincia;
-                    }
-                  }
-              var page = new Showindirizzo({model : collezione_filtrata});
-              router.changePage(page); 
-  
-          }
-            });
-            }
-            }); 
-      
-
+        var page = new Showindirizzo(aid);
+        this.changePage(page); 
     },
 
      Addindirizzo: function(act,aid) {
-      
-      if(act == 0){
-      var page = new Addindirizzo({act : act});
-      this.changePage(page); 
-    } else {
-      var router = this;
-      ListaIndirizzi.fetch({
-
-        success: function(collezione, response, options) {
-
-            var ElencoProvince = new StateCollection();
-            ElencoProvince.fetch({
-
-              success: function(province, response, options) {
-                
-                var collezione_filtrata = collezione.byId(aid)[0];
-                var array_prov = province.models;
-
-
-            
-                  for (var j = 0; j < array_prov.length; j++) {
-
-                    if (collezione_filtrata.get("state") == array_prov[j].attributes.id) {
-                      collezione_filtrata.attributes.provincia = array_prov[j].attributes.provincia;
-                    }
-                  }
-              var page = new Addindirizzo({act : act, model : collezione_filtrata});
-              router.changePage(page);
-  
-          }
-            });
-            }
-            }); 
-    }
-
+       var page = new Addindirizzo(act , aid);
+       this.changePage(page);
     },
 
     Ordini: function(oid) {
-        
-        var router = this;
-        var orders = new CollezioneOrdini({ id : oid });
-            orders.fetch({
-        success: function (collection, response, options) {
-               var page = new Ordini({ collection : orders });
-               router.changePage(page);  
-            }
-          });
+        var page = new Ordini(oid);
+       this.changePage(page);
     },
 
     Dettagli: function() {
@@ -377,72 +142,58 @@ define(function(require) {
     },
 
     Showordine : function(oid,uid) {
-        var router = this;
-        var orders = new CollezioneOrdini({ id : oid });
-            orders.fetch({
-        success: function (collection, response, options) {
-               var filterorders = orders.byId(uid)[0];
-               var orderproducts = Collezione.byOrder(filterorders.cart_rows);
-               var page = new Showordine({ model : filterorders, collection : orderproducts });
-               router.changePage(page);  
-            }
-          });
+       var page = new Showordine(Collezione,oid,uid);
+       this.changePage(page);  
     },
 
     desideri: function() {
-
-      ListaDesideri.fetch({ajaxSync: false});
-      var array_wish = ListaDesideri.models;
-
-      var desideri_nel_profilo = Collezione.byIDList(array_wish);
-
-      var page = new Desideri({ collection: desideri_nel_profilo});
+      var page = new Desideri(Collezione);
       this.changePage(page); 
-
     },
 
 
     refreshCart: function(){
       ListaCarrello.fetch({ajaxSync: false});
-      
       var array_cart = ListaCarrello.models;
       var prodotti_nel_carrello = Collezione.byIDList(array_cart);
-
       var carrello = new Cart({
           collection: prodotti_nel_carrello
       });
       carrello.render();
-
       this.structureView.setCart(carrello.el);
     },
 
     // load the structure view
     showStructure: function() {
       var router = this;
-      if (!this.structureView) {
-  
-     Aziende.fetch({
-          success: function (collection, response, options) {
 
-            Categorie.fetch({
-               success: function (collection, response, options) {
-
-              router.structureView = new StructureView({Aziende : Aziende, Categorie : Categorie});
+      if (localStorage.getItem("connessione") == "true") {
+            if (!this.structureView) {
+              router.structureView = new StructureView(Aziende, Categorie);
               document.body.appendChild(router.structureView.render().el);
               router.structureView.trigger("inTheDOM");
               router.navigate(router.firstView, {trigger: true});
             }
-          });
-        }
-      });
-     }
+            
+      }
+      else {
+            navigator.notification.alert(
+                'Controlla la connesione!',  // message
+                alertDismissed,         // callback
+                'Internet',            // title
+                'Esci'                  // buttonName
+            );
+      }
+
+      function alertDismissed() {
+          navigator.app.exitApp();
+      }
+      
     },
 
   Registrazione: function() {
-      
       var page = new Registrazione();
       this.changePage(page); 
-
     }
     
 

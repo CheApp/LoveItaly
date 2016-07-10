@@ -15,10 +15,21 @@ define(function(require) {
 
     
 
-    initialize: function() {
+    initialize: function(Collezione) {
  
       this.template = Utils.templates.home;
       this.listenTo(this, "inTheDOM", this.slider);
+
+          //Filtrano rispettivamente i prodotti attivi ed i prodotti da mostrare in home
+            var attivi   = Collezione.where({active: "1",is_virtual: "0"});
+            var prodotti = Collezione.byCategory("2");
+            
+            //Aggiunge i 6 prodotti più recenti inseriti ed attivi di loveitaly alla lista
+            for(var i=attivi.length-6; i<attivi.length; i++){
+              attivi[i].nuovo=true;
+              prodotti.push(attivi[i]);
+            }
+            this.collection = prodotti;
       
     },
 

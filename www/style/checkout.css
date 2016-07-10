@@ -313,6 +313,13 @@ body {
         bottom: 0;        
       }
 
+      /*#save_addr_button {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 0px;
+      }*/
+
       #step2 span {
         font-weight: bold;
       }

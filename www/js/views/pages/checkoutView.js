@@ -10,42 +10,86 @@ define(function(require) {
   var Utils = require("utils");
 
   var ListaCarrello = new CartList();
+  var AddrCollection = new AddressCollection();
+  var ElencoProvince = new StateCollection();
+  var flag;
 
   var checkoutView = Utils.Page.extend({
 
     constructorName: "checkoutView",
     collection: AddressCollection,
-    //model: AddressModel,
 
-    initialize: function() {
-      // load the precompiled template
+    initialize: function(Collezione , cid) {
       this.template = Utils.templates.checkout;
-      // here we can register to inTheDOM or removing events
-      this.listenTo(this, "inTheDOM", this.script); 
-
+      flag = false;
       ListaCarrello.fetch({ajaxSync: false});
-         //$('#content').on("swipe", function(data){
-           //console.log(data);
-           
-      //});
-      // this.listenTo(this, "removing", functionName);
 
-      // by convention, all the inner views of a view must be stored in this.subViews
+
+
+
+      AddrCollection.fetch({
+        success: function(lista_ind, response, options) {
+
+          ElencoProvince.fetch({
+            success: function(province, response, options) {
+              
+              this.collezione_filtrata = lista_ind.byCustomer(cid);
+              var array_addr = this.collezione_filtrata.models;
+              var array_prov = province.models;
+
+              for (var c = 0; c < array_addr.length; c++) {
+
+                for (var j = 0; j < array_prov.length; j++) {
+
+                  if (array_addr[c].attributes.state == array_prov[j].attributes.id) {
+
+                    array_addr[c].attributes.provincia = array_prov[j].attributes.provincia;
+
+                  }
+                } 
+              }
+
+              var array_cart = ListaCarrello.models;
+              var prodotti_nel_checkout = Collezione.byIDList(array_cart);
+
+              
+                  this.collection = {
+                    indirizzi: this.collezione_filtrata,
+                    ordini: prodotti_nel_checkout
+                  }
+              
+              
+              flag = true;
+              this.render();
+              this.script();
+
+            }.bind(this),
+
+            error: function(model, response, options) {
+              console.log('Errore fetch province!');
+            }
+
+          })            
+          }.bind(this),
+
+          error: function(model, response, options) {
+              console.log('Errore fetch indirizzi!');
+          }
+
+        });
     },
 
     id: "checkoutView",
-    //className: "i-g page",
-
-    /*events: {
-      "click #save_addr_button": "rerender"
-    },*/
+  
 
 
 
     render: function() {
+      if(flag){
       window.checkout = this;
       $(this.el).html(this.template({Indirizzi: this.collection.indirizzi.toJSON(), ordini: this.collection.ordini}));
       return this;
+    }
     },
 
 
@@ -62,10 +106,11 @@ define(function(require) {
 
       var lista_prodotti = document.getElementById("lista_prodotti_checkout");
       var prodotti = lista_prodotti.getElementsByClassName("prodotto_checkout");
-      var totale = 0, index, prezzo;
+      var totale = 0, index, prezzo, quantita;
       for (index = 0; index < prodotti.length; index++) {
         prezzo = prodotti[index].getElementsByClassName("prezzo_prodotto")[0].getElementsByTagName("span");
-        totale += parseFloat(prezzo[0].innerHTML);
+        quantita = prodotti[index].getElementsByClassName("quantita_prodotto")[0].innerHTML;
+        totale += parseFloat(quantita*prezzo[0].innerHTML);
       }
       var loc_tot = document.getElementById("prezzo_totale").getElementsByTagName("span");
       loc_tot[0].innerHTML = totale;
@@ -78,6 +123,7 @@ define(function(require) {
 
 
       $('#forward_button').on("click", function() {
+        
         var content_steps = document.getElementById("steps");
         var lista = content_steps.getElementsByClassName("progress-indicator");
         var steps = lista[0].getElementsByTagName("li");
@@ -137,13 +183,16 @@ define(function(require) {
             });
             close_order();
             //svuota carrello
+            ListaCarrello.fetch({ajaxSync: false});
             var array_cart = ListaCarrello.models;
                 
             var c;
-            for (c = 0; c < array_cart.length; c++) {                
+            for (c = 0; c < array_cart.length; c++) {    
+                          
                     var current_obj = array_cart[c];
                     
                     current_obj.destroy();
+                    c--;
             } 
           }
           
@@ -165,19 +214,13 @@ define(function(require) {
         var totale = document.getElementById("prezzo_totale").getElementsByTagName("span")[0].innerHTML;
         var totale_con_gestione = parseFloat(totale) + 2;
 
-        
-        var autenticazione = function (xhr) {
-          var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-          var token = 'Basic '.concat(key64);
-          xhr.setRequestHeader('Authorization', token);
-        }
 
         $.ajax({
-          url: 'http://192.168.56.101/loveitaly/api/carts/?io_format=XML&schema=blank',
+          url: window.SERVER_PATH+'/carts/?io_format=XML&schema=blank&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
           async: true,
           type: "GET",
           dataType: 'xml',
-          beforeSend: autenticazione,
+   //       beforeSend: window.autenticazione,
 
           success: function (result) {
 
@@ -210,12 +253,12 @@ define(function(require) {
             var carrello = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
             $.ajax({
-              url: 'http://192.168.56.101/loveitaly/api/carts/?io_format=XML',
+              url: window.SERVER_PATH+'/carts/?io_format=XML&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
               async: true,
               type: "POST",
               dataType: 'xml',
               contentType: "text/xml",
-              beforeSend: autenticazione,
+      //        beforeSend: window.autenticazione,
               data: carrello,
 
               success: function (result) {
@@ -225,11 +268,11 @@ define(function(require) {
                 var id_carrello = $(result).find('id')[0].firstChild.nodeValue;
 
                 $.ajax({
-                  url: 'http://192.168.56.101/loveitaly/api/orders/?io_format=XML&schema=blank',
+                  url: window.SERVER_PATH+'/orders/?io_format=XML&schema=blank&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                   async: true,
                   type: "GET",
                   dataType: 'xml',
-                  beforeSend: autenticazione,
+           //       beforeSend: window.autenticazione,
 
                   success: function (result) {
                           
@@ -274,12 +317,12 @@ define(function(require) {
                     var ordine = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
                     $.ajax({
-                      url: 'http://192.168.56.101/loveitaly/api/orders/?io_format=XML',
+                      url: window.SERVER_PATH+'/orders/?io_format=XML&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                       async: true,
                       type: "POST",
                       dataType: 'xml',
                       contentType: "text/xml",
-                      beforeSend: autenticazione,
+               //       beforeSend: window.autenticazione,
                       data: ordine,
 
                       success: function (result) {
@@ -350,6 +393,8 @@ define(function(require) {
         
         if (oldStep == 3) {
           document.getElementById("new_address").style.display = "inherit";
+          $('#forward_button').attr("style", "background: #147C3D");
+        $('#forward_button').attr("style", "pointer-events: auto");
         }
         else {
           document.getElementById("new_address").style.display = "none";
@@ -507,7 +552,7 @@ define(function(require) {
 
 
        
-$('#new_address').on("click", function() { crea_nuovo_ind() });
+      $('#new_address').on("click", function() { crea_nuovo_ind() });
       //$('#dismiss_address').on("click", function() {nnulla_creazione()});
 
       function crea_nuovo_ind() {
@@ -522,6 +567,8 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
         //document.getElementById("new_address").style.pointerEvents = "none";
         document.getElementById('new_address').childNodes[0].textContent = 'Annulla';
         document.getElementById("forward_button").style.display = "none";
+        document.getElementById("forward_button").style.pointerEvents = "none";
+        document.getElementById("save_addr_button").style.display = "block";
         document.getElementById("step_precedente").style.display = "none";
         
         getLocation();
@@ -534,12 +581,14 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
 
       function annulla_creazione() {
           document.getElementById("forward_button").style.display = "block";
+          document.getElementById("forward_button").style.pointerEvents = "auto";
           document.getElementById("steps").style.display = "block";
           document.getElementById('new_address').childNodes[0].textContent = 'Nuovo';
           document.getElementById("form_addr").style.display = "none";
           document.getElementById("step_precedente").style.display = "inherit";
           document.getElementById("input_addr").style.display = "none";
           document.getElementById("input_addr").style.visibility = "hidden";
+          document.getElementById("selected_address").style.display = "block";
           
           /*$('#dismiss_address').attr("style", "display: none");
           $('#new_address').attr("style", "display: block");*/
@@ -555,12 +604,15 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
         $('#new_address').unbind('click');
         $('#new_address').on("click", function() { crea_nuovo_ind() });
         document.getElementById("forward_button").style.display = "block";
+        document.getElementById("forward_button").style.pointerEvents = "all";
         //document.getElementById("input_addr").style.visibility = "hidden";
         //document.getElementById("selected_address").style.display = "block";
         document.getElementById("steps").style.display = "block";
         document.getElementById("new_address").style.color = "#BF1E2E";
         document.getElementById("new_address").style.pointerEvents = "all";
         document.getElementById("form_addr").style.display = "none";
+        document.getElementById("save_addr_button").style.display = "none";
+        document.getElementById("step_precedente").style.display = "inherit";
         var nuovo_indirizzo = document.getElementById("input_item").value;
         
         if (nuovo_indirizzo != "") {
@@ -623,12 +675,6 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
 
       function postAddress(id_cliente, alias) {
 
-        var autenticazione = function (xhr) {
-          var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
-          var token = 'Basic '.concat(key64);
-          xhr.setRequestHeader('Authorization', token);
-        }
-
         var forms_list = document.getElementById("input_addr").childNodes;
         
         var nome = forms_list[1].childNodes[3].value;
@@ -641,11 +687,11 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
 
 
         $.ajax({
-          url: 'http://192.168.56.101/loveitaly/api/states/?io_format=XML&display=full',
+          url: window.SERVER_PATH+'/states/?io_format=XML&display=full&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
           async: true,
           type: "GET",
           dataType: 'xml',
-          beforeSend: autenticazione,
+     //     beforeSend: window.autenticazione,
 
           success: function (result) {
               
@@ -665,11 +711,11 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
             var id_stato = stati[c].childNodes[1].firstChild.nodeValue;
 
               $.ajax({
-                url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML&schema=blank',
+                url: window.SERVER_PATH+'/addresses/?io_format=XML&schema=blank&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                 async: true,
                 type: "GET",
                 dataType: 'xml',
-                beforeSend: autenticazione,
+        //        beforeSend: window.autenticazione,
 
                 success: function (result) {
                   
@@ -690,12 +736,12 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
                   var indirizzo = '<prestashop>' + $xml.find('prestashop').html() + '</prestashop>';
 
                   $.ajax({
-                    url: 'http://192.168.56.101/loveitaly/api/addresses/?io_format=XML',
+                    url: window.SERVER_PATH+'/addresses/?io_format=XML&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                     async: true,
                     type: "POST",
                     dataType: 'xml',
                     contentType: "text/xml",
-                    beforeSend: autenticazione,
+           //         beforeSend: window.autenticazione,
                     data: indirizzo,
                     success: function (result) {
                       console.log("indirizzo salvato nel db");
@@ -1015,13 +1061,13 @@ $('#new_address').on("click", function() { crea_nuovo_ind() });
 
                 var selector = "#step1";            
                 this.$el.find(selector).replaceWith($(selector, html));
-                
+                $('#forward_button').unbind('click');
                 window.checkout.script();
                 this.el.querySelector('#step1').style.visibility = "visible";
                 $("#ul_indirizzi").animate({ scrollTop: 805 });
 
-                $('#forward_button').attr("style", "background: #147C3D");
-                $('#forward_button').attr("style", "pointer-events: auto");
+                
+                //$('#forward_button').attr("style", "pointer-events: auto");
 
               }.bind(this),
 

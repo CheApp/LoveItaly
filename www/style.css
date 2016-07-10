@@ -162,6 +162,9 @@ body {
         position:absolute!important;
     }
 
+.addcartbtn {
+  background-color: #157e3f;
+}
 .titleprodotto {
   margin: 16px 0px 8px 7px;
   font-size: 22px;

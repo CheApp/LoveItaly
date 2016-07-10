@@ -25,5 +25,5 @@ define({
     ordini : "templates/ordini.html",
     showordine : "templates/showordine.html",
     dettagli : "templates/dettagli.html",
-    desideri : "templates/pagina_desideri.html"
+    desideri : "templates/Pagina_desideri.html"
 });

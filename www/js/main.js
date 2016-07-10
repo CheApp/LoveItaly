@@ -39,6 +39,29 @@ require(['backbone', 'utils'], function(Backbone, Utils) {
 
     function run() {
 
+      window.SERVER_PATH = "http://loveitaly.altervista.org/api";
+      window.autenticazione = function (xhr) {
+        var key64 = 'SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'; //codifica 64 della API key
+        var token = 'Basic '.concat(key64);
+        xhr.setRequestHeader('Authorization', token);
+      }
+
+      document.addEventListener("offline", wentOff, false);
+
+          function wentOff() {
+            localStorage.setItem("connessione", "false");
+          }
+
+          document.addEventListener("online", wentOn, false);
+
+          function wentOn() {
+            localStorage.setItem("connessione", "true");
+          }
+
+          if (navigator.connection.type != Connection.NONE) {
+            localStorage.setItem("connessione", true);
+          }
+
       // Here we precompile ALL the templates so that the app will be quickier when switching views
       // see utils.js
       Utils.loadTemplates().once("templatesLoaded", function() {
