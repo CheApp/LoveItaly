@@ -36,8 +36,8 @@ define(function(require) {
     id: "desideri",
 
     script: function() {
-      document.getElementById("menubutton").classList.add("disabled");
-      document.getElementById("backbutton").classList.remove("disabled");
+      window.menubutton.classList.add("disabled");
+      window.backbutton.classList.remove("disabled");
 
       if (this.collection.length == 0) {
         $(".nessun_desiderio").attr("style", "display: block;");

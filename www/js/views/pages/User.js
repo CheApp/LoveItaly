@@ -33,8 +33,8 @@ define(function(require) {
     },
 
     script: function(){
-      document.getElementById("menubutton").classList.add("disabledp");
-      document.getElementById("searchbutton").classList.add("disabled"); 
+      window.menubutton.classList.add("disabledp");
+      window.searchbutton.classList.add("disabled"); 
     },
 
     goOrdini: function(e) {

@@ -13,6 +13,20 @@ define(function(require) {
   var quantita_selezionata = false;
   var num_quantita = 0;
 
+      /****** LISTA getElementByID() ********/
+
+      window.cont = document.getElementById("content");
+      window.navbar = document.getElementById("navbar");
+
+
+      /****** LISTA getElementsByTagName() ********/
+
+      window.header = document.getElementsByTagName("header");
+      window.nav = document.getElementsByTagName("nav");
+
+
+      /********************************************/
+
   var ListaCarrello = new CartList();
 
   var StructureView = Backbone.View.extend({
@@ -62,22 +76,51 @@ define(function(require) {
     render: function() {
       this.el.innerHTML = this.template({Aziende : this.Aziende, Categorie : this.Categorie});
       this.contentElement = this.$el.find('#content')[0];
+
+        /****** LISTA getElementByID() ********/
+
+        window.cont = document.getElementById("content");
+        window.navbar = document.getElementById("navbar");
+        window.carrello = document.getElementById("carrello");
+        window.lista_quantita = document.getElementById("car_lista_quantita");
+        window.copertura = document.getElementById("car_copertura_carrello");
+        window.car_checkout = document.getElementById("car_checkout");
+        window.login = document.getElementById("login");
+        window.menubutton = document.getElementById("menubutton");
+        window.backbutton = document.getElementById("backbutton");
+        window.searchbutton = document.getElementById("searchbutton");
+        window.backbutton = document.getElementById("backbutton");
+        window.acquistabtn = document.getElementById("acquistabtn");
+        window.categoriamenu = document.getElementById("categoriamenu");
+        window.aziendamenu = document.getElementById("aziendamenu");
+        window.startmenu = document.getElementById("startmenu");
+
+
+
+        /****** LISTA getElementsByTagName() ********/
+
+        window.header = document.getElementsByTagName("header");
+        window.nav = document.getElementsByTagName("nav");
+
+
+        /********************************************/
+
       return this;
 
     },
 
      goHome: function() {
       if($("#menubutton").hasClass("disabled")){
-      document.getElementById("menubutton").classList.remove("disabled");    
+      window.menubutton.classList.remove("disabled");    
       }
       if($("#menubutton").hasClass("disabledp")){
-      document.getElementById("menubutton").classList.remove("disabledp");    
+      window.menubutton.classList.remove("disabledp");    
       }
       if(!($("#backbutton").hasClass("disabled"))){
-      document.getElementById("backbutton").classList.add("disabled");    
+      window.backbutton.classList.add("disabled");    
       }
       if($("#searchbutton").hasClass("disabled")){
-      document.getElementById("searchbutton").classList.remove("disabled");    
+      window.searchbutton.classList.remove("disabled");    
       }
 
       Backbone.history.navigate("home", {
@@ -95,44 +138,34 @@ define(function(require) {
 
         $(".log_chiusura").click(
           function() {
-            var login = document.getElementById("login");
-            login.style.animation = "down 0.5s";
-            login.style.WebkitAnimation = "down 0.5s";
-            var header = document.getElementsByTagName("header");
-            header[0].style.visibility = "visible";
-            header[0].style.animation = "stay 0.2s";
-            header[0].style.WebkitAnimation = "stay 0.2s";
-            var content = document.getElementById("content");
-            content.style.display = "inline-block";     
+            window.login.style.animation = "down 0.5s";
+            window.login.style.WebkitAnimation = "down 0.5s";
+            window.header[0].style.visibility = "visible";
+            window.header[0].style.animation = "stay 0.2s";
+            window.header[0].style.WebkitAnimation = "stay 0.2s";
+            window.cont.style.display = "inline-block";     
             setTimeout(function() {
-              var login = document.getElementById("login");
-              login.style.visibility = "hidden";
-              var nav = document.getElementsByTagName("nav");
-              nav[0].style.visibility = "visible";
-              nav[0].style.animation = "up_nav 0.1s";
-              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+              window.login.style.visibility = "hidden";
+              window.nav[0].style.visibility = "visible";
+              window.nav[0].style.animation = "up_nav 0.1s";
+              window.nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
             }, 500);
         }
         );
 
         $("#go_reg").click(
           function() {
-            var login = document.getElementById("login");
-            login.style.animation = "down 0.5s";
-            login.style.WebkitAnimation = "down 0.5s";
-            var header = document.getElementsByTagName("header");
-            header[0].style.visibility = "visible";
-            header[0].style.animation = "stay 0.2s";
-            header[0].style.WebkitAnimation = "stay 0.2s";
-            var content = document.getElementById("content");
-            content.style.display = "inline-block";     
+            window.login.style.animation = "down 0.5s";
+            window.login.style.WebkitAnimation = "down 0.5s";
+            window.header[0].style.visibility = "visible";
+            window.header[0].style.animation = "stay 0.2s";
+            window.header[0].style.WebkitAnimation = "stay 0.2s";
+            window.cont.style.display = "inline-block";     
             setTimeout(function() {
-              var login = document.getElementById("login");
-              login.style.visibility = "hidden";
-              var nav = document.getElementsByTagName("nav");
-              nav[0].style.visibility = "visible";
-              nav[0].style.animation = "up_nav 0.1s";
-              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+              window.login.style.visibility = "hidden";
+              window.nav[0].style.visibility = "visible";
+              window.nav[0].style.animation = "up_nav 0.1s";
+              window.nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
             }, 500);
         }
         );
@@ -141,10 +174,10 @@ define(function(require) {
  
     goBack: function() {
       if($("#menubutton").hasClass("disabled")){
-      document.getElementById("menubutton").classList.remove("disabled");
-      document.getElementById("backbutton").classList.add("disabled");
-      document.getElementById("navbar").classList.remove("disabled");
-      document.getElementById("acquistabtn").classList.add("disabled");
+      window.menubutton.classList.remove("disabled");
+      window.backbutton.classList.add("disabled");
+      window.navbar.classList.remove("disabled");
+      window.acquistabtn.classList.add("disabled");
       }
       window.history.back();
 
@@ -173,10 +206,10 @@ define(function(require) {
     search: function(e) {
       if(e.keyCode == 13){
       if($("#menubutton").hasClass("disabled")){
-      document.getElementById("menubutton").classList.remove("disabled");
-      document.getElementById("backbutton").classList.add("disabled");
-      document.getElementById("navbar").classList.remove("disabled");
-      document.getElementById("acquistabtn").classList.add("disabled");
+      window.menubutton.classList.remove("disabled");
+      window.backbutton.classList.add("disabled");
+      window.navbar.classList.remove("disabled");
+      window.acquistabtn.classList.add("disabled");
       }
       $contenuto.slideToggle(500);
       var str = $("#inp").val();
@@ -212,26 +245,23 @@ define(function(require) {
 
         $(".popupQuantita").click(function () {
           flag_ = true;
-          var carrello = document.getElementById("carrello");
-          var lista_quantita = document.getElementById("car_lista_quantita");
-          var copertura = document.getElementById("car_copertura_carrello");
 
-          carrello.style.overflow = "hidden";
-          copertura.style.display = "inline-block";
-          copertura.style.animation = "car_stay_copertura 0.5s";
-          copertura.style.WebkitAnimation = "car_stay_copertura 0.5s";
-          lista_quantita.style.display = "inline-block";
-          lista_quantita.style.animation = "car_stay 0.5s";
-          lista_quantita.style.WebkitAnimation = "car_stay 0.5s";
+          window.carrello.style.overflow = "hidden";
+          window.copertura.style.display = "inline-block";
+          window.copertura.style.animation = "car_stay_copertura 0.5s";
+          window.copertura.style.WebkitAnimation = "car_stay_copertura 0.5s";
+          window.lista_quantita.style.display = "inline-block";
+          window.lista_quantita.style.animation = "car_stay 0.5s";
+          window.lista_quantita.style.WebkitAnimation = "car_stay 0.5s";
 
           var height_carrello = carrello.offsetHeight;
           var width_carrello = carrello.offsetWidth;
           var width_popup = width_carrello/2;
           var height_popup = lista_quantita.offsetHeight;
 
-          lista_quantita.style.width = width_popup + "px";
-          lista_quantita.style.top = height_carrello/2 - height_popup/1.3 + "px";
-          lista_quantita.style.left = width_carrello/2 - width_popup/2 + "px";
+          window.lista_quantita.style.width = width_popup + "px";
+          window.lista_quantita.style.top = height_carrello/2 - height_popup/1.3 + "px";
+          window.lista_quantita.style.left = width_carrello/2 - width_popup/2 + "px";
 
           aspettaSelezione(this);
         });
@@ -270,17 +300,14 @@ define(function(require) {
             } 
 
             flag_ = false;
-            var carrello = document.getElementById("carrello")
-            var copertura = document.getElementById("car_copertura_carrello")
-            var lista_quantita = document.getElementById("car_lista_quantita");
-            carrello.style.overflow = "auto";
-            copertura.style.animation = "car_leave_copertura 0.8s";
-            copertura.style.WebkitAnimation = "car_leave_copertura 0.8s";
-            lista_quantita.style.animation = "car_leave 0.8s";
-            lista_quantita.style.WebkitAnimation = "car_leave 0.8s";
+            window.carrello.style.overflow = "auto";
+            window.copertura.style.animation = "car_leave_copertura 0.8s";
+            window.copertura.style.WebkitAnimation = "car_leave_copertura 0.8s";
+            window.lista_quantita.style.animation = "car_leave 0.8s";
+            window.lista_quantita.style.WebkitAnimation = "car_leave 0.8s";
             setTimeout(function() {
-              lista_quantita.style.display = "none";
-              copertura.style.display = "none";
+              window.lista_quantita.style.display = "none";
+              window.copertura.style.display = "none";
             }, 800)
             quantita_selezionata = false;
           }
@@ -320,11 +347,10 @@ define(function(require) {
 
             cambiaBadge();
             if (conta_prodotti() === 0) {
-              var checkout = document.getElementById("car_checkout");
-              checkout.style.animation = "car_down_checkout 0.4s";
-              checkout.style.WebkitAnimation = "car_down_checkout 0.4s";
+              window.car_checkout.style.animation = "car_down_checkout 0.4s";
+              window.car_checkout.style.WebkitAnimation = "car_down_checkout 0.4s";
               setTimeout (function() {
-                checkout.style.visibility = "hidden";
+                window.car_checkout.style.visibility = "hidden";
               }, 400)
             } 
            }, 500);
@@ -384,25 +410,25 @@ define(function(require) {
       });
 
       $("#categorie").click(function() {
-        document.getElementById("categoriamenu").classList.remove("disabled");
-        document.getElementById("startmenu").classList.add("disabled");
+        window.categoriamenu.classList.remove("disabled");
+        window.startmenu.classList.add("disabled");
         document.getElementById("menu").setAttribute("style", "overflow-y:auto");
       });
 
       $("#aziende").click(function() {
-        document.getElementById("aziendamenu").classList.remove("disabled");
-        document.getElementById("startmenu").classList.add("disabled");
+        window.aziendamenu.classList.remove("disabled");
+        window.startmenu.classList.add("disabled");
         document.getElementById("menu").setAttribute("style", "overflow-y:auto");
       });
 
        $("#indietroc").click(function() {
-        document.getElementById("categoriamenu").classList.add("disabled");
-        document.getElementById("startmenu").classList.remove("disabled");
+        window.categoriamenu.classList.add("disabled");
+        window.startmenu.classList.remove("disabled");
       });
 
         $("#indietroa").click(function() {
-        document.getElementById("aziendamenu").classList.add("disabled");
-        document.getElementById("startmenu").classList.remove("disabled");
+        window.aziendamenu.classList.add("disabled");
+        window.startmenu.classList.remove("disabled");
       });
 
       $(document).on('click', function(e) {
@@ -416,32 +442,28 @@ define(function(require) {
         
         if(flag && !flag_){
           close_car();
-        }else{
-        var carrello = document.getElementById("carrello");
-        var content = document.getElementById("content");       
-        carrello.style.visibility = "visible";
-        carrello.style.animation =  "car_up 0.3s";
-        carrello.style.WebkitAnimation =  "car_up 0.3s";
-        var header = document.getElementsByTagName("header");
-        var checkout = document.getElementById("car_checkout");          
+        }else{      
+        window.carrello.style.visibility = "visible";
+        window.carrello.style.animation =  "car_up 0.3s";
+        window.carrello.style.WebkitAnimation =  "car_up 0.3s";
         setTimeout(function(){
           if (conta_prodotti() > 0) {
-            checkout.style.visibility = "visible";
-            checkout.style.animation = "car_up_checkout 0.3s";
-            checkout.style.WebkitAnimation = "car_up_checkout 0.3s";
+            window.car_checkout.style.visibility = "visible";
+            window.car_checkout.style.animation = "car_up_checkout 0.3s";
+            window.car_checkout.style.WebkitAnimation = "car_up_checkout 0.3s";
           } else {
-            checkout.style.visibility = "hidden";
+            window.car_checkout.style.visibility = "hidden";
           }
           var lista_prodotti = document.getElementById("car_lista_prodotti");
           lista_prodotti.style.visibility = "visible";
           lista_prodotti.style.animation = "car_stay 0.2s";
           lista_prodotti.style.WebkitAnimation = "car_stay 0.2s";
-          header[0].style.animation = "car_leave 0.5s";
-          header[0].style.WebkitAnimation = "car_leave 0.5s";
+          window.header[0].style.animation = "car_leave 0.5s";
+          window.header[0].style.WebkitAnimation = "car_leave 0.5s";
           setTimeout(function() {
-            header[0].style.visibility = "hidden";
+            window.header[0].style.visibility = "hidden";
             }, 500);
-          content.style.display = "none";
+          window.cont.style.display = "none";
         }, 300);
         flag = true;
         } 
@@ -451,30 +473,26 @@ define(function(require) {
 
       function close_car(){
         flag = false;
-        var carrello = document.getElementById("carrello");
-        carrello.style.animation =  "car_down 0.5s";
-        carrello.style.WebkitAnimation =  "car_down 0.5s";
+        window.carrello.style.animation =  "car_down 0.5s";
+        window.carrello.style.WebkitAnimation =  "car_down 0.5s";
         var lista_prodotti = document.getElementById("car_lista_prodotti");
         lista_prodotti.style.animation = "car_leave 0.4s"
         lista_prodotti.style.WebkitAnimation = "car_leave 0.4s"
-        var header = document.getElementsByTagName("header");
-        header[0].style.visibility = "visible";
-        header[0].style.animation = "car_stay 0s";
-        header[0].style.WebkitAnimation = "car_stay 0s";
-        var checkout = document.getElementById("car_checkout");
-        checkout.style.animation = "car_down_checkout 0.5s";
-        checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
+        window.header[0].style.visibility = "visible";
+        window.header[0].style.animation = "car_stay 0s";
+        window.header[0].style.WebkitAnimation = "car_stay 0s";
+        window.car_checkout.style.animation = "car_down_checkout 0.5s";
+        window.car_checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
         setTimeout(function() {
-          var content = document.getElementById("content");
-          content.style.display = "inline-block";
+          window.cont.style.display = "inline-block";
         }, 200); 
         setTimeout(function() {
           var lista_prodotti = document.getElementById("car_lista_prodotti");
           lista_prodotti.style.animation = "car_leave 0.3s"
           lista_prodotti.style.WebkitAnimation = "car_leave 0.3s"
           lista_prodotti.style.visibility = "hidden";
-          carrello.style.visibility = "hidden";
-          checkout.style.visibility = "hidden";
+          window.carrello.style.visibility = "hidden";
+          window.car_checkout.style.visibility = "hidden";
         }, 300);
       }
 
@@ -488,30 +506,26 @@ define(function(require) {
 
     goToCheckout: function(e) {
       flag = false;
-      var carrello = document.getElementById("carrello");
-      carrello.style.animation =  "car_down 0.5s";
-      carrello.style.WebkitAnimation =  "car_down 0.5s";
+      window.carrello.style.animation =  "car_down 0.5s";
+      window.carrello.style.WebkitAnimation =  "car_down 0.5s";
       var lista_prodotti = document.getElementById("car_lista_prodotti");
       lista_prodotti.style.animation = "car_leave 0.4s"
       lista_prodotti.style.WebkitAnimation = "car_leave 0.4s"
-      var header = document.getElementsByTagName("header");
-      header[0].style.visibility = "visible";
-      header[0].style.animation = "car_stay 0s";
-      header[0].style.WebkitAnimation = "car_stay 0s";
-      var checkout = document.getElementById("car_checkout");
-      checkout.style.animation = "car_down_checkout 0.5s";
-      checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
+      window.header[0].style.visibility = "visible";
+      window.header[0].style.animation = "car_stay 0s";
+      window.header[0].style.WebkitAnimation = "car_stay 0s";
+      window.car_checkout.style.animation = "car_down_checkout 0.5s";
+      window.car_checkout.style.WebkitAnimation = "car_down_checkout 0.5s";
       setTimeout(function() {
-        var content = document.getElementById("content");
-        content.style.display = "inline-block";
+        window.cont.style.display = "inline-block";
       }, 200); 
       setTimeout(function() {
         var lista_prodotti = document.getElementById("car_lista_prodotti");
         lista_prodotti.style.animation = "car_leave 0.3s"
         lista_prodotti.style.WebkitAnimation = "car_leave 0.3s"
         lista_prodotti.style.visibility = "hidden";
-        carrello.style.visibility = "hidden";
-        checkout.style.visibility = "hidden";
+        window.carrello.style.visibility = "hidden";
+        window.car_checkout.style.visibility = "hidden";
       }, 300);
                 
       if (localStorage.getItem("ID") > 0) {
@@ -525,44 +539,34 @@ define(function(require) {
 
         $(".log_chiusura").click(
           function() {
-            var login = document.getElementById("login");
-            login.style.animation = "down 0.5s";
-            login.style.WebkitAnimation = "down 0.5s";
-            var header = document.getElementsByTagName("header");
-            header[0].style.visibility = "visible";
-            header[0].style.animation = "stay 0.2s";
-            header[0].style.WebkitAnimation = "stay 0.2s";
-            var content = document.getElementById("content");
-            content.style.display = "inline-block";     
+            window.login.style.animation = "down 0.5s";
+            window.login.style.WebkitAnimation = "down 0.5s";
+            window.header[0].style.visibility = "visible";
+            window.header[0].style.animation = "stay 0.2s";
+            window.header[0].style.WebkitAnimation = "stay 0.2s";
+            window.cont.style.display = "inline-block";     
             setTimeout(function() {
-              var login = document.getElementById("login");
-              login.style.visibility = "hidden";
-              var nav = document.getElementsByTagName("nav");
-              nav[0].style.visibility = "visible";
-              nav[0].style.animation = "up_nav 0.1s";
-              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+              window.login.style.visibility = "hidden";
+              window.nav[0].style.visibility = "visible";
+              window.nav[0].style.animation = "up_nav 0.1s";
+              window.nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
             }, 500);
         }
         );
 
         $("#go_reg").click(
           function() {
-            var login = document.getElementById("login");
-            login.style.animation = "down 0.5s";
-            login.style.WebkitAnimation = "down 0.5s";
-            var header = document.getElementsByTagName("header");
-            header[0].style.visibility = "visible";
-            header[0].style.animation = "stay 0.2s";
-            header[0].style.WebkitAnimation = "stay 0.2s";
-            var content = document.getElementById("content");
-            content.style.display = "inline-block";     
+            window.login.style.animation = "down 0.5s";
+            window.login.style.WebkitAnimation = "down 0.5s";
+            window.header[0].style.visibility = "visible";
+            window.header[0].style.animation = "stay 0.2s";
+            window.header[0].style.WebkitAnimation = "stay 0.2s";
+            window.cont.style.display = "inline-block";     
             setTimeout(function() {
-              var login = document.getElementById("login");
-              login.style.visibility = "hidden";
-              var nav = document.getElementsByTagName("nav");
-              nav[0].style.visibility = "visible";
-              nav[0].style.animation = "up_nav 0.1s";
-              nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
+              window.login.style.visibility = "hidden";
+              window.nav[0].style.visibility = "visible";
+              window.nav[0].style.animation = "up_nav 0.1s";
+              window.nav[0].style.WebkitAnimation = "up_nav 0.1s"; 
             }, 500);
         }
         );
@@ -570,26 +574,20 @@ define(function(require) {
     },
 
     apriLogin: function() {
-      var login = document.getElementById("login");
-      login.style.visibility = "visible";
-      login.style.animation = "up 0.3s";
-      login.style.WebkitAnimation =   "up 0.3s";
-      var header = document.getElementsByTagName("header");
-      header[0].style.animation = "leave 0.3s";
-      header[0].style.WebkitAnimation = "leave 0.3s";
-      var nav = document.getElementsByTagName("nav");
-      nav[0].style.animation = "leave 0.3s";
-      nav[0].style.WebkitAnimation = "leave 0.3s";
+      window.login.style.visibility = "visible";
+      window.login.style.animation = "up 0.3s";
+      window.login.style.WebkitAnimation =   "up 0.3s";
+      window.header[0].style.animation = "leave 0.3s";
+      window.header[0].style.WebkitAnimation = "leave 0.3s";
+      window.nav[0].style.animation = "leave 0.3s";
+      window.nav[0].style.WebkitAnimation = "leave 0.3s";
       setTimeout(this.impostaLogin, 300);     
     },
 
     impostaLogin: function() {
-      var header = document.getElementsByTagName("header");
-      var nav = document.getElementsByTagName("nav");
-      var content = document.getElementById("content");
-      nav[0].style.visibility = "hidden";
-      header[0].style.visibility = "hidden";
-      content.style.display = "none";
+      window.nav[0].style.visibility = "hidden";
+      window.header[0].style.visibility = "hidden";
+      window.cont.style.display = "none";
     },
 
     login: function() {
@@ -614,14 +612,10 @@ define(function(require) {
               localStorage.setItem("ID", customer.getAttribute("id"));
               log_annunci.innerHTML = "Accesso effettuato!"
               setTimeout(function() {
-                var login = document.getElementById("login");
-                login.style.display = "none";
-                var header = document.getElementsByTagName("header");
-                var nav = document.getElementsByTagName("nav");
-                var content = document.getElementById("content");
-                nav[0].style.visibility = "visible";
-                header[0].style.visibility = "visible";
-                content.style.display = "inline-block";
+                window.login.style.display = "none";
+                window.nav[0].style.visibility = "visible";
+                window.header[0].style.visibility = "visible";
+                window.cont.style.display = "inline-block";
               }, 2000)
 
             } else {

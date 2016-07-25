@@ -4,6 +4,12 @@ define(function(require) {
   var Utils = require("utils");
   var Jquery = require("jquery");
 
+  /****** LISTA getElementByID() ********/
+
+  var steps = document.getElementById("steps");
+
+  /*************************************/
+
 
   var Registrazione = Utils.Page.extend({
 
@@ -33,10 +39,8 @@ define(function(require) {
     	$(document).ready(function() {
     		var indietro = document.getElementById("indietro");
     		indietro.style.display = "inline-block";
-    		var header = document.getElementsByTagName("header");
-    		header[0].style.display = "none";
-    		var nav = document.getElementsByTagName("nav");
-    		nav[0].style.display = "none";
+    		window.header[0].style.display = "none";
+    		window.nav[0].style.display = "none";
     	})
 
     	function validateEmail(email) {
@@ -138,32 +142,26 @@ define(function(require) {
 		    steps[oldStep-1].removeAttribute("class");
 		    OchangeStep(oldStep-2);
 		  } else {
-		  	document.getElementsByTagName("header")[0].removeAttribute("style");
-			document.getElementsByTagName("nav")[0].style.display = "inline-block";
-		    document.getElementById("content").style.overflowY = "auto"; 
+		  	window.header[0].removeAttribute("style");
+			window.nav[0].style.display = "inline-block";
+		    window.cont.style.overflowY = "auto"; 
 		  	apriLogin();
 		  	
 		  	function apriLogin() {
-	          var login = document.getElementById("login");
-	          login.style.visibility = "visible";
-	          login.style.animation = "up 0.3s";
-	          login.style.WebkitAnimation =   "up 0.3s";
-	          var header = document.getElementsByTagName("header");
-	          header[0].style.animation = "leave 0.3s";
-	          header[0].style.WebkitAnimation = "leave 0.3s";
-	          var nav = document.getElementsByTagName("nav");
-	          nav[0].style.animation = "leave 0.3s";
-	          nav[0].style.WebkitAnimation = "leave 0.3s";
+	          window.login.style.visibility = "visible";
+	          window.login.style.animation = "up 0.3s";
+	          window.login.style.WebkitAnimation =   "up 0.3s";
+	          window.header[0].style.animation = "leave 0.3s";
+	          window.header[0].style.WebkitAnimation = "leave 0.3s";
+	          window.nav[0].style.animation = "leave 0.3s";
+	          window.nav[0].style.WebkitAnimation = "leave 0.3s";
 	          setTimeout(impostaLogin, 300);
 	        }
 
 	        function impostaLogin() {
-	          var header = document.getElementsByTagName("header");
-	          var nav = document.getElementsByTagName("nav");
-	          var content = document.getElementById("content");
-	          nav[0].style.visibility = "hidden";
-	          header[0].style.visibility = "hidden";
-	          content.style.display = "none";
+	          window.nav[0].style.visibility = "hidden";
+	          window.header[0].style.visibility = "hidden";
+	          window.cont.style.display = "none";
 	        }
 		  	Backbone.history.navigate("home", {
 			  trigger: true
@@ -263,8 +261,8 @@ define(function(require) {
 			      annunci[0].style.display = "inline-block";
 			      annunci[0].innerHTML = "Registrazione effettuata!";
 			      setTimeout(function() {
-		  			  document.getElementsByTagName("header")[0].removeAttribute("style");
-					  document.getElementsByTagName("nav")[0].style.display = "inline-block";
+		  			  window.header[0].removeAttribute("style");
+					  window.nav[0].style.display = "inline-block";
 			      	  var cdata = result.getElementsByTagName("id")[0].innerHTML;
 			      	  var maxL = cdata.length-3;
 				      localStorage.setItem("ID", cdata.substring(9, maxL));

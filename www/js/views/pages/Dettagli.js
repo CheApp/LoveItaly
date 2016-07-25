@@ -33,8 +33,8 @@ define(function(require) {
     id: "dettagli",
 
       script: function() {
-          document.getElementById("menubutton").classList.add("disabled");
-          document.getElementById("backbutton").classList.remove("disabled");
+          window.menubutton.classList.add("disabled");
+          window.backbutton.classList.remove("disabled");
     }
   });
 

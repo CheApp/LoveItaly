@@ -66,10 +66,10 @@ define(function(require) {
 
     script: function() {
       if(($("#backbutton").hasClass("disabled"))){
-      document.getElementById("backbutton").classList.remove("disabled"); 
+      window.backbutton.classList.remove("disabled"); 
     }
       if((!($("#menubutton").hasClass("disabled")))){
-      document.getElementById("menubutton").classList.add("disabled");   
+      window.menubutton.classList.add("disabled");   
       }
     },
 

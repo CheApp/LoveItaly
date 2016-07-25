@@ -96,15 +96,38 @@ define(function(require) {
 
     script: function() {
 
-      document.getElementById("topbar").classList.add("disabled");
-      document.getElementById("menubutton").classList.add("disabled");
-      document.getElementsByTagName("nav")[0].classList.add("disabled");
-      document.getElementById("acquistabtn").classList.add("disabled");
-      document.getElementById("head").classList.add("disabled");
-      document.getElementById("menu").classList.add("disabled");
+      /****** LISTA getElementByID() ********/
 
-
+      window.head = document.getElementById("head");
       var lista_prodotti = document.getElementById("lista_prodotti_checkout");
+      var prezzototale = document.getElementById("prezzo_totale");
+      var content_steps = document.getElementById("steps");
+      var new_address = document.getElementById("new_address");
+      var forward_button = document.getElementById('forward_button');
+      var selected_address = document.getElementById("selected_address");
+      var done = $('#forward_button');
+      var step3 = document.getElementById('step3');
+      var step_precedente = document.getElementById('step_precedente');
+      var ul = document.getElementById('ul_indirizzi');
+      var uljquery = $("#ul_indirizzi");
+      var campo_addr = document.getElementById("lista_indirizzi");
+      var form_addr = document.getElementById("form_addr");
+      var input_addr = document.getElementById("input_addr");
+      var input_item = document.getElementById("input_item");
+      var save_addr_button = document.getElementById("save_addr_button");
+      var giorno1 = document.getElementById("giorno1");
+      var giorno2 = document.getElementById("giorno2");
+      /********************************************/
+
+      window.topbar.classList.add("disabled");
+      window.menubutton.classList.add("disabled");
+      window.nav[0].classList.add("disabled");
+      window.acquistabtn.classList.add("disabled");
+      window.head.classList.add("disabled");
+      window.menu.classList.add("disabled");
+
+
+      
       var prodotti = lista_prodotti.getElementsByClassName("prodotto_checkout");
       var totale = 0, index, prezzo, quantita;
       for (index = 0; index < prodotti.length; index++) {
@@ -112,7 +135,7 @@ define(function(require) {
         quantita = prodotti[index].getElementsByClassName("quantita_prodotto")[0].innerHTML;
         totale += parseFloat(quantita*prezzo[0].innerHTML);
       }
-      var loc_tot = document.getElementById("prezzo_totale").getElementsByTagName("span");
+      var loc_tot = prezzototale.getElementsByTagName("span");
       loc_tot[0].innerHTML = totale;
 
 
@@ -124,7 +147,7 @@ define(function(require) {
 
       $('#forward_button').on("click", function() {
         
-        var content_steps = document.getElementById("steps");
+        
         var lista = content_steps.getElementsByClassName("progress-indicator");
         var steps = lista[0].getElementsByTagName("li");
         var index, newStep;
@@ -156,26 +179,26 @@ define(function(require) {
           $('#' + nNewStep).insertBefore('#' + nOldStep);
           
           if (newStep == 1) {
-            document.getElementById("new_address").style.display = "inherit";
+            new_address.style.display = "inherit";
             if (window.checkout.collection.indirizzi.length == 0) {             
-              $('#forward_button').attr("style", "pointer-events: none");
-              document.getElementById('forward_button').style.background = "gray";
-              document.getElementById("selected_address").style.display = "none";
+              done.attr("style", "pointer-events: none");
+              forward_button.style.background = "gray";
+              selected_address.style.display = "none";
             }
           }
           else {
-            document.getElementById("new_address").style.display = "none";
+            new_address.style.display = "none";
           }
 
           if (newStep == 2) {
-            $('#forward_button').attr("style", "pointer-events: none");
-            document.getElementById('forward_button').style.background = "gray";
+            done.attr("style", "pointer-events: none");
+            forward_button.style.background = "gray";
           }
 
           if (newStep == 3) {
-            document.getElementById('step3').style.height = "100%";
-            document.getElementById('step_precedente').style.display = "none";
-            var done = $('#forward_button');
+            step3.style.height = "100%";
+            step_precedente.style.display = "none";
+            
             done.html("Torna alla Home");
             done.unbind('click');
             done.on("click", function() {
@@ -203,15 +226,15 @@ define(function(require) {
       function close_order() {
         
         if (indice_indirizzo === undefined) {
-          var id_indirizzo = document.getElementById('ul_indirizzi').children[0].getAttribute('data-id');
+          var id_indirizzo = ul.children[0].getAttribute('data-id');
         } else {
-          var id_indirizzo = document.getElementById('ul_indirizzi').children[indice_indirizzo].getAttribute('data-id');
+          var id_indirizzo = ul.children[indice_indirizzo].getAttribute('data-id');
         }        
         
         var id_cliente = localStorage.getItem("ID");
 
         var prodotti = window.checkout.collection.ordini;
-        var totale = document.getElementById("prezzo_totale").getElementsByTagName("span")[0].innerHTML;
+        var totale = prezzototale.getElementsByTagName("span")[0].innerHTML;
         var totale_con_gestione = parseFloat(totale) + 2;
 
 
@@ -372,7 +395,7 @@ define(function(require) {
 
       $("#step_precedente").on("click", function() {
         
-        var content_steps = document.getElementById("steps");
+        
         var lista = content_steps.getElementsByClassName("progress-indicator");
         var steps = lista[0].getElementsByTagName("li");
         var index, oldStep;
@@ -392,12 +415,12 @@ define(function(require) {
         }
         
         if (oldStep == 3) {
-          document.getElementById("new_address").style.display = "inherit";
-          $('#forward_button').attr("style", "background: #147C3D");
-        $('#forward_button').attr("style", "pointer-events: auto");
+          new_address.style.display = "inherit";
+          done.attr("style", "background: #147C3D");
+        	done.attr("style", "pointer-events: auto");
         }
         else {
-          document.getElementById("new_address").style.display = "none";
+          new_address.style.display = "none";
         }
 
         if (oldStep == 1) {
@@ -460,12 +483,10 @@ define(function(require) {
           }
       };
         
-      var campo_addr = document.getElementById("lista_indirizzi");
+      
         
       campo_addr.addEventListener("touchend", function () { scrollFinished(indice_indirizzo, position_scroll); } );
         
-      var ul = document.getElementById("ul_indirizzi");
-                
       
       start_offset = ul.scrollHeight;
       
@@ -473,7 +494,7 @@ define(function(require) {
       var indice_indirizzo;
       var position_scroll;
         
-      document.getElementById("ul_indirizzi").onscroll = function() { aggiornatest(this.collection.indirizzi.length) }.bind(this);
+      ul.onscroll = function() { aggiornatest(this.collection.indirizzi.length) }.bind(this);
 
       
       function aggiornatest(count) {
@@ -536,7 +557,7 @@ define(function(require) {
           scrolltonum = scrolltonum;
         }
         
-        $("#ul_indirizzi").animate({ scrollTop: scrolltonum });
+        uljquery.animate({ scrollTop: scrolltonum });
         
       }
 
@@ -556,20 +577,19 @@ define(function(require) {
       //$('#dismiss_address').on("click", function() {nnulla_creazione()});
 
       function crea_nuovo_ind() {
-        document.getElementById("form_addr").style.display = "inherit";
-        window.setTimeout(function() {document.getElementById("input_item").focus()}, 200);
-        $("#ul_indirizzi").animate({ scrollTop: 805 });
-        document.getElementById("steps").style.display = "none";
-        document.getElementById("selected_address").style.display = "none";
-        document.getElementById("input_addr").style.display = "block";
-        document.getElementById("input_addr").style.visibility = "visible";
-        //document.getElementById("new_address").style.color = "#444";
-        //document.getElementById("new_address").style.pointerEvents = "none";
-        document.getElementById('new_address').childNodes[0].textContent = 'Annulla';
-        document.getElementById("forward_button").style.display = "none";
-        document.getElementById("forward_button").style.pointerEvents = "none";
-        document.getElementById("save_addr_button").style.display = "block";
-        document.getElementById("step_precedente").style.display = "none";
+        form_addr.style.display = "inherit";
+        window.setTimeout(function() {input_item.focus()}, 200);
+        uljquery.animate({ scrollTop: 805 });
+        content_steps.style.display = "none";
+        selected_address.style.display = "none";
+        input_addr.style.display = "block";
+        input_addr.style.visibility = "visible";
+        
+        new_address.childNodes[0].textContent = 'Annulla';
+        forward_button.style.display = "none";
+        forward_button.style.pointerEvents = "none";
+        save_addr_button.style.display = "block";
+        step_precedente.style.display = "none";
         
         getLocation();
 
@@ -580,15 +600,15 @@ define(function(require) {
       }
 
       function annulla_creazione() {
-          document.getElementById("forward_button").style.display = "block";
-          document.getElementById("forward_button").style.pointerEvents = "auto";
-          document.getElementById("steps").style.display = "block";
-          document.getElementById('new_address').childNodes[0].textContent = 'Nuovo';
-          document.getElementById("form_addr").style.display = "none";
-          document.getElementById("step_precedente").style.display = "inherit";
-          document.getElementById("input_addr").style.display = "none";
-          document.getElementById("input_addr").style.visibility = "hidden";
-          document.getElementById("selected_address").style.display = "block";
+          forward_button.style.display = "block";
+          forward_button.style.pointerEvents = "auto";
+          content_steps.style.display = "block";
+          new_address.childNodes[0].textContent = 'Nuovo';
+          form_addr.style.display = "none";
+          step_precedente.style.display = "inherit";
+          input_addr.style.display = "none";
+          input_addr.style.visibility = "hidden";
+          selected_address.style.display = "block";
           
           /*$('#dismiss_address').attr("style", "display: none");
           $('#new_address').attr("style", "display: block");*/
@@ -600,29 +620,28 @@ define(function(require) {
       
       $('#save_addr_button').on("click", function(event) {
         event.stopPropagation();
-        document.getElementById('new_address').childNodes[0].textContent = 'Nuovo';
+        new_address.childNodes[0].textContent = 'Nuovo';
         $('#new_address').unbind('click');
         $('#new_address').on("click", function() { crea_nuovo_ind() });
-        document.getElementById("forward_button").style.display = "block";
-        document.getElementById("forward_button").style.pointerEvents = "all";
-        //document.getElementById("input_addr").style.visibility = "hidden";
-        //document.getElementById("selected_address").style.display = "block";
-        document.getElementById("steps").style.display = "block";
-        document.getElementById("new_address").style.color = "#BF1E2E";
-        document.getElementById("new_address").style.pointerEvents = "all";
-        document.getElementById("form_addr").style.display = "none";
-        document.getElementById("save_addr_button").style.display = "none";
-        document.getElementById("step_precedente").style.display = "inherit";
-        var nuovo_indirizzo = document.getElementById("input_item").value;
+        forward_button.style.display = "block";
+        forward_button.style.pointerEvents = "all";
+        
+        content_steps.style.display = "block";
+        new_address.style.color = "#BF1E2E";
+        new_address.style.pointerEvents = "all";
+        form_addr.style.display = "none";
+        save_addr_button.style.display = "none";
+        step_precedente.style.display = "inherit";
+        var nuovo_indirizzo = input_item.value;
         
         if (nuovo_indirizzo != "") {
           var addr_item = document.createElement("li");
           addr_item.innerText = nuovo_indirizzo;
-          var list_item = document.getElementById("ul_indirizzi").childNodes;
+          var list_item = ul.childNodes;
           var last_item = list_item[list_item.length -2];
           
-          document.getElementById("ul_indirizzi").insertBefore(addr_item, last_item);
-          document.getElementById("input_item").value = "";
+          ul.insertBefore(addr_item, last_item);
+          input_item.value = "";
         }
         
         
@@ -653,7 +672,7 @@ define(function(require) {
         $.getJSON("http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=18&addressdetails=1", function(data) {
           var myplace = data;
           
-          var forms_list = document.getElementById("input_addr").childNodes;
+          var forms_list = input_addr.childNodes;
         
           forms_list[5].childNodes[3].value = myplace.address.road;
           forms_list[7].childNodes[3].value = myplace.address.postcode;
@@ -675,7 +694,7 @@ define(function(require) {
 
       function postAddress(id_cliente, alias) {
 
-        var forms_list = document.getElementById("input_addr").childNodes;
+        var forms_list = input_addr.childNodes;
         
         var nome = forms_list[1].childNodes[3].value;
         var cognome = forms_list[3].childNodes[3].value;
@@ -794,14 +813,14 @@ define(function(require) {
 
        $('#giorno1').on("click", function() {
         selectDate(this);
-        $('#forward_button').attr("style", "background: #147C3D");
-        $('#forward_button').attr("style", "pointer-events: auto");
+        done.attr("style", "background: #147C3D");
+        done.attr("style", "pointer-events: auto");
       });
 
       $('#giorno2').on("click", function() {
         selectDate(this);
-        $('#forward_button').attr("style", "background: #147C3D");
-        $('#forward_button').attr("style", "pointer-events: auto");
+        done.attr("style", "background: #147C3D");
+        done.attr("style", "pointer-events: auto");
       });
 
       function selectDay_1(giorno) {
@@ -813,8 +832,7 @@ define(function(require) {
             div[index].removeAttribute("class");
             div[index].style.background = "#ddd";
             div[index].style.color = "";
-            var giorno1 = document.getElementById("giorno1");
-            var giorno2 = document.getElementById("giorno2");
+            
             giorno1.style.display = "none";
             giorno2.style.display = "none";
             if (giorno1.hasAttribute("class")){
@@ -980,21 +998,21 @@ define(function(require) {
           giorno = giorni[0].getDate();
           mese = giorni[0].getMonth() + 1;
           anno = giorni[0].getFullYear();
-          var giorno1 = document.getElementById("giorno1");
+          
           giorno1.style.display = "inline-block";
           giorno1.innerHTML = giorno + " / " + mese + " / " + anno; 
         } else {
           giorno = giorni[0].getDate();
           mese = giorni[0].getMonth() + 1;
           anno = giorni[0].getFullYear();
-          var giorno1 = document.getElementById("giorno1");
+          
           giorno1.style.display = "inline-block";
           giorno1.innerHTML = giorno + " / " + mese + " / " + anno;  
 
           giorno = giorni[1].getDate();
           mese = giorni[1].getMonth() + 1;
           anno = giorni[1].getFullYear();
-          var giorno2 = document.getElementById("giorno2");
+          
           giorno2.style.display = "inline-block";
           giorno2.innerHTML = giorno + " / " + mese + " / " + anno; 
         }
@@ -1064,10 +1082,7 @@ define(function(require) {
                 $('#forward_button').unbind('click');
                 window.checkout.script();
                 this.el.querySelector('#step1').style.visibility = "visible";
-                $("#ul_indirizzi").animate({ scrollTop: 805 });
-
-                
-                //$('#forward_button').attr("style", "pointer-events: auto");
+                $('#ul_indirizzi').animate({ scrollTop: 805 });
 
               }.bind(this),
 
@@ -1088,34 +1103,18 @@ define(function(require) {
           }
         });
               
-              /*var allfield = this.el.querySelectorAll('.sub_value');
-        
-              var j = 0;
-                  
-              for( j = 0; j < allfield.length; j++ ) {
-                allfield[j].classList.remove('opaco');
-                allfield[j].classList.remove('mostra');
-              }         
-                
-              var i = 0;
-              for( i = 0; i < allfield.length; i += this.collezione_filtrata.length) {
-                allfield[i].classList.add('mostra');
-                allfield[i].classList.add('opaco');
-              }
-              
-              this.el.querySelector('#step1').style.visibility = "visible";
-
-              this.el.querySelector("#ul_indirizzi").animate({ scrollTop: 205 });*/
+           
 
     },
 
     goBack: function() {
       if($("#menubutton").hasClass("disabled")){
-        document.getElementById("menubutton").classList.remove("disabled");
-        document.getElementById("backbutton").classList.add("disabled");
-        document.getElementById('topbar').classList.remove('disabled');
-        document.getElementById("navbar").classList.remove("disabled");
-        document.getElementById("acquistabtn").classList.add("disabled");
+        window.menubutton.classList.remove("disabled");
+        window.backbutton.classList.add("disabled");
+        window.topbar.classList.remove('disabled');
+        window.head.classList.remove("disabled");
+        window.navbar.classList.remove("disabled");
+        window.acquistabtn.classList.add("disabled");
       }
     
       window.history.back();
@@ -1125,16 +1124,17 @@ define(function(require) {
 
     goHome: function() {
       if($("#menubutton").hasClass("disabled")){
-      document.getElementById("menubutton").classList.remove("disabled");    
+      window.menubutton.classList.remove("disabled");    
       }
       if($("#menubutton").hasClass("disabledp")){
-      document.getElementById("menubutton").classList.remove("disabledp");    
+      window.menubutton.classList.remove("disabledp");    
       }
       
-      document.getElementById("topbar").classList.remove("disabled");    
-      document.getElementById("navbar").classList.remove("disabled"); 
+      window.topbar.classList.remove("disabled");   
+      window.head.classList.remove("disabled");    
+      window.navbar.classList.remove("disabled"); 
       if($("#searchbutton").hasClass("disabled")){
-      document.getElementById("searchbutton").classList.remove("disabled");    
+      window.searchbutton.classList.remove("disabled");    
       }
 
       Backbone.history.navigate("home", {

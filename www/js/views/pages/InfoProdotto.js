@@ -14,12 +14,10 @@ define(function(require) {
   var quantita_selezionata = false;
   var num_quantita = 0;
 
-
   var InfoProdotto = Utils.Page.extend({
 
     constructorName: "InfoProdotto",
     model: Prodotto,
-
     
 
     initialize: function(options) {
@@ -40,7 +38,15 @@ define(function(require) {
     },
 
     render: function() {
-           $(this.el).html(this.template(this.model)); 
+           $(this.el).html(this.template(this.model));
+           
+          /****** LISTA getElementByID() ********/
+
+          window.info_lista_quantita = document.getElementById("lista_quantita");
+          window.info_copertura = document.getElementById("copertura_carrello");
+
+          /********************************************/
+   
     },
 
 
@@ -159,10 +165,10 @@ define(function(require) {
                     
         }.bind(this));
     
-        document.getElementById("menubutton").classList.add("disabled");
-        document.getElementById("backbutton").classList.remove("disabled");
-        document.getElementById("acquistabtn").classList.remove("disabled");
-        document.getElementById("navbar").classList.add("disabled");
+        window.menubutton.classList.add("disabled");
+        window.backbutton.classList.remove("disabled");
+        window.acquistabtn.classList.remove("disabled");
+        window.navbar.classList.add("disabled");
 
     $(".popupQuantitaP").click(function () {
       if ($("#descrizione").is(":visible")) {
@@ -172,26 +178,23 @@ define(function(require) {
             });
         });
       }
-        var content = document.getElementById("content");
-        var lista_quantita = document.getElementById("lista_quantita");
-        var copertura = document.getElementById("copertura_carrello");
 
-        content.style.overflow = "hidden";
-        copertura.style.display = "inline-block";
-        copertura.style.animation = "stay_copertura 0.5s";
-        copertura.style.WebkitAnimation = "stay_copertura 0.5s";
-        lista_quantita.style.display = "inline-block";
-        lista_quantita.style.animation = "stay 0.5s";
-        lista_quantita.style.WebkitAnimation = "stay 0.5s";
+        window.cont.style.overflow = "hidden";
+        window.info_copertura.style.display = "inline-block";
+        window.info_copertura.style.animation = "stay_copertura 0.5s";
+        window.info_copertura.style.WebkitAnimation = "stay_copertura 0.5s";
+        window.info_lista_quantita.style.display = "inline-block";
+        window.info_lista_quantita.style.animation = "stay 0.5s";
+        window.info_lista_quantita.style.WebkitAnimation = "stay 0.5s";
 
-        var height_content = content.offsetHeight;
-        var width_content = content.offsetWidth;
+        var height_content = window.cont.offsetHeight;
+        var width_content = window.cont.offsetWidth;
         var width_popup = width_content/2;
-        var height_popup = lista_quantita.offsetHeight;
+        var height_popup = window.info_lista_quantita.offsetHeight;
 
-        lista_quantita.style.width = width_popup + "px";
-        lista_quantita.style.top = height_content/2 - height_popup/1.3 + "px";
-        lista_quantita.style.left = width_content/2 - width_popup/2 + "px";
+        window.info_lista_quantita.style.width = width_popup + "px";
+        window.info_lista_quantita.style.top = height_content/2 - height_popup/1.3 + "px";
+        window.info_lista_quantita.style.left = width_content/2 - width_popup/2 + "px";
 
         aspettaSelezione(this);
       });
@@ -202,17 +205,14 @@ define(function(require) {
           setTimeout(function() { aspettaSelezione(quantita) }, 500);
         } else {
           quantita.getElementsByTagName("span")[1].innerHTML = num_quantita;
-          var content = document.getElementById("content");
-          var copertura = document.getElementById("copertura_carrello");
-          var lista_quantita = document.getElementById("lista_quantita");
-          content.style.overflow = "auto";
-          copertura.style.animation = "leave_copertura 0.8s";
-          copertura.style.WebkitAnimation = "leave_copertura 0.8s";
-          lista_quantita.style.animation = "leave 0.8s";
-          lista_quantita.style.WebkitAnimation = "leave 0.8s";
+          window.cont.style.overflow = "auto";
+          window.info_copertura.style.animation = "leave_copertura 0.8s";
+          window.info_copertura.style.WebkitAnimation = "leave_copertura 0.8s";
+          window.info_lista_quantita.style.animation = "leave 0.8s";
+          window.info_lista_quantita.style.WebkitAnimation = "leave 0.8s";
           setTimeout(function() {
-            lista_quantita.style.display = "none";
-            copertura.style.display = "none";
+            window.info_lista_quantita.style.display = "none";
+            window.info_copertura.style.display = "none";
           }, 800)
           quantita_selezionata = false;
         }
